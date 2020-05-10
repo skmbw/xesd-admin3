@@ -1,0 +1,34 @@
+<page-header [title]="title"></page-header>
+<nz-card>
+  <nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
+  <sf *ngIf="i" #sf mode="edit" [schema]="schema" [ui]="ui" [formData]="i" button="none">
+    <footer-toolbar errorCollect>
+      <button nz-button type="button" (click)="location.back()" [nzLoading]="http.loading">返回</button>
+      <button nz-button type="submit" nzType="primary" (click)="save(sf.value)" [disabled]="!sf.valid" [nzLoading]="http.loading">保存</button>
+    </footer-toolbar>
+  </sf>
+</nz-card>
+
+<nz-card>
+  <div id="uploader">
+    <div style="margin-bottom: 10px;">
+      <!--这两个button不需要放在#loadMore的模板里面-->
+      <button nz-button [nzSize]="'large'" nzType="default" id="browseBtn">
+        <i nz-icon nzType="video-camera"></i>选择视频文件
+      </button>
+      <button nz-button [nzSize]="'large'" nzType="default" id="startUpload" (click)="startUpload()">
+        <i nz-icon nzType="upload"></i>开始上传
+      </button>
+    </div>
+    <nz-list [nzDataSource]="fileList" nzBordered [nzRenderItem]="defaultItem" [nzLoadMore]="loadMore">
+      <ng-template #defaultItem let-item>
+        <nz-list-item [id]="item.id + '_item'">
+          {{ item.name }}
+          <button nz-button [nzSize]="'small'" title="删除" (click)="close(item)" style="margin-left: 40px;">X</button>
+          <div [id]="item.id + '_progress'" style="margin-left: 40px;"></div>
+        </nz-list-item>
+      </ng-template>
+    </nz-list>
+    <ng-template #loadMore></ng-template>
+  </div>
+</nz-card>
