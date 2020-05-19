@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
 // import { CommonService } from '@shared';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { com } from '@shared';
 import { Observable } from 'rxjs';
-import Article = com.xueershangda.tianxun.article.model.Article;
 import { CommonService } from './common.service';
+import Article = com.xueershangda.tianxun.article.model.Article;
 
 @Injectable({
   providedIn: 'root'

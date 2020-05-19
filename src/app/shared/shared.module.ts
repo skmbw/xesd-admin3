@@ -9,14 +9,13 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
-
 // #region third libs
+import { MatDialogModule } from '@angular/material/dialog';
 import { CountdownModule } from 'ngx-countdown';
 import { NgxTinymceModule } from 'ngx-tinymce';
+import { ToastrModule } from 'ngx-toastr';
 import { UEditorModule } from 'ngx-ueditor';
 import { ConfirmComponent } from './confirm/confirm.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ToastrModule } from 'ngx-toastr';
 
 const THIRDMODULES = [CountdownModule, UEditorModule, NgxTinymceModule];
 // #endregion
