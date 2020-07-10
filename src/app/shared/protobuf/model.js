@@ -9198,6 +9198,476 @@ export const com = $root.com = (() => {
                         return QuestionReply;
                     })();
 
+                    model.Tags = (function() {
+
+                        /**
+                         * Properties of a Tags.
+                         * @memberof com.xueershangda.tianxun.question.model
+                         * @interface ITags
+                         * @property {string|null} [id] Tags id
+                         * @property {string|null} [name] Tags name
+                         * @property {number|null} [state] Tags state
+                         * @property {number|null} [hot] Tags hot
+                         * @property {number|Long|null} [createDate] Tags createDate
+                         * @property {number|Long|null} [focusNumber] Tags focusNumber
+                         * @property {number|Long|null} [loveNumber] Tags loveNumber
+                         * @property {number|Long|null} [despiseNumber] Tags despiseNumber
+                         * @property {string|null} [description] Tags description
+                         * @property {number|null} [page] Tags page
+                         * @property {number|null} [pageSize] Tags pageSize
+                         * @property {string|null} [orderBy] Tags orderBy
+                         */
+
+                        /**
+                         * Constructs a new Tags.
+                         * @memberof com.xueershangda.tianxun.question.model
+                         * @classdesc Represents a Tags.
+                         * @implements ITags
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.question.model.ITags=} [properties] Properties to set
+                         */
+                        function Tags(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Tags id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.id = "";
+
+                        /**
+                         * Tags name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.name = "";
+
+                        /**
+                         * Tags state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.state = 0;
+
+                        /**
+                         * Tags hot.
+                         * @member {number} hot
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.hot = 0;
+
+                        /**
+                         * Tags createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.createDate = 0;
+
+                        /**
+                         * Tags focusNumber.
+                         * @member {number|Long} focusNumber
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.focusNumber = 0;
+
+                        /**
+                         * Tags loveNumber.
+                         * @member {number|Long} loveNumber
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.loveNumber = 0;
+
+                        /**
+                         * Tags despiseNumber.
+                         * @member {number|Long} despiseNumber
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.despiseNumber = 0;
+
+                        /**
+                         * Tags description.
+                         * @member {string} description
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.description = "";
+
+                        /**
+                         * Tags page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.page = 0;
+
+                        /**
+                         * Tags pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.pageSize = 0;
+
+                        /**
+                         * Tags orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         */
+                        Tags.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Tags instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {com.xueershangda.tianxun.question.model.ITags=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.question.model.Tags} Tags instance
+                         */
+                        Tags.create = function create(properties) {
+                            return new Tags(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Tags message. Does not implicitly {@link com.xueershangda.tianxun.question.model.Tags.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {com.xueershangda.tianxun.question.model.ITags} message Tags message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Tags.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.state);
+                            if (message.hot != null && message.hasOwnProperty("hot"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.hot);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int64(message.createDate);
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.focusNumber);
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.loveNumber);
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.despiseNumber);
+                            if (message.description != null && message.hasOwnProperty("description"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.description);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Tags message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.question.model.Tags.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {com.xueershangda.tianxun.question.model.ITags} message Tags message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Tags.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Tags message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.question.model.Tags} Tags
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Tags.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.question.model.Tags();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.state = reader.int32();
+                                    break;
+                                case 4:
+                                    message.hot = reader.int32();
+                                    break;
+                                case 5:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 6:
+                                    message.focusNumber = reader.int64();
+                                    break;
+                                case 7:
+                                    message.loveNumber = reader.int64();
+                                    break;
+                                case 8:
+                                    message.despiseNumber = reader.int64();
+                                    break;
+                                case 9:
+                                    message.description = reader.string();
+                                    break;
+                                case 10:
+                                    message.page = reader.int32();
+                                    break;
+                                case 11:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 12:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Tags message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.question.model.Tags} Tags
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Tags.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Tags message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Tags.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.hot != null && message.hasOwnProperty("hot"))
+                                if (!$util.isInteger(message.hot))
+                                    return "hot: integer expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                if (!$util.isInteger(message.focusNumber) && !(message.focusNumber && $util.isInteger(message.focusNumber.low) && $util.isInteger(message.focusNumber.high)))
+                                    return "focusNumber: integer|Long expected";
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                if (!$util.isInteger(message.loveNumber) && !(message.loveNumber && $util.isInteger(message.loveNumber.low) && $util.isInteger(message.loveNumber.high)))
+                                    return "loveNumber: integer|Long expected";
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                if (!$util.isInteger(message.despiseNumber) && !(message.despiseNumber && $util.isInteger(message.despiseNumber.low) && $util.isInteger(message.despiseNumber.high)))
+                                    return "despiseNumber: integer|Long expected";
+                            if (message.description != null && message.hasOwnProperty("description"))
+                                if (!$util.isString(message.description))
+                                    return "description: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Tags message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.question.model.Tags} Tags
+                         */
+                        Tags.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.question.model.Tags)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.question.model.Tags();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.hot != null)
+                                message.hot = object.hot | 0;
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.focusNumber != null)
+                                if ($util.Long)
+                                    (message.focusNumber = $util.Long.fromValue(object.focusNumber)).unsigned = false;
+                                else if (typeof object.focusNumber === "string")
+                                    message.focusNumber = parseInt(object.focusNumber, 10);
+                                else if (typeof object.focusNumber === "number")
+                                    message.focusNumber = object.focusNumber;
+                                else if (typeof object.focusNumber === "object")
+                                    message.focusNumber = new $util.LongBits(object.focusNumber.low >>> 0, object.focusNumber.high >>> 0).toNumber();
+                            if (object.loveNumber != null)
+                                if ($util.Long)
+                                    (message.loveNumber = $util.Long.fromValue(object.loveNumber)).unsigned = false;
+                                else if (typeof object.loveNumber === "string")
+                                    message.loveNumber = parseInt(object.loveNumber, 10);
+                                else if (typeof object.loveNumber === "number")
+                                    message.loveNumber = object.loveNumber;
+                                else if (typeof object.loveNumber === "object")
+                                    message.loveNumber = new $util.LongBits(object.loveNumber.low >>> 0, object.loveNumber.high >>> 0).toNumber();
+                            if (object.despiseNumber != null)
+                                if ($util.Long)
+                                    (message.despiseNumber = $util.Long.fromValue(object.despiseNumber)).unsigned = false;
+                                else if (typeof object.despiseNumber === "string")
+                                    message.despiseNumber = parseInt(object.despiseNumber, 10);
+                                else if (typeof object.despiseNumber === "number")
+                                    message.despiseNumber = object.despiseNumber;
+                                else if (typeof object.despiseNumber === "object")
+                                    message.despiseNumber = new $util.LongBits(object.despiseNumber.low >>> 0, object.despiseNumber.high >>> 0).toNumber();
+                            if (object.description != null)
+                                message.description = String(object.description);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Tags message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @static
+                         * @param {com.xueershangda.tianxun.question.model.Tags} message Tags
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Tags.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.state = 0;
+                                object.hot = 0;
+                                object.createDate = 0;
+                                object.focusNumber = 0;
+                                object.loveNumber = 0;
+                                object.despiseNumber = 0;
+                                object.description = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.hot != null && message.hasOwnProperty("hot"))
+                                object.hot = message.hot;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                if (typeof message.focusNumber === "number")
+                                    object.focusNumber = options.longs === String ? String(message.focusNumber) : message.focusNumber;
+                                else
+                                    object.focusNumber = options.longs === String ? $util.Long.prototype.toString.call(message.focusNumber) : options.longs === Number ? new $util.LongBits(message.focusNumber.low >>> 0, message.focusNumber.high >>> 0).toNumber() : message.focusNumber;
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                if (typeof message.loveNumber === "number")
+                                    object.loveNumber = options.longs === String ? String(message.loveNumber) : message.loveNumber;
+                                else
+                                    object.loveNumber = options.longs === String ? $util.Long.prototype.toString.call(message.loveNumber) : options.longs === Number ? new $util.LongBits(message.loveNumber.low >>> 0, message.loveNumber.high >>> 0).toNumber() : message.loveNumber;
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                if (typeof message.despiseNumber === "number")
+                                    object.despiseNumber = options.longs === String ? String(message.despiseNumber) : message.despiseNumber;
+                                else
+                                    object.despiseNumber = options.longs === String ? $util.Long.prototype.toString.call(message.despiseNumber) : options.longs === Number ? new $util.LongBits(message.despiseNumber.low >>> 0, message.despiseNumber.high >>> 0).toNumber() : message.despiseNumber;
+                            if (message.description != null && message.hasOwnProperty("description"))
+                                object.description = message.description;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Tags to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.question.model.Tags
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Tags.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Tags;
+                    })();
+
                     model.Category = (function() {
 
                         /**
@@ -10567,476 +11037,6 @@ export const com = $root.com = (() => {
                     };
 
                     return Follow;
-                })();
-
-                proto.Tags = (function() {
-
-                    /**
-                     * Properties of a Tags.
-                     * @memberof com.xueershangda.tianxun.proto
-                     * @interface ITags
-                     * @property {string|null} [id] Tags id
-                     * @property {string|null} [name] Tags name
-                     * @property {number|null} [state] Tags state
-                     * @property {number|null} [hot] Tags hot
-                     * @property {number|Long|null} [createDate] Tags createDate
-                     * @property {number|Long|null} [focusNumber] Tags focusNumber
-                     * @property {number|Long|null} [loveNumber] Tags loveNumber
-                     * @property {number|Long|null} [despiseNumber] Tags despiseNumber
-                     * @property {string|null} [description] Tags description
-                     * @property {number|null} [page] Tags page
-                     * @property {number|null} [pageSize] Tags pageSize
-                     * @property {string|null} [orderBy] Tags orderBy
-                     */
-
-                    /**
-                     * Constructs a new Tags.
-                     * @memberof com.xueershangda.tianxun.proto
-                     * @classdesc Represents a Tags.
-                     * @implements ITags
-                     * @constructor
-                     * @param {com.xueershangda.tianxun.proto.ITags=} [properties] Properties to set
-                     */
-                    function Tags(properties) {
-                        if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * Tags id.
-                     * @member {string} id
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.id = "";
-
-                    /**
-                     * Tags name.
-                     * @member {string} name
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.name = "";
-
-                    /**
-                     * Tags state.
-                     * @member {number} state
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.state = 0;
-
-                    /**
-                     * Tags hot.
-                     * @member {number} hot
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.hot = 0;
-
-                    /**
-                     * Tags createDate.
-                     * @member {number|Long} createDate
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.createDate = 0;
-
-                    /**
-                     * Tags focusNumber.
-                     * @member {number|Long} focusNumber
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.focusNumber = 0;
-
-                    /**
-                     * Tags loveNumber.
-                     * @member {number|Long} loveNumber
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.loveNumber = 0;
-
-                    /**
-                     * Tags despiseNumber.
-                     * @member {number|Long} despiseNumber
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.despiseNumber = 0;
-
-                    /**
-                     * Tags description.
-                     * @member {string} description
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.description = "";
-
-                    /**
-                     * Tags page.
-                     * @member {number} page
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.page = 0;
-
-                    /**
-                     * Tags pageSize.
-                     * @member {number} pageSize
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.pageSize = 0;
-
-                    /**
-                     * Tags orderBy.
-                     * @member {string} orderBy
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     */
-                    Tags.prototype.orderBy = "";
-
-                    /**
-                     * Creates a new Tags instance using the specified properties.
-                     * @function create
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {com.xueershangda.tianxun.proto.ITags=} [properties] Properties to set
-                     * @returns {com.xueershangda.tianxun.proto.Tags} Tags instance
-                     */
-                    Tags.create = function create(properties) {
-                        return new Tags(properties);
-                    };
-
-                    /**
-                     * Encodes the specified Tags message. Does not implicitly {@link com.xueershangda.tianxun.proto.Tags.verify|verify} messages.
-                     * @function encode
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {com.xueershangda.tianxun.proto.ITags} message Tags message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    Tags.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.id != null && message.hasOwnProperty("id"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                        if (message.name != null && message.hasOwnProperty("name"))
-                            writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
-                        if (message.state != null && message.hasOwnProperty("state"))
-                            writer.uint32(/* id 3, wireType 0 =*/24).int32(message.state);
-                        if (message.hot != null && message.hasOwnProperty("hot"))
-                            writer.uint32(/* id 4, wireType 0 =*/32).int32(message.hot);
-                        if (message.createDate != null && message.hasOwnProperty("createDate"))
-                            writer.uint32(/* id 5, wireType 0 =*/40).int64(message.createDate);
-                        if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
-                            writer.uint32(/* id 6, wireType 0 =*/48).int64(message.focusNumber);
-                        if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
-                            writer.uint32(/* id 7, wireType 0 =*/56).int64(message.loveNumber);
-                        if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
-                            writer.uint32(/* id 8, wireType 0 =*/64).int64(message.despiseNumber);
-                        if (message.description != null && message.hasOwnProperty("description"))
-                            writer.uint32(/* id 9, wireType 2 =*/74).string(message.description);
-                        if (message.page != null && message.hasOwnProperty("page"))
-                            writer.uint32(/* id 10, wireType 0 =*/80).int32(message.page);
-                        if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                            writer.uint32(/* id 11, wireType 0 =*/88).int32(message.pageSize);
-                        if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                            writer.uint32(/* id 12, wireType 2 =*/98).string(message.orderBy);
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified Tags message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.proto.Tags.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {com.xueershangda.tianxun.proto.ITags} message Tags message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    Tags.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a Tags message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {com.xueershangda.tianxun.proto.Tags} Tags
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    Tags.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.proto.Tags();
-                        while (reader.pos < end) {
-                            let tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.id = reader.string();
-                                break;
-                            case 2:
-                                message.name = reader.string();
-                                break;
-                            case 3:
-                                message.state = reader.int32();
-                                break;
-                            case 4:
-                                message.hot = reader.int32();
-                                break;
-                            case 5:
-                                message.createDate = reader.int64();
-                                break;
-                            case 6:
-                                message.focusNumber = reader.int64();
-                                break;
-                            case 7:
-                                message.loveNumber = reader.int64();
-                                break;
-                            case 8:
-                                message.despiseNumber = reader.int64();
-                                break;
-                            case 9:
-                                message.description = reader.string();
-                                break;
-                            case 10:
-                                message.page = reader.int32();
-                                break;
-                            case 11:
-                                message.pageSize = reader.int32();
-                                break;
-                            case 12:
-                                message.orderBy = reader.string();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a Tags message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {com.xueershangda.tianxun.proto.Tags} Tags
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    Tags.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a Tags message.
-                     * @function verify
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    Tags.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        if (message.id != null && message.hasOwnProperty("id"))
-                            if (!$util.isString(message.id))
-                                return "id: string expected";
-                        if (message.name != null && message.hasOwnProperty("name"))
-                            if (!$util.isString(message.name))
-                                return "name: string expected";
-                        if (message.state != null && message.hasOwnProperty("state"))
-                            if (!$util.isInteger(message.state))
-                                return "state: integer expected";
-                        if (message.hot != null && message.hasOwnProperty("hot"))
-                            if (!$util.isInteger(message.hot))
-                                return "hot: integer expected";
-                        if (message.createDate != null && message.hasOwnProperty("createDate"))
-                            if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
-                                return "createDate: integer|Long expected";
-                        if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
-                            if (!$util.isInteger(message.focusNumber) && !(message.focusNumber && $util.isInteger(message.focusNumber.low) && $util.isInteger(message.focusNumber.high)))
-                                return "focusNumber: integer|Long expected";
-                        if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
-                            if (!$util.isInteger(message.loveNumber) && !(message.loveNumber && $util.isInteger(message.loveNumber.low) && $util.isInteger(message.loveNumber.high)))
-                                return "loveNumber: integer|Long expected";
-                        if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
-                            if (!$util.isInteger(message.despiseNumber) && !(message.despiseNumber && $util.isInteger(message.despiseNumber.low) && $util.isInteger(message.despiseNumber.high)))
-                                return "despiseNumber: integer|Long expected";
-                        if (message.description != null && message.hasOwnProperty("description"))
-                            if (!$util.isString(message.description))
-                                return "description: string expected";
-                        if (message.page != null && message.hasOwnProperty("page"))
-                            if (!$util.isInteger(message.page))
-                                return "page: integer expected";
-                        if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                            if (!$util.isInteger(message.pageSize))
-                                return "pageSize: integer expected";
-                        if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                            if (!$util.isString(message.orderBy))
-                                return "orderBy: string expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a Tags message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {com.xueershangda.tianxun.proto.Tags} Tags
-                     */
-                    Tags.fromObject = function fromObject(object) {
-                        if (object instanceof $root.com.xueershangda.tianxun.proto.Tags)
-                            return object;
-                        let message = new $root.com.xueershangda.tianxun.proto.Tags();
-                        if (object.id != null)
-                            message.id = String(object.id);
-                        if (object.name != null)
-                            message.name = String(object.name);
-                        if (object.state != null)
-                            message.state = object.state | 0;
-                        if (object.hot != null)
-                            message.hot = object.hot | 0;
-                        if (object.createDate != null)
-                            if ($util.Long)
-                                (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
-                            else if (typeof object.createDate === "string")
-                                message.createDate = parseInt(object.createDate, 10);
-                            else if (typeof object.createDate === "number")
-                                message.createDate = object.createDate;
-                            else if (typeof object.createDate === "object")
-                                message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
-                        if (object.focusNumber != null)
-                            if ($util.Long)
-                                (message.focusNumber = $util.Long.fromValue(object.focusNumber)).unsigned = false;
-                            else if (typeof object.focusNumber === "string")
-                                message.focusNumber = parseInt(object.focusNumber, 10);
-                            else if (typeof object.focusNumber === "number")
-                                message.focusNumber = object.focusNumber;
-                            else if (typeof object.focusNumber === "object")
-                                message.focusNumber = new $util.LongBits(object.focusNumber.low >>> 0, object.focusNumber.high >>> 0).toNumber();
-                        if (object.loveNumber != null)
-                            if ($util.Long)
-                                (message.loveNumber = $util.Long.fromValue(object.loveNumber)).unsigned = false;
-                            else if (typeof object.loveNumber === "string")
-                                message.loveNumber = parseInt(object.loveNumber, 10);
-                            else if (typeof object.loveNumber === "number")
-                                message.loveNumber = object.loveNumber;
-                            else if (typeof object.loveNumber === "object")
-                                message.loveNumber = new $util.LongBits(object.loveNumber.low >>> 0, object.loveNumber.high >>> 0).toNumber();
-                        if (object.despiseNumber != null)
-                            if ($util.Long)
-                                (message.despiseNumber = $util.Long.fromValue(object.despiseNumber)).unsigned = false;
-                            else if (typeof object.despiseNumber === "string")
-                                message.despiseNumber = parseInt(object.despiseNumber, 10);
-                            else if (typeof object.despiseNumber === "number")
-                                message.despiseNumber = object.despiseNumber;
-                            else if (typeof object.despiseNumber === "object")
-                                message.despiseNumber = new $util.LongBits(object.despiseNumber.low >>> 0, object.despiseNumber.high >>> 0).toNumber();
-                        if (object.description != null)
-                            message.description = String(object.description);
-                        if (object.page != null)
-                            message.page = object.page | 0;
-                        if (object.pageSize != null)
-                            message.pageSize = object.pageSize | 0;
-                        if (object.orderBy != null)
-                            message.orderBy = String(object.orderBy);
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a Tags message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @static
-                     * @param {com.xueershangda.tianxun.proto.Tags} message Tags
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    Tags.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        let object = {};
-                        if (options.defaults) {
-                            object.id = "";
-                            object.name = "";
-                            object.state = 0;
-                            object.hot = 0;
-                            object.createDate = 0;
-                            object.focusNumber = 0;
-                            object.loveNumber = 0;
-                            object.despiseNumber = 0;
-                            object.description = "";
-                            object.page = 0;
-                            object.pageSize = 0;
-                            object.orderBy = "";
-                        }
-                        if (message.id != null && message.hasOwnProperty("id"))
-                            object.id = message.id;
-                        if (message.name != null && message.hasOwnProperty("name"))
-                            object.name = message.name;
-                        if (message.state != null && message.hasOwnProperty("state"))
-                            object.state = message.state;
-                        if (message.hot != null && message.hasOwnProperty("hot"))
-                            object.hot = message.hot;
-                        if (message.createDate != null && message.hasOwnProperty("createDate"))
-                            if (typeof message.createDate === "number")
-                                object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
-                            else
-                                object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
-                        if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
-                            if (typeof message.focusNumber === "number")
-                                object.focusNumber = options.longs === String ? String(message.focusNumber) : message.focusNumber;
-                            else
-                                object.focusNumber = options.longs === String ? $util.Long.prototype.toString.call(message.focusNumber) : options.longs === Number ? new $util.LongBits(message.focusNumber.low >>> 0, message.focusNumber.high >>> 0).toNumber() : message.focusNumber;
-                        if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
-                            if (typeof message.loveNumber === "number")
-                                object.loveNumber = options.longs === String ? String(message.loveNumber) : message.loveNumber;
-                            else
-                                object.loveNumber = options.longs === String ? $util.Long.prototype.toString.call(message.loveNumber) : options.longs === Number ? new $util.LongBits(message.loveNumber.low >>> 0, message.loveNumber.high >>> 0).toNumber() : message.loveNumber;
-                        if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
-                            if (typeof message.despiseNumber === "number")
-                                object.despiseNumber = options.longs === String ? String(message.despiseNumber) : message.despiseNumber;
-                            else
-                                object.despiseNumber = options.longs === String ? $util.Long.prototype.toString.call(message.despiseNumber) : options.longs === Number ? new $util.LongBits(message.despiseNumber.low >>> 0, message.despiseNumber.high >>> 0).toNumber() : message.despiseNumber;
-                        if (message.description != null && message.hasOwnProperty("description"))
-                            object.description = message.description;
-                        if (message.page != null && message.hasOwnProperty("page"))
-                            object.page = message.page;
-                        if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                            object.pageSize = message.pageSize;
-                        if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                            object.orderBy = message.orderBy;
-                        return object;
-                    };
-
-                    /**
-                     * Converts this Tags to JSON.
-                     * @function toJSON
-                     * @memberof com.xueershangda.tianxun.proto.Tags
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    Tags.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return Tags;
                 })();
 
                 return proto;
@@ -22296,6 +22296,2238 @@ export const com = $root.com = (() => {
                 })();
 
                 return employee;
+            })();
+
+            tianxun.search = (function() {
+
+                /**
+                 * Namespace search.
+                 * @memberof com.xueershangda.tianxun
+                 * @namespace
+                 */
+                const search = {};
+
+                search.model = (function() {
+
+                    /**
+                     * Namespace model.
+                     * @memberof com.xueershangda.tianxun.search
+                     * @namespace
+                     */
+                    const model = {};
+
+                    model.Search = (function() {
+
+                        /**
+                         * Properties of a Search.
+                         * @memberof com.xueershangda.tianxun.search.model
+                         * @interface ISearch
+                         * @property {string|null} [id] Search id
+                         * @property {string|null} [title] Search title
+                         * @property {string|null} [summary] Search summary
+                         * @property {string|null} [imagePath] Search imagePath
+                         * @property {string|null} [authorId] 作者id
+                         * @property {string|null} [authorName] 作者名字或昵称
+                         * @property {string|null} [account] 作者账号
+                         * @property {number|Long|null} [createTimestamp] 创建时间
+                         * @property {number|null} [type] 内容类型，1视频，2问题，3文章
+                         * @property {string|null} [category] 内容所属的分类
+                         * @property {string|null} [content] 内容，备用
+                         * @property {string|null} [remark] 备注，备用
+                         * @property {string|null} [keyword] 搜索关键字
+                         * @property {number|null} [page] 页码，翻页
+                         * @property {number|null} [pageSize] 分页大小
+                         * @property {string|null} [tokenId] 搜索时的 tokenId
+                         * @property {number|null} [state] 1正常、2禁用
+                         * @property {number|Long|null} [hotDegree] 热度，备用
+                         * @property {number|Long|null} [focusNumber] Search focusNumber
+                         * @property {number|Long|null} [loveNumber] Search loveNumber
+                         * @property {number|Long|null} [buyNumber] Search buyNumber
+                         * @property {number|Long|null} [despiseNumber] Search despiseNumber
+                         * @property {string|null} [url] Search url
+                         */
+
+                        /**
+                         * Constructs a new Search.
+                         * @memberof com.xueershangda.tianxun.search.model
+                         * @classdesc Represents a Search.
+                         * @implements ISearch
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.search.model.ISearch=} [properties] Properties to set
+                         */
+                        function Search(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Search id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.id = "";
+
+                        /**
+                         * Search title.
+                         * @member {string} title
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.title = "";
+
+                        /**
+                         * Search summary.
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.summary = "";
+
+                        /**
+                         * Search imagePath.
+                         * @member {string} imagePath
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.imagePath = "";
+
+                        /**
+                         * 作者id
+                         * @member {string} authorId
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.authorId = "";
+
+                        /**
+                         * 作者名字或昵称
+                         * @member {string} authorName
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.authorName = "";
+
+                        /**
+                         * 作者账号
+                         * @member {string} account
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.account = "";
+
+                        /**
+                         * 创建时间
+                         * @member {number|Long} createTimestamp
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.createTimestamp = 0;
+
+                        /**
+                         * 内容类型，1视频，2问题，3文章
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.type = 0;
+
+                        /**
+                         * 内容所属的分类
+                         * @member {string} category
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.category = "";
+
+                        /**
+                         * 内容，备用
+                         * @member {string} content
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.content = "";
+
+                        /**
+                         * 备注，备用
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.remark = "";
+
+                        /**
+                         * 搜索关键字
+                         * @member {string} keyword
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.keyword = "";
+
+                        /**
+                         * 页码，翻页
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.page = 0;
+
+                        /**
+                         * 分页大小
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.pageSize = 0;
+
+                        /**
+                         * 搜索时的 tokenId
+                         * @member {string} tokenId
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.tokenId = "";
+
+                        /**
+                         * 1正常、2禁用
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.state = 0;
+
+                        /**
+                         * 热度，备用
+                         * @member {number|Long} hotDegree
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.hotDegree = 0;
+
+                        /**
+                         * Search focusNumber.
+                         * @member {number|Long} focusNumber
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.focusNumber = 0;
+
+                        /**
+                         * Search loveNumber.
+                         * @member {number|Long} loveNumber
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.loveNumber = 0;
+
+                        /**
+                         * Search buyNumber.
+                         * @member {number|Long} buyNumber
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.buyNumber = 0;
+
+                        /**
+                         * Search despiseNumber.
+                         * @member {number|Long} despiseNumber
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.despiseNumber = 0;
+
+                        /**
+                         * Search url.
+                         * @member {string} url
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         */
+                        Search.prototype.url = "";
+
+                        /**
+                         * Creates a new Search instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearch=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.search.model.Search} Search instance
+                         */
+                        Search.create = function create(properties) {
+                            return new Search(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Search message. Does not implicitly {@link com.xueershangda.tianxun.search.model.Search.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearch} message Search message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Search.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.title);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.summary);
+                            if (message.imagePath != null && message.hasOwnProperty("imagePath"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.imagePath);
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.authorId);
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.authorName);
+                            if (message.account != null && message.hasOwnProperty("account"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.account);
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.createTimestamp);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.type);
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.category);
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                writer.uint32(/* id 11, wireType 2 =*/90).string(message.content);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.remark);
+                            if (message.keyword != null && message.hasOwnProperty("keyword"))
+                                writer.uint32(/* id 13, wireType 2 =*/106).string(message.keyword);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.pageSize);
+                            if (message.tokenId != null && message.hasOwnProperty("tokenId"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.tokenId);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.state);
+                            if (message.hotDegree != null && message.hasOwnProperty("hotDegree"))
+                                writer.uint32(/* id 18, wireType 0 =*/144).int64(message.hotDegree);
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                writer.uint32(/* id 19, wireType 0 =*/152).int64(message.focusNumber);
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                writer.uint32(/* id 20, wireType 0 =*/160).int64(message.loveNumber);
+                            if (message.buyNumber != null && message.hasOwnProperty("buyNumber"))
+                                writer.uint32(/* id 21, wireType 0 =*/168).int64(message.buyNumber);
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                writer.uint32(/* id 22, wireType 0 =*/176).int64(message.despiseNumber);
+                            if (message.url != null && message.hasOwnProperty("url"))
+                                writer.uint32(/* id 23, wireType 2 =*/186).string(message.url);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Search message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.search.model.Search.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearch} message Search message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Search.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Search message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.search.model.Search} Search
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Search.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.search.model.Search();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.title = reader.string();
+                                    break;
+                                case 3:
+                                    message.summary = reader.string();
+                                    break;
+                                case 4:
+                                    message.imagePath = reader.string();
+                                    break;
+                                case 5:
+                                    message.authorId = reader.string();
+                                    break;
+                                case 6:
+                                    message.authorName = reader.string();
+                                    break;
+                                case 7:
+                                    message.account = reader.string();
+                                    break;
+                                case 8:
+                                    message.createTimestamp = reader.int64();
+                                    break;
+                                case 9:
+                                    message.type = reader.int32();
+                                    break;
+                                case 10:
+                                    message.category = reader.string();
+                                    break;
+                                case 11:
+                                    message.content = reader.string();
+                                    break;
+                                case 12:
+                                    message.remark = reader.string();
+                                    break;
+                                case 13:
+                                    message.keyword = reader.string();
+                                    break;
+                                case 14:
+                                    message.page = reader.int32();
+                                    break;
+                                case 15:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 16:
+                                    message.tokenId = reader.string();
+                                    break;
+                                case 17:
+                                    message.state = reader.int32();
+                                    break;
+                                case 18:
+                                    message.hotDegree = reader.int64();
+                                    break;
+                                case 19:
+                                    message.focusNumber = reader.int64();
+                                    break;
+                                case 20:
+                                    message.loveNumber = reader.int64();
+                                    break;
+                                case 21:
+                                    message.buyNumber = reader.int64();
+                                    break;
+                                case 22:
+                                    message.despiseNumber = reader.int64();
+                                    break;
+                                case 23:
+                                    message.url = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Search message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.search.model.Search} Search
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Search.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Search message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Search.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                if (!$util.isString(message.title))
+                                    return "title: string expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.imagePath != null && message.hasOwnProperty("imagePath"))
+                                if (!$util.isString(message.imagePath))
+                                    return "imagePath: string expected";
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                if (!$util.isString(message.authorId))
+                                    return "authorId: string expected";
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                if (!$util.isString(message.authorName))
+                                    return "authorName: string expected";
+                            if (message.account != null && message.hasOwnProperty("account"))
+                                if (!$util.isString(message.account))
+                                    return "account: string expected";
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (!$util.isInteger(message.createTimestamp) && !(message.createTimestamp && $util.isInteger(message.createTimestamp.low) && $util.isInteger(message.createTimestamp.high)))
+                                    return "createTimestamp: integer|Long expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                if (!$util.isString(message.category))
+                                    return "category: string expected";
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                if (!$util.isString(message.content))
+                                    return "content: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.keyword != null && message.hasOwnProperty("keyword"))
+                                if (!$util.isString(message.keyword))
+                                    return "keyword: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.tokenId != null && message.hasOwnProperty("tokenId"))
+                                if (!$util.isString(message.tokenId))
+                                    return "tokenId: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.hotDegree != null && message.hasOwnProperty("hotDegree"))
+                                if (!$util.isInteger(message.hotDegree) && !(message.hotDegree && $util.isInteger(message.hotDegree.low) && $util.isInteger(message.hotDegree.high)))
+                                    return "hotDegree: integer|Long expected";
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                if (!$util.isInteger(message.focusNumber) && !(message.focusNumber && $util.isInteger(message.focusNumber.low) && $util.isInteger(message.focusNumber.high)))
+                                    return "focusNumber: integer|Long expected";
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                if (!$util.isInteger(message.loveNumber) && !(message.loveNumber && $util.isInteger(message.loveNumber.low) && $util.isInteger(message.loveNumber.high)))
+                                    return "loveNumber: integer|Long expected";
+                            if (message.buyNumber != null && message.hasOwnProperty("buyNumber"))
+                                if (!$util.isInteger(message.buyNumber) && !(message.buyNumber && $util.isInteger(message.buyNumber.low) && $util.isInteger(message.buyNumber.high)))
+                                    return "buyNumber: integer|Long expected";
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                if (!$util.isInteger(message.despiseNumber) && !(message.despiseNumber && $util.isInteger(message.despiseNumber.low) && $util.isInteger(message.despiseNumber.high)))
+                                    return "despiseNumber: integer|Long expected";
+                            if (message.url != null && message.hasOwnProperty("url"))
+                                if (!$util.isString(message.url))
+                                    return "url: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Search message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.search.model.Search} Search
+                         */
+                        Search.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.search.model.Search)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.search.model.Search();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.title != null)
+                                message.title = String(object.title);
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.imagePath != null)
+                                message.imagePath = String(object.imagePath);
+                            if (object.authorId != null)
+                                message.authorId = String(object.authorId);
+                            if (object.authorName != null)
+                                message.authorName = String(object.authorName);
+                            if (object.account != null)
+                                message.account = String(object.account);
+                            if (object.createTimestamp != null)
+                                if ($util.Long)
+                                    (message.createTimestamp = $util.Long.fromValue(object.createTimestamp)).unsigned = false;
+                                else if (typeof object.createTimestamp === "string")
+                                    message.createTimestamp = parseInt(object.createTimestamp, 10);
+                                else if (typeof object.createTimestamp === "number")
+                                    message.createTimestamp = object.createTimestamp;
+                                else if (typeof object.createTimestamp === "object")
+                                    message.createTimestamp = new $util.LongBits(object.createTimestamp.low >>> 0, object.createTimestamp.high >>> 0).toNumber();
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.category != null)
+                                message.category = String(object.category);
+                            if (object.content != null)
+                                message.content = String(object.content);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.keyword != null)
+                                message.keyword = String(object.keyword);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.tokenId != null)
+                                message.tokenId = String(object.tokenId);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.hotDegree != null)
+                                if ($util.Long)
+                                    (message.hotDegree = $util.Long.fromValue(object.hotDegree)).unsigned = false;
+                                else if (typeof object.hotDegree === "string")
+                                    message.hotDegree = parseInt(object.hotDegree, 10);
+                                else if (typeof object.hotDegree === "number")
+                                    message.hotDegree = object.hotDegree;
+                                else if (typeof object.hotDegree === "object")
+                                    message.hotDegree = new $util.LongBits(object.hotDegree.low >>> 0, object.hotDegree.high >>> 0).toNumber();
+                            if (object.focusNumber != null)
+                                if ($util.Long)
+                                    (message.focusNumber = $util.Long.fromValue(object.focusNumber)).unsigned = false;
+                                else if (typeof object.focusNumber === "string")
+                                    message.focusNumber = parseInt(object.focusNumber, 10);
+                                else if (typeof object.focusNumber === "number")
+                                    message.focusNumber = object.focusNumber;
+                                else if (typeof object.focusNumber === "object")
+                                    message.focusNumber = new $util.LongBits(object.focusNumber.low >>> 0, object.focusNumber.high >>> 0).toNumber();
+                            if (object.loveNumber != null)
+                                if ($util.Long)
+                                    (message.loveNumber = $util.Long.fromValue(object.loveNumber)).unsigned = false;
+                                else if (typeof object.loveNumber === "string")
+                                    message.loveNumber = parseInt(object.loveNumber, 10);
+                                else if (typeof object.loveNumber === "number")
+                                    message.loveNumber = object.loveNumber;
+                                else if (typeof object.loveNumber === "object")
+                                    message.loveNumber = new $util.LongBits(object.loveNumber.low >>> 0, object.loveNumber.high >>> 0).toNumber();
+                            if (object.buyNumber != null)
+                                if ($util.Long)
+                                    (message.buyNumber = $util.Long.fromValue(object.buyNumber)).unsigned = false;
+                                else if (typeof object.buyNumber === "string")
+                                    message.buyNumber = parseInt(object.buyNumber, 10);
+                                else if (typeof object.buyNumber === "number")
+                                    message.buyNumber = object.buyNumber;
+                                else if (typeof object.buyNumber === "object")
+                                    message.buyNumber = new $util.LongBits(object.buyNumber.low >>> 0, object.buyNumber.high >>> 0).toNumber();
+                            if (object.despiseNumber != null)
+                                if ($util.Long)
+                                    (message.despiseNumber = $util.Long.fromValue(object.despiseNumber)).unsigned = false;
+                                else if (typeof object.despiseNumber === "string")
+                                    message.despiseNumber = parseInt(object.despiseNumber, 10);
+                                else if (typeof object.despiseNumber === "number")
+                                    message.despiseNumber = object.despiseNumber;
+                                else if (typeof object.despiseNumber === "object")
+                                    message.despiseNumber = new $util.LongBits(object.despiseNumber.low >>> 0, object.despiseNumber.high >>> 0).toNumber();
+                            if (object.url != null)
+                                message.url = String(object.url);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Search message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.Search} message Search
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Search.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.title = "";
+                                object.summary = "";
+                                object.imagePath = "";
+                                object.authorId = "";
+                                object.authorName = "";
+                                object.account = "";
+                                object.createTimestamp = 0;
+                                object.type = 0;
+                                object.category = "";
+                                object.content = "";
+                                object.remark = "";
+                                object.keyword = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.tokenId = "";
+                                object.state = 0;
+                                object.hotDegree = 0;
+                                object.focusNumber = 0;
+                                object.loveNumber = 0;
+                                object.buyNumber = 0;
+                                object.despiseNumber = 0;
+                                object.url = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                object.title = message.title;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.imagePath != null && message.hasOwnProperty("imagePath"))
+                                object.imagePath = message.imagePath;
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                object.authorId = message.authorId;
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                object.authorName = message.authorName;
+                            if (message.account != null && message.hasOwnProperty("account"))
+                                object.account = message.account;
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (typeof message.createTimestamp === "number")
+                                    object.createTimestamp = options.longs === String ? String(message.createTimestamp) : message.createTimestamp;
+                                else
+                                    object.createTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.createTimestamp) : options.longs === Number ? new $util.LongBits(message.createTimestamp.low >>> 0, message.createTimestamp.high >>> 0).toNumber() : message.createTimestamp;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                object.category = message.category;
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                object.content = message.content;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.keyword != null && message.hasOwnProperty("keyword"))
+                                object.keyword = message.keyword;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.tokenId != null && message.hasOwnProperty("tokenId"))
+                                object.tokenId = message.tokenId;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.hotDegree != null && message.hasOwnProperty("hotDegree"))
+                                if (typeof message.hotDegree === "number")
+                                    object.hotDegree = options.longs === String ? String(message.hotDegree) : message.hotDegree;
+                                else
+                                    object.hotDegree = options.longs === String ? $util.Long.prototype.toString.call(message.hotDegree) : options.longs === Number ? new $util.LongBits(message.hotDegree.low >>> 0, message.hotDegree.high >>> 0).toNumber() : message.hotDegree;
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                if (typeof message.focusNumber === "number")
+                                    object.focusNumber = options.longs === String ? String(message.focusNumber) : message.focusNumber;
+                                else
+                                    object.focusNumber = options.longs === String ? $util.Long.prototype.toString.call(message.focusNumber) : options.longs === Number ? new $util.LongBits(message.focusNumber.low >>> 0, message.focusNumber.high >>> 0).toNumber() : message.focusNumber;
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                if (typeof message.loveNumber === "number")
+                                    object.loveNumber = options.longs === String ? String(message.loveNumber) : message.loveNumber;
+                                else
+                                    object.loveNumber = options.longs === String ? $util.Long.prototype.toString.call(message.loveNumber) : options.longs === Number ? new $util.LongBits(message.loveNumber.low >>> 0, message.loveNumber.high >>> 0).toNumber() : message.loveNumber;
+                            if (message.buyNumber != null && message.hasOwnProperty("buyNumber"))
+                                if (typeof message.buyNumber === "number")
+                                    object.buyNumber = options.longs === String ? String(message.buyNumber) : message.buyNumber;
+                                else
+                                    object.buyNumber = options.longs === String ? $util.Long.prototype.toString.call(message.buyNumber) : options.longs === Number ? new $util.LongBits(message.buyNumber.low >>> 0, message.buyNumber.high >>> 0).toNumber() : message.buyNumber;
+                            if (message.despiseNumber != null && message.hasOwnProperty("despiseNumber"))
+                                if (typeof message.despiseNumber === "number")
+                                    object.despiseNumber = options.longs === String ? String(message.despiseNumber) : message.despiseNumber;
+                                else
+                                    object.despiseNumber = options.longs === String ? $util.Long.prototype.toString.call(message.despiseNumber) : options.longs === Number ? new $util.LongBits(message.despiseNumber.low >>> 0, message.despiseNumber.high >>> 0).toNumber() : message.despiseNumber;
+                            if (message.url != null && message.hasOwnProperty("url"))
+                                object.url = message.url;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Search to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.search.model.Search
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Search.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Search;
+                    })();
+
+                    model.SearchReply = (function() {
+
+                        /**
+                         * Properties of a SearchReply.
+                         * @memberof com.xueershangda.tianxun.search.model
+                         * @interface ISearchReply
+                         * @property {number|null} [code] SearchReply code
+                         * @property {string|null} [message] SearchReply message
+                         * @property {Array.<com.xueershangda.tianxun.search.model.ISearch>|null} [data] SearchReply data
+                         */
+
+                        /**
+                         * Constructs a new SearchReply.
+                         * @memberof com.xueershangda.tianxun.search.model
+                         * @classdesc Represents a SearchReply.
+                         * @implements ISearchReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.search.model.ISearchReply=} [properties] Properties to set
+                         */
+                        function SearchReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * SearchReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @instance
+                         */
+                        SearchReply.prototype.code = 0;
+
+                        /**
+                         * SearchReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @instance
+                         */
+                        SearchReply.prototype.message = "";
+
+                        /**
+                         * SearchReply data.
+                         * @member {Array.<com.xueershangda.tianxun.search.model.ISearch>} data
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @instance
+                         */
+                        SearchReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new SearchReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearchReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.search.model.SearchReply} SearchReply instance
+                         */
+                        SearchReply.create = function create(properties) {
+                            return new SearchReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified SearchReply message. Does not implicitly {@link com.xueershangda.tianxun.search.model.SearchReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearchReply} message SearchReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SearchReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.search.model.Search.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified SearchReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.search.model.SearchReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.ISearchReply} message SearchReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SearchReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a SearchReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.search.model.SearchReply} SearchReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SearchReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.search.model.SearchReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.search.model.Search.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a SearchReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.search.model.SearchReply} SearchReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SearchReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a SearchReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        SearchReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.search.model.Search.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a SearchReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.search.model.SearchReply} SearchReply
+                         */
+                        SearchReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.search.model.SearchReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.search.model.SearchReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.search.model.SearchReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.search.model.SearchReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.search.model.Search.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a SearchReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.search.model.SearchReply} message SearchReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        SearchReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.search.model.Search.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this SearchReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.search.model.SearchReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        SearchReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return SearchReply;
+                    })();
+
+                    return model;
+                })();
+
+                return search;
+            })();
+
+            tianxun.special = (function() {
+
+                /**
+                 * Namespace special.
+                 * @memberof com.xueershangda.tianxun
+                 * @namespace
+                 */
+                const special = {};
+
+                special.model = (function() {
+
+                    /**
+                     * Namespace model.
+                     * @memberof com.xueershangda.tianxun.special
+                     * @namespace
+                     */
+                    const model = {};
+
+                    model.SpecialDetail = (function() {
+
+                        /**
+                         * Properties of a SpecialDetail.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @interface ISpecialDetail
+                         * @property {string|null} [id] SpecialDetail id
+                         * @property {string|null} [specialId] 专栏id
+                         * @property {string|null} [targetId] 专栏内容id，文章问题回答视频等
+                         * @property {string|null} [title] 专栏内容标题
+                         * @property {string|null} [summary] 专栏内容介绍
+                         * @property {number|Long|null} [createTimestamp] 创建时间
+                         * @property {number|Long|null} [updateTimestamp] 更新时间
+                         * @property {string|null} [targetType] 类别，1文章2问题3回答4视频
+                         * @property {string|null} [category] 内容所属标签
+                         * @property {string|null} [remark] 备注，备用
+                         * @property {string|null} [authorId] 作者id
+                         * @property {string|null} [authorName] 作者名字
+                         */
+
+                        /**
+                         * Constructs a new SpecialDetail.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @classdesc Represents a SpecialDetail.
+                         * @implements ISpecialDetail
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetail=} [properties] Properties to set
+                         */
+                        function SpecialDetail(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * SpecialDetail id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.id = "";
+
+                        /**
+                         * 专栏id
+                         * @member {string} specialId
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.specialId = "";
+
+                        /**
+                         * 专栏内容id，文章问题回答视频等
+                         * @member {string} targetId
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.targetId = "";
+
+                        /**
+                         * 专栏内容标题
+                         * @member {string} title
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.title = "";
+
+                        /**
+                         * 专栏内容介绍
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.summary = "";
+
+                        /**
+                         * 创建时间
+                         * @member {number|Long} createTimestamp
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.createTimestamp = 0;
+
+                        /**
+                         * 更新时间
+                         * @member {number|Long} updateTimestamp
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.updateTimestamp = 0;
+
+                        /**
+                         * 类别，1文章2问题3回答4视频
+                         * @member {string} targetType
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.targetType = "";
+
+                        /**
+                         * 内容所属标签
+                         * @member {string} category
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.category = "";
+
+                        /**
+                         * 备注，备用
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.remark = "";
+
+                        /**
+                         * 作者id
+                         * @member {string} authorId
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.authorId = "";
+
+                        /**
+                         * 作者名字
+                         * @member {string} authorName
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.authorName = "";
+
+                        /**
+                         * Creates a new SpecialDetail instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetail=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetail} SpecialDetail instance
+                         */
+                        SpecialDetail.create = function create(properties) {
+                            return new SpecialDetail(properties);
+                        };
+
+                        /**
+                         * Encodes the specified SpecialDetail message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetail.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetail} message SpecialDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialDetail.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.specialId != null && message.hasOwnProperty("specialId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.specialId);
+                            if (message.targetId != null && message.hasOwnProperty("targetId"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.targetId);
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.title);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.summary);
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.createTimestamp);
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.updateTimestamp);
+                            if (message.targetType != null && message.hasOwnProperty("targetType"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.targetType);
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.category);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.remark);
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                writer.uint32(/* id 11, wireType 2 =*/90).string(message.authorId);
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.authorName);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified SpecialDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetail.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetail} message SpecialDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialDetail.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a SpecialDetail message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetail} SpecialDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialDetail.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.special.model.SpecialDetail();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.specialId = reader.string();
+                                    break;
+                                case 3:
+                                    message.targetId = reader.string();
+                                    break;
+                                case 4:
+                                    message.title = reader.string();
+                                    break;
+                                case 5:
+                                    message.summary = reader.string();
+                                    break;
+                                case 6:
+                                    message.createTimestamp = reader.int64();
+                                    break;
+                                case 7:
+                                    message.updateTimestamp = reader.int64();
+                                    break;
+                                case 8:
+                                    message.targetType = reader.string();
+                                    break;
+                                case 9:
+                                    message.category = reader.string();
+                                    break;
+                                case 10:
+                                    message.remark = reader.string();
+                                    break;
+                                case 11:
+                                    message.authorId = reader.string();
+                                    break;
+                                case 12:
+                                    message.authorName = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a SpecialDetail message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetail} SpecialDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialDetail.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a SpecialDetail message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        SpecialDetail.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.specialId != null && message.hasOwnProperty("specialId"))
+                                if (!$util.isString(message.specialId))
+                                    return "specialId: string expected";
+                            if (message.targetId != null && message.hasOwnProperty("targetId"))
+                                if (!$util.isString(message.targetId))
+                                    return "targetId: string expected";
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                if (!$util.isString(message.title))
+                                    return "title: string expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (!$util.isInteger(message.createTimestamp) && !(message.createTimestamp && $util.isInteger(message.createTimestamp.low) && $util.isInteger(message.createTimestamp.high)))
+                                    return "createTimestamp: integer|Long expected";
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                if (!$util.isInteger(message.updateTimestamp) && !(message.updateTimestamp && $util.isInteger(message.updateTimestamp.low) && $util.isInteger(message.updateTimestamp.high)))
+                                    return "updateTimestamp: integer|Long expected";
+                            if (message.targetType != null && message.hasOwnProperty("targetType"))
+                                if (!$util.isString(message.targetType))
+                                    return "targetType: string expected";
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                if (!$util.isString(message.category))
+                                    return "category: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                if (!$util.isString(message.authorId))
+                                    return "authorId: string expected";
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                if (!$util.isString(message.authorName))
+                                    return "authorName: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a SpecialDetail message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetail} SpecialDetail
+                         */
+                        SpecialDetail.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.special.model.SpecialDetail)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.special.model.SpecialDetail();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.specialId != null)
+                                message.specialId = String(object.specialId);
+                            if (object.targetId != null)
+                                message.targetId = String(object.targetId);
+                            if (object.title != null)
+                                message.title = String(object.title);
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.createTimestamp != null)
+                                if ($util.Long)
+                                    (message.createTimestamp = $util.Long.fromValue(object.createTimestamp)).unsigned = false;
+                                else if (typeof object.createTimestamp === "string")
+                                    message.createTimestamp = parseInt(object.createTimestamp, 10);
+                                else if (typeof object.createTimestamp === "number")
+                                    message.createTimestamp = object.createTimestamp;
+                                else if (typeof object.createTimestamp === "object")
+                                    message.createTimestamp = new $util.LongBits(object.createTimestamp.low >>> 0, object.createTimestamp.high >>> 0).toNumber();
+                            if (object.updateTimestamp != null)
+                                if ($util.Long)
+                                    (message.updateTimestamp = $util.Long.fromValue(object.updateTimestamp)).unsigned = false;
+                                else if (typeof object.updateTimestamp === "string")
+                                    message.updateTimestamp = parseInt(object.updateTimestamp, 10);
+                                else if (typeof object.updateTimestamp === "number")
+                                    message.updateTimestamp = object.updateTimestamp;
+                                else if (typeof object.updateTimestamp === "object")
+                                    message.updateTimestamp = new $util.LongBits(object.updateTimestamp.low >>> 0, object.updateTimestamp.high >>> 0).toNumber();
+                            if (object.targetType != null)
+                                message.targetType = String(object.targetType);
+                            if (object.category != null)
+                                message.category = String(object.category);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.authorId != null)
+                                message.authorId = String(object.authorId);
+                            if (object.authorName != null)
+                                message.authorName = String(object.authorName);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a SpecialDetail message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.SpecialDetail} message SpecialDetail
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        SpecialDetail.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.specialId = "";
+                                object.targetId = "";
+                                object.title = "";
+                                object.summary = "";
+                                object.createTimestamp = 0;
+                                object.updateTimestamp = 0;
+                                object.targetType = "";
+                                object.category = "";
+                                object.remark = "";
+                                object.authorId = "";
+                                object.authorName = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.specialId != null && message.hasOwnProperty("specialId"))
+                                object.specialId = message.specialId;
+                            if (message.targetId != null && message.hasOwnProperty("targetId"))
+                                object.targetId = message.targetId;
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                object.title = message.title;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (typeof message.createTimestamp === "number")
+                                    object.createTimestamp = options.longs === String ? String(message.createTimestamp) : message.createTimestamp;
+                                else
+                                    object.createTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.createTimestamp) : options.longs === Number ? new $util.LongBits(message.createTimestamp.low >>> 0, message.createTimestamp.high >>> 0).toNumber() : message.createTimestamp;
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                if (typeof message.updateTimestamp === "number")
+                                    object.updateTimestamp = options.longs === String ? String(message.updateTimestamp) : message.updateTimestamp;
+                                else
+                                    object.updateTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.updateTimestamp) : options.longs === Number ? new $util.LongBits(message.updateTimestamp.low >>> 0, message.updateTimestamp.high >>> 0).toNumber() : message.updateTimestamp;
+                            if (message.targetType != null && message.hasOwnProperty("targetType"))
+                                object.targetType = message.targetType;
+                            if (message.category != null && message.hasOwnProperty("category"))
+                                object.category = message.category;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.authorId != null && message.hasOwnProperty("authorId"))
+                                object.authorId = message.authorId;
+                            if (message.authorName != null && message.hasOwnProperty("authorName"))
+                                object.authorName = message.authorName;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this SpecialDetail to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        SpecialDetail.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return SpecialDetail;
+                    })();
+
+                    model.Special = (function() {
+
+                        /**
+                         * Properties of a Special.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @interface ISpecial
+                         * @property {string|null} [id] Special id
+                         * @property {string|null} [articleId] 文章id
+                         * @property {string|null} [name] 专题名称
+                         * @property {string|null} [summary] 专题概述
+                         * @property {string|null} [userId] 专题所属用户id
+                         * @property {number|Long|null} [createTimestamp] 创建时间
+                         * @property {number|Long|null} [updateTimestamp] 更新时间
+                         * @property {number|null} [number] 专题文章数
+                         * @property {number|null} [subscribeNumber] 专栏订阅数
+                         * @property {number|null} [price] 专栏价格
+                         * @property {number|null} [subscribePeriod] 订阅周期，默认3年
+                         * @property {number|null} [discount] 订阅折扣，默认1不打折
+                         * @property {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>|null} [specialDetailList] 专栏详情列表
+                         */
+
+                        /**
+                         * Constructs a new Special.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @classdesc Represents a Special.
+                         * @implements ISpecial
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.special.model.ISpecial=} [properties] Properties to set
+                         */
+                        function Special(properties) {
+                            this.specialDetailList = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Special id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.id = "";
+
+                        /**
+                         * 文章id
+                         * @member {string} articleId
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.articleId = "";
+
+                        /**
+                         * 专题名称
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.name = "";
+
+                        /**
+                         * 专题概述
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.summary = "";
+
+                        /**
+                         * 专题所属用户id
+                         * @member {string} userId
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.userId = "";
+
+                        /**
+                         * 创建时间
+                         * @member {number|Long} createTimestamp
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.createTimestamp = 0;
+
+                        /**
+                         * 更新时间
+                         * @member {number|Long} updateTimestamp
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.updateTimestamp = 0;
+
+                        /**
+                         * 专题文章数
+                         * @member {number} number
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.number = 0;
+
+                        /**
+                         * 专栏订阅数
+                         * @member {number} subscribeNumber
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.subscribeNumber = 0;
+
+                        /**
+                         * 专栏价格
+                         * @member {number} price
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.price = 0;
+
+                        /**
+                         * 订阅周期，默认3年
+                         * @member {number} subscribePeriod
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.subscribePeriod = 0;
+
+                        /**
+                         * 订阅折扣，默认1不打折
+                         * @member {number} discount
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.discount = 0;
+
+                        /**
+                         * 专栏详情列表
+                         * @member {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>} specialDetailList
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.specialDetailList = $util.emptyArray;
+
+                        /**
+                         * Creates a new Special instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecial=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.special.model.Special} Special instance
+                         */
+                        Special.create = function create(properties) {
+                            return new Special(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Special message. Does not implicitly {@link com.xueershangda.tianxun.special.model.Special.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecial} message Special message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Special.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.articleId != null && message.hasOwnProperty("articleId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.articleId);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.summary);
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.userId);
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.createTimestamp);
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int64(message.updateTimestamp);
+                            if (message.number != null && message.hasOwnProperty("number"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.number);
+                            if (message.subscribeNumber != null && message.hasOwnProperty("subscribeNumber"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.subscribeNumber);
+                            if (message.price != null && message.hasOwnProperty("price"))
+                                writer.uint32(/* id 10, wireType 1 =*/81).double(message.price);
+                            if (message.subscribePeriod != null && message.hasOwnProperty("subscribePeriod"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.subscribePeriod);
+                            if (message.discount != null && message.hasOwnProperty("discount"))
+                                writer.uint32(/* id 12, wireType 1 =*/97).double(message.discount);
+                            if (message.specialDetailList != null && message.specialDetailList.length)
+                                for (let i = 0; i < message.specialDetailList.length; ++i)
+                                    $root.com.xueershangda.tianxun.special.model.SpecialDetail.encode(message.specialDetailList[i], writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Special message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.Special.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecial} message Special message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Special.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Special message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.special.model.Special} Special
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Special.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.special.model.Special();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.articleId = reader.string();
+                                    break;
+                                case 3:
+                                    message.name = reader.string();
+                                    break;
+                                case 4:
+                                    message.summary = reader.string();
+                                    break;
+                                case 5:
+                                    message.userId = reader.string();
+                                    break;
+                                case 6:
+                                    message.createTimestamp = reader.int64();
+                                    break;
+                                case 7:
+                                    message.updateTimestamp = reader.int64();
+                                    break;
+                                case 8:
+                                    message.number = reader.int32();
+                                    break;
+                                case 9:
+                                    message.subscribeNumber = reader.int32();
+                                    break;
+                                case 10:
+                                    message.price = reader.double();
+                                    break;
+                                case 11:
+                                    message.subscribePeriod = reader.int32();
+                                    break;
+                                case 12:
+                                    message.discount = reader.double();
+                                    break;
+                                case 13:
+                                    if (!(message.specialDetailList && message.specialDetailList.length))
+                                        message.specialDetailList = [];
+                                    message.specialDetailList.push($root.com.xueershangda.tianxun.special.model.SpecialDetail.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Special message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.special.model.Special} Special
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Special.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Special message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Special.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.articleId != null && message.hasOwnProperty("articleId"))
+                                if (!$util.isString(message.articleId))
+                                    return "articleId: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                if (!$util.isString(message.userId))
+                                    return "userId: string expected";
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (!$util.isInteger(message.createTimestamp) && !(message.createTimestamp && $util.isInteger(message.createTimestamp.low) && $util.isInteger(message.createTimestamp.high)))
+                                    return "createTimestamp: integer|Long expected";
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                if (!$util.isInteger(message.updateTimestamp) && !(message.updateTimestamp && $util.isInteger(message.updateTimestamp.low) && $util.isInteger(message.updateTimestamp.high)))
+                                    return "updateTimestamp: integer|Long expected";
+                            if (message.number != null && message.hasOwnProperty("number"))
+                                if (!$util.isInteger(message.number))
+                                    return "number: integer expected";
+                            if (message.subscribeNumber != null && message.hasOwnProperty("subscribeNumber"))
+                                if (!$util.isInteger(message.subscribeNumber))
+                                    return "subscribeNumber: integer expected";
+                            if (message.price != null && message.hasOwnProperty("price"))
+                                if (typeof message.price !== "number")
+                                    return "price: number expected";
+                            if (message.subscribePeriod != null && message.hasOwnProperty("subscribePeriod"))
+                                if (!$util.isInteger(message.subscribePeriod))
+                                    return "subscribePeriod: integer expected";
+                            if (message.discount != null && message.hasOwnProperty("discount"))
+                                if (typeof message.discount !== "number")
+                                    return "discount: number expected";
+                            if (message.specialDetailList != null && message.hasOwnProperty("specialDetailList")) {
+                                if (!Array.isArray(message.specialDetailList))
+                                    return "specialDetailList: array expected";
+                                for (let i = 0; i < message.specialDetailList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.special.model.SpecialDetail.verify(message.specialDetailList[i]);
+                                    if (error)
+                                        return "specialDetailList." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Special message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.special.model.Special} Special
+                         */
+                        Special.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.special.model.Special)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.special.model.Special();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.articleId != null)
+                                message.articleId = String(object.articleId);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.userId != null)
+                                message.userId = String(object.userId);
+                            if (object.createTimestamp != null)
+                                if ($util.Long)
+                                    (message.createTimestamp = $util.Long.fromValue(object.createTimestamp)).unsigned = false;
+                                else if (typeof object.createTimestamp === "string")
+                                    message.createTimestamp = parseInt(object.createTimestamp, 10);
+                                else if (typeof object.createTimestamp === "number")
+                                    message.createTimestamp = object.createTimestamp;
+                                else if (typeof object.createTimestamp === "object")
+                                    message.createTimestamp = new $util.LongBits(object.createTimestamp.low >>> 0, object.createTimestamp.high >>> 0).toNumber();
+                            if (object.updateTimestamp != null)
+                                if ($util.Long)
+                                    (message.updateTimestamp = $util.Long.fromValue(object.updateTimestamp)).unsigned = false;
+                                else if (typeof object.updateTimestamp === "string")
+                                    message.updateTimestamp = parseInt(object.updateTimestamp, 10);
+                                else if (typeof object.updateTimestamp === "number")
+                                    message.updateTimestamp = object.updateTimestamp;
+                                else if (typeof object.updateTimestamp === "object")
+                                    message.updateTimestamp = new $util.LongBits(object.updateTimestamp.low >>> 0, object.updateTimestamp.high >>> 0).toNumber();
+                            if (object.number != null)
+                                message.number = object.number | 0;
+                            if (object.subscribeNumber != null)
+                                message.subscribeNumber = object.subscribeNumber | 0;
+                            if (object.price != null)
+                                message.price = Number(object.price);
+                            if (object.subscribePeriod != null)
+                                message.subscribePeriod = object.subscribePeriod | 0;
+                            if (object.discount != null)
+                                message.discount = Number(object.discount);
+                            if (object.specialDetailList) {
+                                if (!Array.isArray(object.specialDetailList))
+                                    throw TypeError(".com.xueershangda.tianxun.special.model.Special.specialDetailList: array expected");
+                                message.specialDetailList = [];
+                                for (let i = 0; i < object.specialDetailList.length; ++i) {
+                                    if (typeof object.specialDetailList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.special.model.Special.specialDetailList: object expected");
+                                    message.specialDetailList[i] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.fromObject(object.specialDetailList[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Special message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.Special} message Special
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Special.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.specialDetailList = [];
+                            if (options.defaults) {
+                                object.id = "";
+                                object.articleId = "";
+                                object.name = "";
+                                object.summary = "";
+                                object.userId = "";
+                                object.createTimestamp = 0;
+                                object.updateTimestamp = 0;
+                                object.number = 0;
+                                object.subscribeNumber = 0;
+                                object.price = 0;
+                                object.subscribePeriod = 0;
+                                object.discount = 0;
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.articleId != null && message.hasOwnProperty("articleId"))
+                                object.articleId = message.articleId;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                object.userId = message.userId;
+                            if (message.createTimestamp != null && message.hasOwnProperty("createTimestamp"))
+                                if (typeof message.createTimestamp === "number")
+                                    object.createTimestamp = options.longs === String ? String(message.createTimestamp) : message.createTimestamp;
+                                else
+                                    object.createTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.createTimestamp) : options.longs === Number ? new $util.LongBits(message.createTimestamp.low >>> 0, message.createTimestamp.high >>> 0).toNumber() : message.createTimestamp;
+                            if (message.updateTimestamp != null && message.hasOwnProperty("updateTimestamp"))
+                                if (typeof message.updateTimestamp === "number")
+                                    object.updateTimestamp = options.longs === String ? String(message.updateTimestamp) : message.updateTimestamp;
+                                else
+                                    object.updateTimestamp = options.longs === String ? $util.Long.prototype.toString.call(message.updateTimestamp) : options.longs === Number ? new $util.LongBits(message.updateTimestamp.low >>> 0, message.updateTimestamp.high >>> 0).toNumber() : message.updateTimestamp;
+                            if (message.number != null && message.hasOwnProperty("number"))
+                                object.number = message.number;
+                            if (message.subscribeNumber != null && message.hasOwnProperty("subscribeNumber"))
+                                object.subscribeNumber = message.subscribeNumber;
+                            if (message.price != null && message.hasOwnProperty("price"))
+                                object.price = options.json && !isFinite(message.price) ? String(message.price) : message.price;
+                            if (message.subscribePeriod != null && message.hasOwnProperty("subscribePeriod"))
+                                object.subscribePeriod = message.subscribePeriod;
+                            if (message.discount != null && message.hasOwnProperty("discount"))
+                                object.discount = options.json && !isFinite(message.discount) ? String(message.discount) : message.discount;
+                            if (message.specialDetailList && message.specialDetailList.length) {
+                                object.specialDetailList = [];
+                                for (let j = 0; j < message.specialDetailList.length; ++j)
+                                    object.specialDetailList[j] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.toObject(message.specialDetailList[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Special to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Special.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Special;
+                    })();
+
+                    model.SpecialReply = (function() {
+
+                        /**
+                         * Properties of a SpecialReply.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @interface ISpecialReply
+                         * @property {number|null} [code] SpecialReply code
+                         * @property {string|null} [message] SpecialReply message
+                         * @property {Array.<com.xueershangda.tianxun.special.model.ISpecial>|null} [specialList] SpecialReply specialList
+                         */
+
+                        /**
+                         * Constructs a new SpecialReply.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @classdesc Represents a SpecialReply.
+                         * @implements ISpecialReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialReply=} [properties] Properties to set
+                         */
+                        function SpecialReply(properties) {
+                            this.specialList = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * SpecialReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @instance
+                         */
+                        SpecialReply.prototype.code = 0;
+
+                        /**
+                         * SpecialReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @instance
+                         */
+                        SpecialReply.prototype.message = "";
+
+                        /**
+                         * SpecialReply specialList.
+                         * @member {Array.<com.xueershangda.tianxun.special.model.ISpecial>} specialList
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @instance
+                         */
+                        SpecialReply.prototype.specialList = $util.emptyArray;
+
+                        /**
+                         * Creates a new SpecialReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialReply} SpecialReply instance
+                         */
+                        SpecialReply.create = function create(properties) {
+                            return new SpecialReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified SpecialReply message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialReply} message SpecialReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.specialList != null && message.specialList.length)
+                                for (let i = 0; i < message.specialList.length; ++i)
+                                    $root.com.xueershangda.tianxun.special.model.Special.encode(message.specialList[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified SpecialReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialReply} message SpecialReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a SpecialReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialReply} SpecialReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.special.model.SpecialReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.specialList && message.specialList.length))
+                                        message.specialList = [];
+                                    message.specialList.push($root.com.xueershangda.tianxun.special.model.Special.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a SpecialReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialReply} SpecialReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a SpecialReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        SpecialReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.specialList != null && message.hasOwnProperty("specialList")) {
+                                if (!Array.isArray(message.specialList))
+                                    return "specialList: array expected";
+                                for (let i = 0; i < message.specialList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.special.model.Special.verify(message.specialList[i]);
+                                    if (error)
+                                        return "specialList." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a SpecialReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialReply} SpecialReply
+                         */
+                        SpecialReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.special.model.SpecialReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.special.model.SpecialReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.specialList) {
+                                if (!Array.isArray(object.specialList))
+                                    throw TypeError(".com.xueershangda.tianxun.special.model.SpecialReply.specialList: array expected");
+                                message.specialList = [];
+                                for (let i = 0; i < object.specialList.length; ++i) {
+                                    if (typeof object.specialList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.special.model.SpecialReply.specialList: object expected");
+                                    message.specialList[i] = $root.com.xueershangda.tianxun.special.model.Special.fromObject(object.specialList[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a SpecialReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.SpecialReply} message SpecialReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        SpecialReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.specialList = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.specialList && message.specialList.length) {
+                                object.specialList = [];
+                                for (let j = 0; j < message.specialList.length; ++j)
+                                    object.specialList[j] = $root.com.xueershangda.tianxun.special.model.Special.toObject(message.specialList[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this SpecialReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        SpecialReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return SpecialReply;
+                    })();
+
+                    return model;
+                })();
+
+                return special;
             })();
 
             return tianxun;

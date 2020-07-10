@@ -3077,6 +3077,162 @@ export namespace com {
                         public toJSON(): { [k: string]: any };
                     }
 
+                    /** Properties of a Tags. */
+                    interface ITags {
+
+                        /** Tags id */
+                        id?: (string|null);
+
+                        /** Tags name */
+                        name?: (string|null);
+
+                        /** Tags state */
+                        state?: (number|null);
+
+                        /** Tags hot */
+                        hot?: (number|null);
+
+                        /** Tags createDate */
+                        createDate?: (number|null);
+
+                        /** Tags focusNumber */
+                        focusNumber?: (number|null);
+
+                        /** Tags loveNumber */
+                        loveNumber?: (number|null);
+
+                        /** Tags despiseNumber */
+                        despiseNumber?: (number|null);
+
+                        /** Tags description */
+                        description?: (string|null);
+
+                        /** Tags page */
+                        page?: (number|null);
+
+                        /** Tags pageSize */
+                        pageSize?: (number|null);
+
+                        /** Tags orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Tags. */
+                    class Tags implements ITags {
+
+                        /**
+                         * Constructs a new Tags.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.question.model.ITags);
+
+                        /** Tags id. */
+                        public id: string;
+
+                        /** Tags name. */
+                        public name: string;
+
+                        /** Tags state. */
+                        public state: number;
+
+                        /** Tags hot. */
+                        public hot: number;
+
+                        /** Tags createDate. */
+                        public createDate: (number);
+
+                        /** Tags focusNumber. */
+                        public focusNumber: (number);
+
+                        /** Tags loveNumber. */
+                        public loveNumber: (number);
+
+                        /** Tags despiseNumber. */
+                        public despiseNumber: (number);
+
+                        /** Tags description. */
+                        public description: string;
+
+                        /** Tags page. */
+                        public page: number;
+
+                        /** Tags pageSize. */
+                        public pageSize: number;
+
+                        /** Tags orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Tags instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Tags instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.question.model.ITags): com.xueershangda.tianxun.question.model.Tags;
+
+                        /**
+                         * Encodes the specified Tags message. Does not implicitly {@link com.xueershangda.tianxun.question.model.Tags.verify|verify} messages.
+                         * @param message Tags message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.question.model.ITags, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Tags message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.question.model.Tags.verify|verify} messages.
+                         * @param message Tags message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.question.model.ITags, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Tags message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Tags
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.question.model.Tags;
+
+                        /**
+                         * Decodes a Tags message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Tags
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.question.model.Tags;
+
+                        /**
+                         * Verifies a Tags message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Tags message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Tags
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.question.model.Tags;
+
+                        /**
+                         * Creates a plain object from a Tags message. Also converts values to other types if specified.
+                         * @param message Tags
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.question.model.Tags, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Tags to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
                     /** Properties of a Category. */
                     interface ICategory {
 
@@ -3593,162 +3749,6 @@ export namespace com {
 
                     /**
                      * Converts this Follow to JSON.
-                     * @returns JSON object
-                     */
-                    public toJSON(): { [k: string]: any };
-                }
-
-                /** Properties of a Tags. */
-                interface ITags {
-
-                    /** Tags id */
-                    id?: (string|null);
-
-                    /** Tags name */
-                    name?: (string|null);
-
-                    /** Tags state */
-                    state?: (number|null);
-
-                    /** Tags hot */
-                    hot?: (number|null);
-
-                    /** Tags createDate */
-                    createDate?: (number|null);
-
-                    /** Tags focusNumber */
-                    focusNumber?: (number|null);
-
-                    /** Tags loveNumber */
-                    loveNumber?: (number|null);
-
-                    /** Tags despiseNumber */
-                    despiseNumber?: (number|null);
-
-                    /** Tags description */
-                    description?: (string|null);
-
-                    /** Tags page */
-                    page?: (number|null);
-
-                    /** Tags pageSize */
-                    pageSize?: (number|null);
-
-                    /** Tags orderBy */
-                    orderBy?: (string|null);
-                }
-
-                /** Represents a Tags. */
-                class Tags implements ITags {
-
-                    /**
-                     * Constructs a new Tags.
-                     * @param [properties] Properties to set
-                     */
-                    constructor(properties?: com.xueershangda.tianxun.proto.ITags);
-
-                    /** Tags id. */
-                    public id: string;
-
-                    /** Tags name. */
-                    public name: string;
-
-                    /** Tags state. */
-                    public state: number;
-
-                    /** Tags hot. */
-                    public hot: number;
-
-                    /** Tags createDate. */
-                    public createDate: (number);
-
-                    /** Tags focusNumber. */
-                    public focusNumber: (number);
-
-                    /** Tags loveNumber. */
-                    public loveNumber: (number);
-
-                    /** Tags despiseNumber. */
-                    public despiseNumber: (number);
-
-                    /** Tags description. */
-                    public description: string;
-
-                    /** Tags page. */
-                    public page: number;
-
-                    /** Tags pageSize. */
-                    public pageSize: number;
-
-                    /** Tags orderBy. */
-                    public orderBy: string;
-
-                    /**
-                     * Creates a new Tags instance using the specified properties.
-                     * @param [properties] Properties to set
-                     * @returns Tags instance
-                     */
-                    public static create(properties?: com.xueershangda.tianxun.proto.ITags): com.xueershangda.tianxun.proto.Tags;
-
-                    /**
-                     * Encodes the specified Tags message. Does not implicitly {@link com.xueershangda.tianxun.proto.Tags.verify|verify} messages.
-                     * @param message Tags message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encode(message: com.xueershangda.tianxun.proto.ITags, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Encodes the specified Tags message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.proto.Tags.verify|verify} messages.
-                     * @param message Tags message or plain object to encode
-                     * @param [writer] Writer to encode to
-                     * @returns Writer
-                     */
-                    public static encodeDelimited(message: com.xueershangda.tianxun.proto.ITags, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                    /**
-                     * Decodes a Tags message from the specified reader or buffer.
-                     * @param reader Reader or buffer to decode from
-                     * @param [length] Message length if known beforehand
-                     * @returns Tags
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.proto.Tags;
-
-                    /**
-                     * Decodes a Tags message from the specified reader or buffer, length delimited.
-                     * @param reader Reader or buffer to decode from
-                     * @returns Tags
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.proto.Tags;
-
-                    /**
-                     * Verifies a Tags message.
-                     * @param message Plain object to verify
-                     * @returns `null` if valid, otherwise the reason why it is not
-                     */
-                    public static verify(message: { [k: string]: any }): (string|null);
-
-                    /**
-                     * Creates a Tags message from a plain object. Also converts values to their respective internal types.
-                     * @param object Plain object
-                     * @returns Tags
-                     */
-                    public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.proto.Tags;
-
-                    /**
-                     * Creates a plain object from a Tags message. Also converts values to other types if specified.
-                     * @param message Tags
-                     * @param [options] Conversion options
-                     * @returns Plain object
-                     */
-                    public static toObject(message: com.xueershangda.tianxun.proto.Tags, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                    /**
-                     * Converts this Tags to JSON.
                      * @returns JSON object
                      */
                     public toJSON(): { [k: string]: any };
@@ -7608,6 +7608,766 @@ export namespace com {
 
                         /**
                          * Converts this LoginReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
+            }
+
+            /** Namespace search. */
+            namespace search {
+
+                /** Namespace model. */
+                namespace model {
+
+                    /** Properties of a Search. */
+                    interface ISearch {
+
+                        /** Search id */
+                        id?: (string|null);
+
+                        /** Search title */
+                        title?: (string|null);
+
+                        /** Search summary */
+                        summary?: (string|null);
+
+                        /** Search imagePath */
+                        imagePath?: (string|null);
+
+                        /** 作者id */
+                        authorId?: (string|null);
+
+                        /** 作者名字或昵称 */
+                        authorName?: (string|null);
+
+                        /** 作者账号 */
+                        account?: (string|null);
+
+                        /** 创建时间 */
+                        createTimestamp?: (number|null);
+
+                        /** 内容类型，1视频，2问题，3文章 */
+                        type?: (number|null);
+
+                        /** 内容所属的分类 */
+                        category?: (string|null);
+
+                        /** 内容，备用 */
+                        content?: (string|null);
+
+                        /** 备注，备用 */
+                        remark?: (string|null);
+
+                        /** 搜索关键字 */
+                        keyword?: (string|null);
+
+                        /** 页码，翻页 */
+                        page?: (number|null);
+
+                        /** 分页大小 */
+                        pageSize?: (number|null);
+
+                        /** 搜索时的 tokenId */
+                        tokenId?: (string|null);
+
+                        /** 1正常、2禁用 */
+                        state?: (number|null);
+
+                        /** 热度，备用 */
+                        hotDegree?: (number|null);
+
+                        /** Search focusNumber */
+                        focusNumber?: (number|null);
+
+                        /** Search loveNumber */
+                        loveNumber?: (number|null);
+
+                        /** Search buyNumber */
+                        buyNumber?: (number|null);
+
+                        /** Search despiseNumber */
+                        despiseNumber?: (number|null);
+
+                        /** Search url */
+                        url?: (string|null);
+                    }
+
+                    /** Represents a Search. */
+                    class Search implements ISearch {
+
+                        /**
+                         * Constructs a new Search.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.search.model.ISearch);
+
+                        /** Search id. */
+                        public id: string;
+
+                        /** Search title. */
+                        public title: string;
+
+                        /** Search summary. */
+                        public summary: string;
+
+                        /** Search imagePath. */
+                        public imagePath: string;
+
+                        /** 作者id */
+                        public authorId: string;
+
+                        /** 作者名字或昵称 */
+                        public authorName: string;
+
+                        /** 作者账号 */
+                        public account: string;
+
+                        /** 创建时间 */
+                        public createTimestamp: (number);
+
+                        /** 内容类型，1视频，2问题，3文章 */
+                        public type: number;
+
+                        /** 内容所属的分类 */
+                        public category: string;
+
+                        /** 内容，备用 */
+                        public content: string;
+
+                        /** 备注，备用 */
+                        public remark: string;
+
+                        /** 搜索关键字 */
+                        public keyword: string;
+
+                        /** 页码，翻页 */
+                        public page: number;
+
+                        /** 分页大小 */
+                        public pageSize: number;
+
+                        /** 搜索时的 tokenId */
+                        public tokenId: string;
+
+                        /** 1正常、2禁用 */
+                        public state: number;
+
+                        /** 热度，备用 */
+                        public hotDegree: (number);
+
+                        /** Search focusNumber. */
+                        public focusNumber: (number);
+
+                        /** Search loveNumber. */
+                        public loveNumber: (number);
+
+                        /** Search buyNumber. */
+                        public buyNumber: (number);
+
+                        /** Search despiseNumber. */
+                        public despiseNumber: (number);
+
+                        /** Search url. */
+                        public url: string;
+
+                        /**
+                         * Creates a new Search instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Search instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.search.model.ISearch): com.xueershangda.tianxun.search.model.Search;
+
+                        /**
+                         * Encodes the specified Search message. Does not implicitly {@link com.xueershangda.tianxun.search.model.Search.verify|verify} messages.
+                         * @param message Search message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.search.model.ISearch, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Search message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.search.model.Search.verify|verify} messages.
+                         * @param message Search message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.search.model.ISearch, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Search message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Search
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.search.model.Search;
+
+                        /**
+                         * Decodes a Search message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Search
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.search.model.Search;
+
+                        /**
+                         * Verifies a Search message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Search message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Search
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.search.model.Search;
+
+                        /**
+                         * Creates a plain object from a Search message. Also converts values to other types if specified.
+                         * @param message Search
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.search.model.Search, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Search to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a SearchReply. */
+                    interface ISearchReply {
+
+                        /** SearchReply code */
+                        code?: (number|null);
+
+                        /** SearchReply message */
+                        message?: (string|null);
+
+                        /** SearchReply data */
+                        data?: (com.xueershangda.tianxun.search.model.ISearch[]|null);
+                    }
+
+                    /** Represents a SearchReply. */
+                    class SearchReply implements ISearchReply {
+
+                        /**
+                         * Constructs a new SearchReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.search.model.ISearchReply);
+
+                        /** SearchReply code. */
+                        public code: number;
+
+                        /** SearchReply message. */
+                        public message: string;
+
+                        /** SearchReply data. */
+                        public data: com.xueershangda.tianxun.search.model.ISearch[];
+
+                        /**
+                         * Creates a new SearchReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns SearchReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.search.model.ISearchReply): com.xueershangda.tianxun.search.model.SearchReply;
+
+                        /**
+                         * Encodes the specified SearchReply message. Does not implicitly {@link com.xueershangda.tianxun.search.model.SearchReply.verify|verify} messages.
+                         * @param message SearchReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.search.model.ISearchReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified SearchReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.search.model.SearchReply.verify|verify} messages.
+                         * @param message SearchReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.search.model.ISearchReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a SearchReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns SearchReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.search.model.SearchReply;
+
+                        /**
+                         * Decodes a SearchReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns SearchReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.search.model.SearchReply;
+
+                        /**
+                         * Verifies a SearchReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a SearchReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns SearchReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.search.model.SearchReply;
+
+                        /**
+                         * Creates a plain object from a SearchReply message. Also converts values to other types if specified.
+                         * @param message SearchReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.search.model.SearchReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this SearchReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
+            }
+
+            /** Namespace special. */
+            namespace special {
+
+                /** Namespace model. */
+                namespace model {
+
+                    /** Properties of a SpecialDetail. */
+                    interface ISpecialDetail {
+
+                        /** SpecialDetail id */
+                        id?: (string|null);
+
+                        /** 专栏id */
+                        specialId?: (string|null);
+
+                        /** 专栏内容id，文章问题回答视频等 */
+                        targetId?: (string|null);
+
+                        /** 专栏内容标题 */
+                        title?: (string|null);
+
+                        /** 专栏内容介绍 */
+                        summary?: (string|null);
+
+                        /** 创建时间 */
+                        createTimestamp?: (number|null);
+
+                        /** 更新时间 */
+                        updateTimestamp?: (number|null);
+
+                        /** 类别，1文章2问题3回答4视频 */
+                        targetType?: (string|null);
+
+                        /** 内容所属标签 */
+                        category?: (string|null);
+
+                        /** 备注，备用 */
+                        remark?: (string|null);
+
+                        /** 作者id */
+                        authorId?: (string|null);
+
+                        /** 作者名字 */
+                        authorName?: (string|null);
+                    }
+
+                    /** Represents a SpecialDetail. */
+                    class SpecialDetail implements ISpecialDetail {
+
+                        /**
+                         * Constructs a new SpecialDetail.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.special.model.ISpecialDetail);
+
+                        /** SpecialDetail id. */
+                        public id: string;
+
+                        /** 专栏id */
+                        public specialId: string;
+
+                        /** 专栏内容id，文章问题回答视频等 */
+                        public targetId: string;
+
+                        /** 专栏内容标题 */
+                        public title: string;
+
+                        /** 专栏内容介绍 */
+                        public summary: string;
+
+                        /** 创建时间 */
+                        public createTimestamp: (number);
+
+                        /** 更新时间 */
+                        public updateTimestamp: (number);
+
+                        /** 类别，1文章2问题3回答4视频 */
+                        public targetType: string;
+
+                        /** 内容所属标签 */
+                        public category: string;
+
+                        /** 备注，备用 */
+                        public remark: string;
+
+                        /** 作者id */
+                        public authorId: string;
+
+                        /** 作者名字 */
+                        public authorName: string;
+
+                        /**
+                         * Creates a new SpecialDetail instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns SpecialDetail instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.special.model.ISpecialDetail): com.xueershangda.tianxun.special.model.SpecialDetail;
+
+                        /**
+                         * Encodes the specified SpecialDetail message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetail.verify|verify} messages.
+                         * @param message SpecialDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.special.model.ISpecialDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified SpecialDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetail.verify|verify} messages.
+                         * @param message SpecialDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.special.model.ISpecialDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a SpecialDetail message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns SpecialDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.special.model.SpecialDetail;
+
+                        /**
+                         * Decodes a SpecialDetail message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns SpecialDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.special.model.SpecialDetail;
+
+                        /**
+                         * Verifies a SpecialDetail message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a SpecialDetail message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns SpecialDetail
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.special.model.SpecialDetail;
+
+                        /**
+                         * Creates a plain object from a SpecialDetail message. Also converts values to other types if specified.
+                         * @param message SpecialDetail
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.special.model.SpecialDetail, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this SpecialDetail to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Special. */
+                    interface ISpecial {
+
+                        /** Special id */
+                        id?: (string|null);
+
+                        /** 文章id */
+                        articleId?: (string|null);
+
+                        /** 专题名称 */
+                        name?: (string|null);
+
+                        /** 专题概述 */
+                        summary?: (string|null);
+
+                        /** 专题所属用户id */
+                        userId?: (string|null);
+
+                        /** 创建时间 */
+                        createTimestamp?: (number|null);
+
+                        /** 更新时间 */
+                        updateTimestamp?: (number|null);
+
+                        /** 专题文章数 */
+                        number?: (number|null);
+
+                        /** 专栏订阅数 */
+                        subscribeNumber?: (number|null);
+
+                        /** 专栏价格 */
+                        price?: (number|null);
+
+                        /** 订阅周期，默认3年 */
+                        subscribePeriod?: (number|null);
+
+                        /** 订阅折扣，默认1不打折 */
+                        discount?: (number|null);
+
+                        /** 专栏详情列表 */
+                        specialDetailList?: (com.xueershangda.tianxun.special.model.ISpecialDetail[]|null);
+                    }
+
+                    /** Represents a Special. */
+                    class Special implements ISpecial {
+
+                        /**
+                         * Constructs a new Special.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.special.model.ISpecial);
+
+                        /** Special id. */
+                        public id: string;
+
+                        /** 文章id */
+                        public articleId: string;
+
+                        /** 专题名称 */
+                        public name: string;
+
+                        /** 专题概述 */
+                        public summary: string;
+
+                        /** 专题所属用户id */
+                        public userId: string;
+
+                        /** 创建时间 */
+                        public createTimestamp: (number);
+
+                        /** 更新时间 */
+                        public updateTimestamp: (number);
+
+                        /** 专题文章数 */
+                        public number: number;
+
+                        /** 专栏订阅数 */
+                        public subscribeNumber: number;
+
+                        /** 专栏价格 */
+                        public price: number;
+
+                        /** 订阅周期，默认3年 */
+                        public subscribePeriod: number;
+
+                        /** 订阅折扣，默认1不打折 */
+                        public discount: number;
+
+                        /** 专栏详情列表 */
+                        public specialDetailList: com.xueershangda.tianxun.special.model.ISpecialDetail[];
+
+                        /**
+                         * Creates a new Special instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Special instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.special.model.ISpecial): com.xueershangda.tianxun.special.model.Special;
+
+                        /**
+                         * Encodes the specified Special message. Does not implicitly {@link com.xueershangda.tianxun.special.model.Special.verify|verify} messages.
+                         * @param message Special message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.special.model.ISpecial, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Special message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.Special.verify|verify} messages.
+                         * @param message Special message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.special.model.ISpecial, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Special message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Special
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.special.model.Special;
+
+                        /**
+                         * Decodes a Special message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Special
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.special.model.Special;
+
+                        /**
+                         * Verifies a Special message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Special message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Special
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.special.model.Special;
+
+                        /**
+                         * Creates a plain object from a Special message. Also converts values to other types if specified.
+                         * @param message Special
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.special.model.Special, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Special to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a SpecialReply. */
+                    interface ISpecialReply {
+
+                        /** SpecialReply code */
+                        code?: (number|null);
+
+                        /** SpecialReply message */
+                        message?: (string|null);
+
+                        /** SpecialReply specialList */
+                        specialList?: (com.xueershangda.tianxun.special.model.ISpecial[]|null);
+                    }
+
+                    /** Represents a SpecialReply. */
+                    class SpecialReply implements ISpecialReply {
+
+                        /**
+                         * Constructs a new SpecialReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.special.model.ISpecialReply);
+
+                        /** SpecialReply code. */
+                        public code: number;
+
+                        /** SpecialReply message. */
+                        public message: string;
+
+                        /** SpecialReply specialList. */
+                        public specialList: com.xueershangda.tianxun.special.model.ISpecial[];
+
+                        /**
+                         * Creates a new SpecialReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns SpecialReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.special.model.ISpecialReply): com.xueershangda.tianxun.special.model.SpecialReply;
+
+                        /**
+                         * Encodes the specified SpecialReply message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialReply.verify|verify} messages.
+                         * @param message SpecialReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.special.model.ISpecialReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified SpecialReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialReply.verify|verify} messages.
+                         * @param message SpecialReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.special.model.ISpecialReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a SpecialReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns SpecialReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.special.model.SpecialReply;
+
+                        /**
+                         * Decodes a SpecialReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns SpecialReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.special.model.SpecialReply;
+
+                        /**
+                         * Verifies a SpecialReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a SpecialReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns SpecialReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.special.model.SpecialReply;
+
+                        /**
+                         * Creates a plain object from a SpecialReply message. Also converts values to other types if specified.
+                         * @param message SpecialReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.special.model.SpecialReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this SpecialReply to JSON.
                          * @returns JSON object
                          */
                         public toJSON(): { [k: string]: any };
