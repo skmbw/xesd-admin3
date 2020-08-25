@@ -27,11 +27,14 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
-              "node_modules/qrious/dist/qrious.min.js"
+              "node_modules/qrious/dist/qrious.min.js",
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/plupload/js/plupload.full.min.js"
             ]
           },
           "configurations": {

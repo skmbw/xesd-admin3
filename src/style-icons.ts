@@ -3,10 +3,11 @@
 import {
   BulbOutline,
   ExceptionOutline,
+  FileTextOutline,
   InfoOutline,
   LinkOutline,
+  PictureTwoTone,
   ProfileOutline,
-  FileTextOutline,
   QuestionCircleOutline,
   VideoCameraOutline,
 } from '@ant-design/icons-angular/icons';
@@ -14,4 +15,5 @@ import {
 export const ICONS = [InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline,
   FileTextOutline,
   QuestionCircleOutline,
-  VideoCameraOutline];
+  VideoCameraOutline,
+  PictureTwoTone];

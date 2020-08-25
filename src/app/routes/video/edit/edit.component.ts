@@ -2,17 +2,13 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NzMessageService, UploadChangeParam, UploadFile } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { JsUtils } from '@shared';
-import { Consts } from '@shared';
-import { com } from '@shared';
+import { com, Consts, JsUtils } from '@shared';
 import * as plupload from 'plupload';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { environment } from '@env/environment';
+import { VideoService } from '../../../shared/service/video.service';
 import Video = com.xueershangda.tianxun.video.model.Video;
 import VideoReply = com.xueershangda.tianxun.video.model.VideoReply;
-import { VideoService } from '../../../shared/service/video.service';
-// import { VideoService } from '@shared';
 
 declare const $: any; // 这次的导入要使用这种方式声明，否则会报 pluploadQueue is not a function
 
@@ -77,10 +73,9 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
       action: Consts.URL + 'video/upload',
       name: 'coverImage',
       fileType: 'image/png,image/jpeg,image/gif,image/bmp',
-      fileSize: 2048,
+      fileSize: 20480,
       resReName: 'resourceId', // 这个字段的值会赋值给coverImage，当保存时用来关联上传的文件和该记录
       change: (args: UploadChangeParam) => {
-        // console.log(JSON.stringify(args));
         if (args.type === 'success') {
           const reply = args.file;
           const response = reply.response;
@@ -119,7 +114,6 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
   constructor(
     private msgSrv: NzMessageService,
     public http: _HttpClient,
-    private location: Location,
     private videoService: VideoService,
     private route: ActivatedRoute
   ) {}
