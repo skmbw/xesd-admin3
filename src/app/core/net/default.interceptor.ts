@@ -1,4 +1,11 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponseBase } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponseBase,
+} from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { DA_SERVICE_TOKEN, ITokenModel, ITokenService } from '@delon/auth';
@@ -112,9 +119,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     }
     const tokenModel: ITokenModel = (this.injector.get(DA_SERVICE_TOKEN) as ITokenService).get();
     const userId = tokenModel.id;
+    const token = tokenModel.token;
     let newReq = null;
     if (userId !== undefined && userId !== null) { // undefined 继承的 null，判断null多余？
-      newReq = req.clone({headers: req.headers.set('userId', userId), url}); // 这个clone总失败，导致404，是因为没有设置url
+      newReq = req.clone({headers: req.headers.set('userId', userId).set('tokenId', token), url}); // 这个clone总失败，导致404，是因为没有设置url
     }
     if (newReq === null) {
       newReq = req.clone({ url });

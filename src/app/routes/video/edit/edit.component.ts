@@ -1,11 +1,12 @@
+import { Location } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { NzMessageService, UploadChangeParam, UploadFile } from 'ng-zorro-antd';
-import { _HttpClient } from '@delon/theme';
-import { SFSchema, SFUISchema } from '@delon/form';
-import { com, Consts, JsUtils } from '@shared';
-import * as plupload from 'plupload';
 import { ActivatedRoute } from '@angular/router';
+import { SFSchema, SFUISchema } from '@delon/form';
+import { _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
+import { com, Consts, JsUtils } from '@shared';
+import { NzMessageService, UploadChangeParam, UploadFile } from 'ng-zorro-antd';
+import * as plupload from 'plupload';
 import { VideoService } from '../../../shared/service/video.service';
 import Video = com.xueershangda.tianxun.video.model.Video;
 import VideoReply = com.xueershangda.tianxun.video.model.VideoReply;
@@ -115,7 +116,8 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
     private msgSrv: NzMessageService,
     public http: _HttpClient,
     private videoService: VideoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
