@@ -4,14 +4,14 @@ import { Router } from '@angular/router';
 import { StartupService } from '@core';
 import { ReuseTabService } from '@delon/abc/reuse-tab';
 import { DA_SERVICE_TOKEN, ITokenModel, ITokenService, SocialOpenType, SocialService } from '@delon/auth';
-import { SettingsService, _HttpClient } from '@delon/theme';
+import { _HttpClient, SettingsService } from '@delon/theme';
 import { environment } from '@env/environment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { com } from '@shared';
+import { EmployeeService } from '../../../shared/service/employee.service';
 import LoginReply = com.xueershangda.tianxun.employee.model.LoginReply;
 import Employee = com.xueershangda.tianxun.employee.model.Employee;
-import { EmployeeService } from '../../../shared/service/employee.service';
 
 @Component({
   selector: 'passport-login',
@@ -122,7 +122,9 @@ export class UserLoginComponent implements OnDestroy {
         // 清空路由复用信息
         this.reuseTabService.clear();
         // 设置用户Token信息
-        this.tokenService.set(reply.user as ITokenModel); // 适配alain的token模型
+        // this.tokenService.set(reply.user as ITokenModel); // 适配alain的token模型
+        // 应该使用sessionStorage来存储，直接放reply也可以，它的键就是reply变量名
+        this.tokenService.set({'reply': reply, token: reply.user.token} as ITokenModel)
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.loadRemote(reply).then(() => {
           let url = this.tokenService.referrer!.url || '/';

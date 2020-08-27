@@ -9,6 +9,9 @@ import { catchError } from 'rxjs/operators';
 import { ICONS } from '../../../style-icons';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { I18NService } from '../i18n/i18n.service';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { com } from '@shared';
+import LoginReply = com.xueershangda.tianxun.employee.model.LoginReply;
 
 /**
  * 用于应用启动时
@@ -25,10 +28,13 @@ export class StartupService {
     private aclService: ACLService,
     private titleService: TitleService,
     private httpClient: HttpClient,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
 
+  // StartupServiceFactory中会调用，获取基础的配置数据和国际化数据
+  //
   load(): Promise<any> {
     // only works with promises
     // https://github.com/angular/angular/issues/15088
@@ -47,19 +53,23 @@ export class StartupService {
             this.translate.setTranslation(this.i18n.defaultLang, langData);
             this.translate.setDefaultLang(this.i18n.defaultLang);
 
+            // 登录的时候，已经处理过了，不需要再次设置基础配置数据
+            // 好像页面刷新了就要从新配置
             // application data
-            const res: any = appData;
-            // 应用信息：包括站点名、描述、年份
-            this.settingService.setApp(res.app);
-            // 用户信息：包括姓名、头像、邮箱地址
-            this.settingService.setUser(res.user);
-            // ACL：设置权限为全量
-            this.aclService.setFull(true);
+            const res: LoginReply = this.tokenService.get().reply;
+            // // 应用信息：包括站点名、描述、年份
+            // this.settingService.setApp(res.app);
+            // // 用户信息：包括姓名、头像、邮箱地址
+            // this.settingService.setUser(res.user);
+            // // ACL：设置权限为全量
+            // this.aclService.setFull(true);
             // 初始化菜单
-            this.menuService.add(res.menu);
-            // 设置页面标题的后缀
-            this.titleService.default = '';
-            this.titleService.suffix = res.app.name;
+            if (res != undefined) {
+              this.menuService.add(res.menu);
+              // 设置页面标题的后缀
+              this.titleService.default = '';
+              this.titleService.suffix = res.app.name;
+            }
           },
           () => {},
           () => {
