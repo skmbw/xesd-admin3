@@ -33,7 +33,7 @@ export class UserLoginComponent implements OnDestroy {
     private startupSrv: StartupService,
     public http: _HttpClient,
     public msg: NzMessageService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
   ) {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.minLength(4)]],
@@ -50,15 +50,19 @@ export class UserLoginComponent implements OnDestroy {
   get userName() {
     return this.form.controls.userName;
   }
+
   get password() {
     return this.form.controls.password;
   }
+
   get mobile() {
     return this.form.controls.mobile;
   }
+
   get captcha() {
     return this.form.controls.captcha;
   }
+
   form: FormGroup;
   error = '';
   type = 0;
@@ -125,12 +129,13 @@ export class UserLoginComponent implements OnDestroy {
         // this.tokenService.set(reply.user as ITokenModel); // 适配alain的token模型
         // 应该使用sessionStorage来存储，直接放reply也可以，它的键就是reply变量名
         this.tokenService.set(
-          { 'reply': reply,
+          {
+            'reply': reply,
             'id': reply.user.id,
             'account': reply.user.account,
             'name': reply.user.name,
-            token: reply.user.token
-          } as ITokenModel)
+            token: reply.user.token,
+          } as ITokenModel);
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.loadRemote(reply).then(() => {
           let url = this.tokenService.referrer!.url || '/';
