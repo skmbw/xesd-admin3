@@ -124,7 +124,13 @@ export class UserLoginComponent implements OnDestroy {
         // 设置用户Token信息
         // this.tokenService.set(reply.user as ITokenModel); // 适配alain的token模型
         // 应该使用sessionStorage来存储，直接放reply也可以，它的键就是reply变量名
-        this.tokenService.set({'reply': reply, token: reply.user.token} as ITokenModel)
+        this.tokenService.set(
+          { 'reply': reply,
+            'id': reply.user.id,
+            'account': reply.user.account,
+            'name': reply.user.name,
+            token: reply.user.token
+          } as ITokenModel)
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.loadRemote(reply).then(() => {
           let url = this.tokenService.referrer!.url || '/';
