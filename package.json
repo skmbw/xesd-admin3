@@ -61,6 +61,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "ajv": "^6.12.0",
+    "echarts": "^4.9.0",
     "file-saver": "^2.0.2",
     "jquery": "^3.5.1",
     "ng-zorro-antd": "^9.1.0",
