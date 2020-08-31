@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { ACLService } from '@delon/acl';
+import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { ALAIN_I18N_TOKEN, MenuService, SettingsService, TitleService } from '@delon/theme';
 import { TranslateService } from '@ngx-translate/core';
+import { com } from '@shared';
 import { NzIconService } from 'ng-zorro-antd/icon';
 import { of, zip } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ICONS } from '../../../style-icons';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { I18NService } from '../i18n/i18n.service';
-import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
-import { com } from '@shared';
 import LoginReply = com.xueershangda.tianxun.employee.model.LoginReply;
 
 /**
@@ -64,7 +64,7 @@ export class StartupService {
             // // ACL：设置权限为全量
             // this.aclService.setFull(true);
             // 初始化菜单
-            if (res != undefined) {
+            if (res !== undefined) {
               this.menuService.add(res.menu);
               // 设置页面标题的后缀
               this.titleService.default = '';
