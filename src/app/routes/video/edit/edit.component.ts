@@ -88,7 +88,8 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
               this.record.id = response.resourceId;
             }
             const ext = reply.name.substring(reply.name.lastIndexOf('.'));
-            this.record.image = this.record.id + ext;
+            // this.record.image = this.record.id + ext;
+            this.record.image = 'img' + ext;
             if (JsUtils.isBlank(this.datePath)) {
               this.datePath = response.datePath;
             }
@@ -252,7 +253,8 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
       }
       if (JsUtils.isNotBlank(this.record.id)) {
         const ext = file.name.substring(file.name.lastIndexOf('.'));
-        this.record.url = videoId + ext;
+        // this.record.url = videoId + ext;
+        this.record.url = 'i' + ext;
       }
     });
     // 全部完成后的回调事件
