@@ -275,7 +275,7 @@ export class VideoEditComponent implements OnInit, AfterViewInit {
 
   startUpload() {
     // 这里需要设置服务端返回的videoId
-    this.uploader.setOption({ multipart_params: { id: this.record.id, videoType: '3' } }); // 可以键值对，也可以{key, value}对象，然后refresh();
+    this.uploader.setOptions({ multipart_params: { id: this.record.id, videoType: '3' } }); // 可以键值对，也可以{key, value}对象，然后refresh();
     // this.uploader.refresh(); // 不刷新，也OK
     this.uploader.start();
   }
