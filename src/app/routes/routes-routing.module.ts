@@ -48,6 +48,10 @@ const routes: Routes = [
       { path: 'question', loadChildren: () => import('./question/question.module').then(m => m.QuestionModule) },
       { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
       { path: 'classroom', loadChildren: () => import('./classroom/classroom.module').then(m => m.ClassroomModule) },
+      { path: 'teacher', loadChildren: () => import('./teacher/teacher.module').then(m => m.TeacherModule) },
+      { path: 'course', loadChildren: () => import('./course/course.module').then(m => m.CourseModule) },
+      { path: 'questionbank', loadChildren: () => import('./questionbank/questionbank.module').then(m => m.QuestionbankModule) },
+      { path: 'classes', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesModule) },
     ],
   },
   // 全屏布局
