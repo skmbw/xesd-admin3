@@ -1569,6 +1569,9 @@ export namespace com {
 
                         /** AnswerReply question */
                         question?: (com.xueershangda.tianxun.question.model.IQuestion|null);
+
+                        /** AnswerReply dialogueList */
+                        dialogueList?: (com.xueershangda.tianxun.answer.model.IDialogue[]|null);
                     }
 
                     /** Represents an AnswerReply. */
@@ -1591,6 +1594,9 @@ export namespace com {
 
                         /** AnswerReply question. */
                         public question?: (com.xueershangda.tianxun.question.model.IQuestion|null);
+
+                        /** AnswerReply dialogueList. */
+                        public dialogueList: com.xueershangda.tianxun.answer.model.IDialogue[];
 
                         /**
                          * Creates a new AnswerReply instance using the specified properties.
@@ -4498,7 +4504,7 @@ export namespace com {
                         /** Orders targetId */
                         targetId?: (string|null);
 
-                        /** Orders type */
+                        /** 1文章、2问题、3专栏、4视频课程 */
                         type?: (number|null);
 
                         /** Orders createDate */
@@ -4559,7 +4565,7 @@ export namespace com {
                         /** Orders targetId. */
                         public targetId: string;
 
-                        /** Orders type. */
+                        /** 1文章、2问题、3专栏、4视频课程 */
                         public type: number;
 
                         /** Orders createDate. */
@@ -4686,6 +4692,9 @@ export namespace com {
 
                         /** OrdersReply data */
                         data?: (com.xueershangda.tianxun.orders.model.IOrders[]|null);
+
+                        /** OrdersReply orders */
+                        orders?: (com.xueershangda.tianxun.orders.model.IOrders|null);
                     }
 
                     /** Represents an OrdersReply. */
@@ -4705,6 +4714,9 @@ export namespace com {
 
                         /** OrdersReply data. */
                         public data: com.xueershangda.tianxun.orders.model.IOrders[];
+
+                        /** OrdersReply orders. */
+                        public orders?: (com.xueershangda.tianxun.orders.model.IOrders|null);
 
                         /**
                          * Creates a new OrdersReply instance using the specified properties.
@@ -7991,6 +8003,18 @@ export namespace com {
 
                         /** 作者名字 */
                         authorName?: (string|null);
+
+                        /** 页码 */
+                        page?: (number|null);
+
+                        /** 每页大小 */
+                        pageSize?: (number|null);
+
+                        /** 排序 */
+                        ranks?: (number|null);
+
+                        /** 备用 */
+                        backup?: (string|null);
                     }
 
                     /** Represents a SpecialDetail. */
@@ -8037,6 +8061,18 @@ export namespace com {
 
                         /** 作者名字 */
                         public authorName: string;
+
+                        /** 页码 */
+                        public page: number;
+
+                        /** 每页大小 */
+                        public pageSize: number;
+
+                        /** 排序 */
+                        public ranks: number;
+
+                        /** 备用 */
+                        public backup: string;
 
                         /**
                          * Creates a new SpecialDetail instance using the specified properties.
@@ -8116,7 +8152,7 @@ export namespace com {
                         id?: (string|null);
 
                         /** 文章id */
-                        articleId?: (string|null);
+                        coverImage?: (string|null);
 
                         /** 专题名称 */
                         name?: (string|null);
@@ -8150,6 +8186,30 @@ export namespace com {
 
                         /** 专栏详情列表 */
                         specialDetailList?: (com.xueershangda.tianxun.special.model.ISpecialDetail[]|null);
+
+                        /** 页码 */
+                        page?: (number|null);
+
+                        /** 每页大小 */
+                        pageSize?: (number|null);
+
+                        /** 点赞数 */
+                        loveNumber?: (number|null);
+
+                        /** 关注数 */
+                        focusNumber?: (number|null);
+
+                        /** 标签 */
+                        tag?: (string|null);
+
+                        /** 查询关键字 */
+                        key?: (string|null);
+
+                        /** 用户名 */
+                        userName?: (string|null);
+
+                        /** 备注备用 */
+                        remark?: (string|null);
                     }
 
                     /** Represents a Special. */
@@ -8165,7 +8225,7 @@ export namespace com {
                         public id: string;
 
                         /** 文章id */
-                        public articleId: string;
+                        public coverImage: string;
 
                         /** 专题名称 */
                         public name: string;
@@ -8199,6 +8259,30 @@ export namespace com {
 
                         /** 专栏详情列表 */
                         public specialDetailList: com.xueershangda.tianxun.special.model.ISpecialDetail[];
+
+                        /** 页码 */
+                        public page: number;
+
+                        /** 每页大小 */
+                        public pageSize: number;
+
+                        /** 点赞数 */
+                        public loveNumber: number;
+
+                        /** 关注数 */
+                        public focusNumber: number;
+
+                        /** 标签 */
+                        public tag: string;
+
+                        /** 查询关键字 */
+                        public key: string;
+
+                        /** 用户名 */
+                        public userName: string;
+
+                        /** 备注备用 */
+                        public remark: string;
 
                         /**
                          * Creates a new Special instance using the specified properties.
@@ -8368,6 +8452,3802 @@ export namespace com {
 
                         /**
                          * Converts this SpecialReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a SpecialDetailReply. */
+                    interface ISpecialDetailReply {
+
+                        /** SpecialDetailReply code */
+                        code?: (number|null);
+
+                        /** SpecialDetailReply message */
+                        message?: (string|null);
+
+                        /** SpecialDetailReply specialDetailList */
+                        specialDetailList?: (com.xueershangda.tianxun.special.model.ISpecialDetail[]|null);
+
+                        /** SpecialDetailReply special */
+                        special?: (com.xueershangda.tianxun.special.model.ISpecial|null);
+                    }
+
+                    /** Represents a SpecialDetailReply. */
+                    class SpecialDetailReply implements ISpecialDetailReply {
+
+                        /**
+                         * Constructs a new SpecialDetailReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.special.model.ISpecialDetailReply);
+
+                        /** SpecialDetailReply code. */
+                        public code: number;
+
+                        /** SpecialDetailReply message. */
+                        public message: string;
+
+                        /** SpecialDetailReply specialDetailList. */
+                        public specialDetailList: com.xueershangda.tianxun.special.model.ISpecialDetail[];
+
+                        /** SpecialDetailReply special. */
+                        public special?: (com.xueershangda.tianxun.special.model.ISpecial|null);
+
+                        /**
+                         * Creates a new SpecialDetailReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns SpecialDetailReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.special.model.ISpecialDetailReply): com.xueershangda.tianxun.special.model.SpecialDetailReply;
+
+                        /**
+                         * Encodes the specified SpecialDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetailReply.verify|verify} messages.
+                         * @param message SpecialDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.special.model.ISpecialDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified SpecialDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetailReply.verify|verify} messages.
+                         * @param message SpecialDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.special.model.ISpecialDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a SpecialDetailReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns SpecialDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.special.model.SpecialDetailReply;
+
+                        /**
+                         * Decodes a SpecialDetailReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns SpecialDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.special.model.SpecialDetailReply;
+
+                        /**
+                         * Verifies a SpecialDetailReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a SpecialDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns SpecialDetailReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.special.model.SpecialDetailReply;
+
+                        /**
+                         * Creates a plain object from a SpecialDetailReply message. Also converts values to other types if specified.
+                         * @param message SpecialDetailReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.special.model.SpecialDetailReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this SpecialDetailReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
+            }
+
+            /** Namespace common. */
+            namespace common {
+
+                /** Namespace model. */
+                namespace model {
+
+                    /** Properties of a Request. */
+                    interface IRequest {
+
+                        /** Request code */
+                        code?: (number|null);
+
+                        /** Request message */
+                        message?: (string|null);
+
+                        /** Request type */
+                        type?: (string|null);
+
+                        /** Request intField1 */
+                        intField1?: (number|null);
+
+                        /** Request intField2 */
+                        intField2?: (number|null);
+
+                        /** Request intField3 */
+                        intField3?: (number|null);
+
+                        /** Request intField4 */
+                        intField4?: (number|null);
+
+                        /** Request intField5 */
+                        intField5?: (number|null);
+
+                        /** Request intField6 */
+                        intField6?: (number|null);
+
+                        /** Request intField7 */
+                        intField7?: (number|null);
+
+                        /** Request intField8 */
+                        intField8?: (number|null);
+
+                        /** Request intField9 */
+                        intField9?: (number|null);
+
+                        /** Request longField1 */
+                        longField1?: (number|null);
+
+                        /** Request longField2 */
+                        longField2?: (number|null);
+
+                        /** Request longField3 */
+                        longField3?: (number|null);
+
+                        /** Request longField4 */
+                        longField4?: (number|null);
+
+                        /** Request longField5 */
+                        longField5?: (number|null);
+
+                        /** Request stringField1 */
+                        stringField1?: (string|null);
+
+                        /** Request stringField2 */
+                        stringField2?: (string|null);
+
+                        /** Request stringField3 */
+                        stringField3?: (string|null);
+
+                        /** Request stringField4 */
+                        stringField4?: (string|null);
+
+                        /** Request stringField5 */
+                        stringField5?: (string|null);
+
+                        /** Request stringField6 */
+                        stringField6?: (string|null);
+
+                        /** Request stringField7 */
+                        stringField7?: (string|null);
+
+                        /** Request stringField8 */
+                        stringField8?: (string|null);
+
+                        /** Request stringField9 */
+                        stringField9?: (string|null);
+
+                        /** Request stringField10 */
+                        stringField10?: (string|null);
+                    }
+
+                    /** Represents a Request. */
+                    class Request implements IRequest {
+
+                        /**
+                         * Constructs a new Request.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.common.model.IRequest);
+
+                        /** Request code. */
+                        public code: number;
+
+                        /** Request message. */
+                        public message: string;
+
+                        /** Request type. */
+                        public type: string;
+
+                        /** Request intField1. */
+                        public intField1: number;
+
+                        /** Request intField2. */
+                        public intField2: number;
+
+                        /** Request intField3. */
+                        public intField3: number;
+
+                        /** Request intField4. */
+                        public intField4: number;
+
+                        /** Request intField5. */
+                        public intField5: number;
+
+                        /** Request intField6. */
+                        public intField6: number;
+
+                        /** Request intField7. */
+                        public intField7: number;
+
+                        /** Request intField8. */
+                        public intField8: number;
+
+                        /** Request intField9. */
+                        public intField9: number;
+
+                        /** Request longField1. */
+                        public longField1: (number);
+
+                        /** Request longField2. */
+                        public longField2: (number);
+
+                        /** Request longField3. */
+                        public longField3: (number);
+
+                        /** Request longField4. */
+                        public longField4: (number);
+
+                        /** Request longField5. */
+                        public longField5: (number);
+
+                        /** Request stringField1. */
+                        public stringField1: string;
+
+                        /** Request stringField2. */
+                        public stringField2: string;
+
+                        /** Request stringField3. */
+                        public stringField3: string;
+
+                        /** Request stringField4. */
+                        public stringField4: string;
+
+                        /** Request stringField5. */
+                        public stringField5: string;
+
+                        /** Request stringField6. */
+                        public stringField6: string;
+
+                        /** Request stringField7. */
+                        public stringField7: string;
+
+                        /** Request stringField8. */
+                        public stringField8: string;
+
+                        /** Request stringField9. */
+                        public stringField9: string;
+
+                        /** Request stringField10. */
+                        public stringField10: string;
+
+                        /**
+                         * Creates a new Request instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Request instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.common.model.IRequest): com.xueershangda.tianxun.common.model.Request;
+
+                        /**
+                         * Encodes the specified Request message. Does not implicitly {@link com.xueershangda.tianxun.common.model.Request.verify|verify} messages.
+                         * @param message Request message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.common.model.IRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Request message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.common.model.Request.verify|verify} messages.
+                         * @param message Request message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.common.model.IRequest, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Request message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Request
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.common.model.Request;
+
+                        /**
+                         * Decodes a Request message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Request
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.common.model.Request;
+
+                        /**
+                         * Verifies a Request message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Request message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Request
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.common.model.Request;
+
+                        /**
+                         * Creates a plain object from a Request message. Also converts values to other types if specified.
+                         * @param message Request
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.common.model.Request, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Request to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a RequestReply. */
+                    interface IRequestReply {
+
+                        /** RequestReply code */
+                        code?: (number|null);
+
+                        /** RequestReply message */
+                        message?: (string|null);
+
+                        /** RequestReply request */
+                        request?: (com.xueershangda.tianxun.common.model.IRequest|null);
+
+                        /** RequestReply requestList */
+                        requestList?: (com.xueershangda.tianxun.common.model.IRequest[]|null);
+
+                        /** RequestReply type */
+                        type?: (string|null);
+
+                        /** RequestReply remark */
+                        remark?: (string|null);
+
+                        /** RequestReply intField4 */
+                        intField4?: (number|null);
+
+                        /** RequestReply intField5 */
+                        intField5?: (number|null);
+
+                        /** RequestReply intField6 */
+                        intField6?: (number|null);
+
+                        /** RequestReply longField1 */
+                        longField1?: (number|null);
+
+                        /** RequestReply longField2 */
+                        longField2?: (number|null);
+
+                        /** RequestReply longField3 */
+                        longField3?: (number|null);
+
+                        /** RequestReply stringField1 */
+                        stringField1?: (string|null);
+
+                        /** RequestReply stringField2 */
+                        stringField2?: (string|null);
+
+                        /** RequestReply stringField3 */
+                        stringField3?: (string|null);
+                    }
+
+                    /** Represents a RequestReply. */
+                    class RequestReply implements IRequestReply {
+
+                        /**
+                         * Constructs a new RequestReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.common.model.IRequestReply);
+
+                        /** RequestReply code. */
+                        public code: number;
+
+                        /** RequestReply message. */
+                        public message: string;
+
+                        /** RequestReply request. */
+                        public request?: (com.xueershangda.tianxun.common.model.IRequest|null);
+
+                        /** RequestReply requestList. */
+                        public requestList: com.xueershangda.tianxun.common.model.IRequest[];
+
+                        /** RequestReply type. */
+                        public type: string;
+
+                        /** RequestReply remark. */
+                        public remark: string;
+
+                        /** RequestReply intField4. */
+                        public intField4: number;
+
+                        /** RequestReply intField5. */
+                        public intField5: number;
+
+                        /** RequestReply intField6. */
+                        public intField6: number;
+
+                        /** RequestReply longField1. */
+                        public longField1: (number);
+
+                        /** RequestReply longField2. */
+                        public longField2: (number);
+
+                        /** RequestReply longField3. */
+                        public longField3: (number);
+
+                        /** RequestReply stringField1. */
+                        public stringField1: string;
+
+                        /** RequestReply stringField2. */
+                        public stringField2: string;
+
+                        /** RequestReply stringField3. */
+                        public stringField3: string;
+
+                        /**
+                         * Creates a new RequestReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns RequestReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.common.model.IRequestReply): com.xueershangda.tianxun.common.model.RequestReply;
+
+                        /**
+                         * Encodes the specified RequestReply message. Does not implicitly {@link com.xueershangda.tianxun.common.model.RequestReply.verify|verify} messages.
+                         * @param message RequestReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.common.model.IRequestReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified RequestReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.common.model.RequestReply.verify|verify} messages.
+                         * @param message RequestReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.common.model.IRequestReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a RequestReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns RequestReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.common.model.RequestReply;
+
+                        /**
+                         * Decodes a RequestReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns RequestReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.common.model.RequestReply;
+
+                        /**
+                         * Verifies a RequestReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a RequestReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns RequestReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.common.model.RequestReply;
+
+                        /**
+                         * Creates a plain object from a RequestReply message. Also converts values to other types if specified.
+                         * @param message RequestReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.common.model.RequestReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this RequestReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+                }
+            }
+
+            /** Namespace classroom. */
+            namespace classroom {
+
+                /** Namespace model. */
+                namespace model {
+
+                    /** Properties of a Catalogs. */
+                    interface ICatalogs {
+
+                        /** Catalogs id */
+                        id?: (string|null);
+
+                        /** Catalogs name */
+                        name?: (string|null);
+
+                        /** Catalogs cover */
+                        cover?: (string|null);
+
+                        /** Catalogs remark */
+                        remark?: (string|null);
+
+                        /** Catalogs state */
+                        state?: (number|null);
+
+                        /** Catalogs courseId */
+                        courseId?: (string|null);
+
+                        /** Catalogs page */
+                        page?: (number|null);
+
+                        /** Catalogs pageSize */
+                        pageSize?: (number|null);
+
+                        /** Catalogs orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Catalogs. */
+                    class Catalogs implements ICatalogs {
+
+                        /**
+                         * Constructs a new Catalogs.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ICatalogs);
+
+                        /** Catalogs id. */
+                        public id: string;
+
+                        /** Catalogs name. */
+                        public name: string;
+
+                        /** Catalogs cover. */
+                        public cover: string;
+
+                        /** Catalogs remark. */
+                        public remark: string;
+
+                        /** Catalogs state. */
+                        public state: number;
+
+                        /** Catalogs courseId. */
+                        public courseId: string;
+
+                        /** Catalogs page. */
+                        public page: number;
+
+                        /** Catalogs pageSize. */
+                        public pageSize: number;
+
+                        /** Catalogs orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Catalogs instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Catalogs instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ICatalogs): com.xueershangda.tianxun.classroom.model.Catalogs;
+
+                        /**
+                         * Encodes the specified Catalogs message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Catalogs.verify|verify} messages.
+                         * @param message Catalogs message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ICatalogs, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Catalogs message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Catalogs.verify|verify} messages.
+                         * @param message Catalogs message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ICatalogs, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Catalogs message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Catalogs
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Catalogs;
+
+                        /**
+                         * Decodes a Catalogs message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Catalogs
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Catalogs;
+
+                        /**
+                         * Verifies a Catalogs message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Catalogs message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Catalogs
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Catalogs;
+
+                        /**
+                         * Creates a plain object from a Catalogs message. Also converts values to other types if specified.
+                         * @param message Catalogs
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Catalogs, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Catalogs to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a CatalogsReply. */
+                    interface ICatalogsReply {
+
+                        /** CatalogsReply code */
+                        code?: (number|null);
+
+                        /** CatalogsReply message */
+                        message?: (string|null);
+
+                        /** CatalogsReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.ICatalogs[]|null);
+                    }
+
+                    /** Represents a CatalogsReply. */
+                    class CatalogsReply implements ICatalogsReply {
+
+                        /**
+                         * Constructs a new CatalogsReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ICatalogsReply);
+
+                        /** CatalogsReply code. */
+                        public code: number;
+
+                        /** CatalogsReply message. */
+                        public message: string;
+
+                        /** CatalogsReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.ICatalogs[];
+
+                        /**
+                         * Creates a new CatalogsReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns CatalogsReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ICatalogsReply): com.xueershangda.tianxun.classroom.model.CatalogsReply;
+
+                        /**
+                         * Encodes the specified CatalogsReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CatalogsReply.verify|verify} messages.
+                         * @param message CatalogsReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ICatalogsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified CatalogsReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CatalogsReply.verify|verify} messages.
+                         * @param message CatalogsReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ICatalogsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a CatalogsReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns CatalogsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.CatalogsReply;
+
+                        /**
+                         * Decodes a CatalogsReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns CatalogsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.CatalogsReply;
+
+                        /**
+                         * Verifies a CatalogsReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a CatalogsReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns CatalogsReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.CatalogsReply;
+
+                        /**
+                         * Creates a plain object from a CatalogsReply message. Also converts values to other types if specified.
+                         * @param message CatalogsReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.CatalogsReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this CatalogsReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Classes. */
+                    interface IClasses {
+
+                        /** Classes id */
+                        id?: (string|null);
+
+                        /** Classes name */
+                        name?: (string|null);
+
+                        /** Classes remark */
+                        remark?: (string|null);
+
+                        /** Classes state */
+                        state?: (number|null);
+
+                        /** Classes gradeId */
+                        gradeId?: (string|null);
+
+                        /** Classes createDate */
+                        createDate?: (number|null);
+
+                        /** Classes createUser */
+                        createUser?: (string|null);
+
+                        /** Classes updateDate */
+                        updateDate?: (number|null);
+
+                        /** Classes updateUser */
+                        updateUser?: (string|null);
+
+                        /** Classes classMaster */
+                        classMaster?: (string|null);
+
+                        /** Classes startDate */
+                        startDate?: (number|null);
+
+                        /** Classes endDate */
+                        endDate?: (number|null);
+
+                        /** Classes type */
+                        type?: (number|null);
+
+                        /** Classes page */
+                        page?: (number|null);
+
+                        /** Classes pageSize */
+                        pageSize?: (number|null);
+
+                        /** Classes orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Classes. */
+                    class Classes implements IClasses {
+
+                        /**
+                         * Constructs a new Classes.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IClasses);
+
+                        /** Classes id. */
+                        public id: string;
+
+                        /** Classes name. */
+                        public name: string;
+
+                        /** Classes remark. */
+                        public remark: string;
+
+                        /** Classes state. */
+                        public state: number;
+
+                        /** Classes gradeId. */
+                        public gradeId: string;
+
+                        /** Classes createDate. */
+                        public createDate: (number);
+
+                        /** Classes createUser. */
+                        public createUser: string;
+
+                        /** Classes updateDate. */
+                        public updateDate: (number);
+
+                        /** Classes updateUser. */
+                        public updateUser: string;
+
+                        /** Classes classMaster. */
+                        public classMaster: string;
+
+                        /** Classes startDate. */
+                        public startDate: (number);
+
+                        /** Classes endDate. */
+                        public endDate: (number);
+
+                        /** Classes type. */
+                        public type: number;
+
+                        /** Classes page. */
+                        public page: number;
+
+                        /** Classes pageSize. */
+                        public pageSize: number;
+
+                        /** Classes orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Classes instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Classes instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IClasses): com.xueershangda.tianxun.classroom.model.Classes;
+
+                        /**
+                         * Encodes the specified Classes message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Classes.verify|verify} messages.
+                         * @param message Classes message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IClasses, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Classes message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Classes.verify|verify} messages.
+                         * @param message Classes message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IClasses, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Classes message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Classes
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Classes;
+
+                        /**
+                         * Decodes a Classes message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Classes
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Classes;
+
+                        /**
+                         * Verifies a Classes message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Classes message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Classes
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Classes;
+
+                        /**
+                         * Creates a plain object from a Classes message. Also converts values to other types if specified.
+                         * @param message Classes
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Classes, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Classes to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a ClassesReply. */
+                    interface IClassesReply {
+
+                        /** ClassesReply code */
+                        code?: (number|null);
+
+                        /** ClassesReply message */
+                        message?: (string|null);
+
+                        /** ClassesReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IClasses[]|null);
+                    }
+
+                    /** Represents a ClassesReply. */
+                    class ClassesReply implements IClassesReply {
+
+                        /**
+                         * Constructs a new ClassesReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IClassesReply);
+
+                        /** ClassesReply code. */
+                        public code: number;
+
+                        /** ClassesReply message. */
+                        public message: string;
+
+                        /** ClassesReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IClasses[];
+
+                        /**
+                         * Creates a new ClassesReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns ClassesReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IClassesReply): com.xueershangda.tianxun.classroom.model.ClassesReply;
+
+                        /**
+                         * Encodes the specified ClassesReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ClassesReply.verify|verify} messages.
+                         * @param message ClassesReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IClassesReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified ClassesReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ClassesReply.verify|verify} messages.
+                         * @param message ClassesReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IClassesReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a ClassesReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns ClassesReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.ClassesReply;
+
+                        /**
+                         * Decodes a ClassesReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns ClassesReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.ClassesReply;
+
+                        /**
+                         * Verifies a ClassesReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a ClassesReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns ClassesReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.ClassesReply;
+
+                        /**
+                         * Creates a plain object from a ClassesReply message. Also converts values to other types if specified.
+                         * @param message ClassesReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.ClassesReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this ClassesReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Course. */
+                    interface ICourse {
+
+                        /** Course id */
+                        id?: (string|null);
+
+                        /** Course name */
+                        name?: (string|null);
+
+                        /** Course subjectId */
+                        subjectId?: (string|null);
+
+                        /** Course remark */
+                        remark?: (string|null);
+
+                        /** Course state */
+                        state?: (number|null);
+
+                        /** Course createDate */
+                        createDate?: (number|null);
+
+                        /** Course createUser */
+                        createUser?: (string|null);
+
+                        /** Course teacherId */
+                        teacherId?: (string|null);
+
+                        /** Course updateDate */
+                        updateDate?: (number|null);
+
+                        /** Course type */
+                        type?: (number|null);
+
+                        /** Course startDate */
+                        startDate?: (number|null);
+
+                        /** Course endDate */
+                        endDate?: (number|null);
+
+                        /** Course updateUser */
+                        updateUser?: (string|null);
+
+                        /** Course classId */
+                        classId?: (string|null);
+
+                        /** Course gradeId */
+                        gradeId?: (string|null);
+
+                        /** Course summary */
+                        summary?: (string|null);
+
+                        /** Course version */
+                        version?: (string|null);
+
+                        /** Course volume */
+                        volume?: (string|null);
+
+                        /** Course userId */
+                        userId?: (string|null);
+
+                        /** Course backup */
+                        backup?: (string|null);
+
+                        /** Course page */
+                        page?: (number|null);
+
+                        /** Course pageSize */
+                        pageSize?: (number|null);
+
+                        /** Course orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Course. */
+                    class Course implements ICourse {
+
+                        /**
+                         * Constructs a new Course.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ICourse);
+
+                        /** Course id. */
+                        public id: string;
+
+                        /** Course name. */
+                        public name: string;
+
+                        /** Course subjectId. */
+                        public subjectId: string;
+
+                        /** Course remark. */
+                        public remark: string;
+
+                        /** Course state. */
+                        public state: number;
+
+                        /** Course createDate. */
+                        public createDate: (number);
+
+                        /** Course createUser. */
+                        public createUser: string;
+
+                        /** Course teacherId. */
+                        public teacherId: string;
+
+                        /** Course updateDate. */
+                        public updateDate: (number);
+
+                        /** Course type. */
+                        public type: number;
+
+                        /** Course startDate. */
+                        public startDate: (number);
+
+                        /** Course endDate. */
+                        public endDate: (number);
+
+                        /** Course updateUser. */
+                        public updateUser: string;
+
+                        /** Course classId. */
+                        public classId: string;
+
+                        /** Course gradeId. */
+                        public gradeId: string;
+
+                        /** Course summary. */
+                        public summary: string;
+
+                        /** Course version. */
+                        public version: string;
+
+                        /** Course volume. */
+                        public volume: string;
+
+                        /** Course userId. */
+                        public userId: string;
+
+                        /** Course backup. */
+                        public backup: string;
+
+                        /** Course page. */
+                        public page: number;
+
+                        /** Course pageSize. */
+                        public pageSize: number;
+
+                        /** Course orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Course instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Course instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ICourse): com.xueershangda.tianxun.classroom.model.Course;
+
+                        /**
+                         * Encodes the specified Course message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Course.verify|verify} messages.
+                         * @param message Course message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ICourse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Course message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Course.verify|verify} messages.
+                         * @param message Course message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ICourse, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Course message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Course
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Course;
+
+                        /**
+                         * Decodes a Course message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Course
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Course;
+
+                        /**
+                         * Verifies a Course message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Course message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Course
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Course;
+
+                        /**
+                         * Creates a plain object from a Course message. Also converts values to other types if specified.
+                         * @param message Course
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Course, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Course to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a CourseReply. */
+                    interface ICourseReply {
+
+                        /** CourseReply code */
+                        code?: (number|null);
+
+                        /** CourseReply message */
+                        message?: (string|null);
+
+                        /** CourseReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.ICourse[]|null);
+                    }
+
+                    /** Represents a CourseReply. */
+                    class CourseReply implements ICourseReply {
+
+                        /**
+                         * Constructs a new CourseReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ICourseReply);
+
+                        /** CourseReply code. */
+                        public code: number;
+
+                        /** CourseReply message. */
+                        public message: string;
+
+                        /** CourseReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.ICourse[];
+
+                        /**
+                         * Creates a new CourseReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns CourseReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ICourseReply): com.xueershangda.tianxun.classroom.model.CourseReply;
+
+                        /**
+                         * Encodes the specified CourseReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CourseReply.verify|verify} messages.
+                         * @param message CourseReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ICourseReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified CourseReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CourseReply.verify|verify} messages.
+                         * @param message CourseReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ICourseReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a CourseReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns CourseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.CourseReply;
+
+                        /**
+                         * Decodes a CourseReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns CourseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.CourseReply;
+
+                        /**
+                         * Verifies a CourseReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a CourseReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns CourseReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.CourseReply;
+
+                        /**
+                         * Creates a plain object from a CourseReply message. Also converts values to other types if specified.
+                         * @param message CourseReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.CourseReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this CourseReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an Exercise. */
+                    interface IExercise {
+
+                        /** Exercise id */
+                        id?: (string|null);
+
+                        /** Exercise name */
+                        name?: (string|null);
+
+                        /** Exercise state */
+                        state?: (number|null);
+
+                        /** Exercise paperId */
+                        paperId?: (string|null);
+
+                        /** Exercise studentId */
+                        studentId?: (string|null);
+
+                        /** Exercise classId */
+                        classId?: (string|null);
+
+                        /** Exercise courseId */
+                        courseId?: (string|null);
+
+                        /** Exercise teacherId */
+                        teacherId?: (string|null);
+
+                        /** Exercise gradeId */
+                        gradeId?: (string|null);
+
+                        /** Exercise subjectId */
+                        subjectId?: (string|null);
+
+                        /** Exercise remark */
+                        remark?: (string|null);
+
+                        /** Exercise type */
+                        type?: (number|null);
+
+                        /** Exercise createDate */
+                        createDate?: (number|null);
+
+                        /** Exercise createUser */
+                        createUser?: (string|null);
+
+                        /** Exercise page */
+                        page?: (number|null);
+
+                        /** Exercise pageSize */
+                        pageSize?: (number|null);
+
+                        /** Exercise orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents an Exercise. */
+                    class Exercise implements IExercise {
+
+                        /**
+                         * Constructs a new Exercise.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IExercise);
+
+                        /** Exercise id. */
+                        public id: string;
+
+                        /** Exercise name. */
+                        public name: string;
+
+                        /** Exercise state. */
+                        public state: number;
+
+                        /** Exercise paperId. */
+                        public paperId: string;
+
+                        /** Exercise studentId. */
+                        public studentId: string;
+
+                        /** Exercise classId. */
+                        public classId: string;
+
+                        /** Exercise courseId. */
+                        public courseId: string;
+
+                        /** Exercise teacherId. */
+                        public teacherId: string;
+
+                        /** Exercise gradeId. */
+                        public gradeId: string;
+
+                        /** Exercise subjectId. */
+                        public subjectId: string;
+
+                        /** Exercise remark. */
+                        public remark: string;
+
+                        /** Exercise type. */
+                        public type: number;
+
+                        /** Exercise createDate. */
+                        public createDate: (number);
+
+                        /** Exercise createUser. */
+                        public createUser: string;
+
+                        /** Exercise page. */
+                        public page: number;
+
+                        /** Exercise pageSize. */
+                        public pageSize: number;
+
+                        /** Exercise orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Exercise instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Exercise instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IExercise): com.xueershangda.tianxun.classroom.model.Exercise;
+
+                        /**
+                         * Encodes the specified Exercise message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Exercise.verify|verify} messages.
+                         * @param message Exercise message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IExercise, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Exercise message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Exercise.verify|verify} messages.
+                         * @param message Exercise message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IExercise, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an Exercise message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Exercise
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Exercise;
+
+                        /**
+                         * Decodes an Exercise message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Exercise
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Exercise;
+
+                        /**
+                         * Verifies an Exercise message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an Exercise message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Exercise
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Exercise;
+
+                        /**
+                         * Creates a plain object from an Exercise message. Also converts values to other types if specified.
+                         * @param message Exercise
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Exercise, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Exercise to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an ExerciseReply. */
+                    interface IExerciseReply {
+
+                        /** ExerciseReply code */
+                        code?: (number|null);
+
+                        /** ExerciseReply message */
+                        message?: (string|null);
+
+                        /** ExerciseReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IExercise[]|null);
+                    }
+
+                    /** Represents an ExerciseReply. */
+                    class ExerciseReply implements IExerciseReply {
+
+                        /**
+                         * Constructs a new ExerciseReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IExerciseReply);
+
+                        /** ExerciseReply code. */
+                        public code: number;
+
+                        /** ExerciseReply message. */
+                        public message: string;
+
+                        /** ExerciseReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IExercise[];
+
+                        /**
+                         * Creates a new ExerciseReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns ExerciseReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IExerciseReply): com.xueershangda.tianxun.classroom.model.ExerciseReply;
+
+                        /**
+                         * Encodes the specified ExerciseReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseReply.verify|verify} messages.
+                         * @param message ExerciseReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IExerciseReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified ExerciseReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseReply.verify|verify} messages.
+                         * @param message ExerciseReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IExerciseReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an ExerciseReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns ExerciseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.ExerciseReply;
+
+                        /**
+                         * Decodes an ExerciseReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns ExerciseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.ExerciseReply;
+
+                        /**
+                         * Verifies an ExerciseReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an ExerciseReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns ExerciseReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.ExerciseReply;
+
+                        /**
+                         * Creates a plain object from an ExerciseReply message. Also converts values to other types if specified.
+                         * @param message ExerciseReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.ExerciseReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this ExerciseReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an ExerciseAnswer. */
+                    interface IExerciseAnswer {
+
+                        /** ExerciseAnswer id */
+                        id?: (string|null);
+
+                        /** ExerciseAnswer exerciseId */
+                        exerciseId?: (string|null);
+
+                        /** ExerciseAnswer orders */
+                        orders?: (number|null);
+
+                        /** ExerciseAnswer questionId */
+                        questionId?: (string|null);
+
+                        /** ExerciseAnswer paperId */
+                        paperId?: (string|null);
+
+                        /** ExerciseAnswer studentId */
+                        studentId?: (string|null);
+
+                        /** ExerciseAnswer teacherId */
+                        teacherId?: (string|null);
+
+                        /** ExerciseAnswer answerDate */
+                        answerDate?: (number|null);
+
+                        /** ExerciseAnswer content */
+                        content?: (string|null);
+
+                        /** ExerciseAnswer remark */
+                        remark?: (string|null);
+
+                        /** ExerciseAnswer score */
+                        score?: (number|null);
+
+                        /** ExerciseAnswer right */
+                        right?: (number|null);
+
+                        /** ExerciseAnswer reviewDate */
+                        reviewDate?: (number|null);
+
+                        /** ExerciseAnswer page */
+                        page?: (number|null);
+
+                        /** ExerciseAnswer pageSize */
+                        pageSize?: (number|null);
+
+                        /** ExerciseAnswer orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents an ExerciseAnswer. */
+                    class ExerciseAnswer implements IExerciseAnswer {
+
+                        /**
+                         * Constructs a new ExerciseAnswer.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IExerciseAnswer);
+
+                        /** ExerciseAnswer id. */
+                        public id: string;
+
+                        /** ExerciseAnswer exerciseId. */
+                        public exerciseId: string;
+
+                        /** ExerciseAnswer orders. */
+                        public orders: number;
+
+                        /** ExerciseAnswer questionId. */
+                        public questionId: string;
+
+                        /** ExerciseAnswer paperId. */
+                        public paperId: string;
+
+                        /** ExerciseAnswer studentId. */
+                        public studentId: string;
+
+                        /** ExerciseAnswer teacherId. */
+                        public teacherId: string;
+
+                        /** ExerciseAnswer answerDate. */
+                        public answerDate: (number);
+
+                        /** ExerciseAnswer content. */
+                        public content: string;
+
+                        /** ExerciseAnswer remark. */
+                        public remark: string;
+
+                        /** ExerciseAnswer score. */
+                        public score: number;
+
+                        /** ExerciseAnswer right. */
+                        public right: number;
+
+                        /** ExerciseAnswer reviewDate. */
+                        public reviewDate: (number);
+
+                        /** ExerciseAnswer page. */
+                        public page: number;
+
+                        /** ExerciseAnswer pageSize. */
+                        public pageSize: number;
+
+                        /** ExerciseAnswer orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new ExerciseAnswer instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns ExerciseAnswer instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IExerciseAnswer): com.xueershangda.tianxun.classroom.model.ExerciseAnswer;
+
+                        /**
+                         * Encodes the specified ExerciseAnswer message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswer.verify|verify} messages.
+                         * @param message ExerciseAnswer message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IExerciseAnswer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified ExerciseAnswer message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswer.verify|verify} messages.
+                         * @param message ExerciseAnswer message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IExerciseAnswer, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an ExerciseAnswer message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns ExerciseAnswer
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.ExerciseAnswer;
+
+                        /**
+                         * Decodes an ExerciseAnswer message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns ExerciseAnswer
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.ExerciseAnswer;
+
+                        /**
+                         * Verifies an ExerciseAnswer message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an ExerciseAnswer message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns ExerciseAnswer
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.ExerciseAnswer;
+
+                        /**
+                         * Creates a plain object from an ExerciseAnswer message. Also converts values to other types if specified.
+                         * @param message ExerciseAnswer
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.ExerciseAnswer, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this ExerciseAnswer to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an ExerciseAnswerReply. */
+                    interface IExerciseAnswerReply {
+
+                        /** ExerciseAnswerReply code */
+                        code?: (number|null);
+
+                        /** ExerciseAnswerReply message */
+                        message?: (string|null);
+
+                        /** ExerciseAnswerReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IExerciseAnswer[]|null);
+                    }
+
+                    /** Represents an ExerciseAnswerReply. */
+                    class ExerciseAnswerReply implements IExerciseAnswerReply {
+
+                        /**
+                         * Constructs a new ExerciseAnswerReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply);
+
+                        /** ExerciseAnswerReply code. */
+                        public code: number;
+
+                        /** ExerciseAnswerReply message. */
+                        public message: string;
+
+                        /** ExerciseAnswerReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IExerciseAnswer[];
+
+                        /**
+                         * Creates a new ExerciseAnswerReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns ExerciseAnswerReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply): com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply;
+
+                        /**
+                         * Encodes the specified ExerciseAnswerReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.verify|verify} messages.
+                         * @param message ExerciseAnswerReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified ExerciseAnswerReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.verify|verify} messages.
+                         * @param message ExerciseAnswerReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an ExerciseAnswerReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns ExerciseAnswerReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply;
+
+                        /**
+                         * Decodes an ExerciseAnswerReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns ExerciseAnswerReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply;
+
+                        /**
+                         * Verifies an ExerciseAnswerReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an ExerciseAnswerReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns ExerciseAnswerReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply;
+
+                        /**
+                         * Creates a plain object from an ExerciseAnswerReply message. Also converts values to other types if specified.
+                         * @param message ExerciseAnswerReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this ExerciseAnswerReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Grade. */
+                    interface IGrade {
+
+                        /** Grade id */
+                        id?: (string|null);
+
+                        /** Grade name */
+                        name?: (string|null);
+
+                        /** Grade remark */
+                        remark?: (string|null);
+
+                        /** Grade gradeMaster */
+                        gradeMaster?: (string|null);
+
+                        /** Grade createDate */
+                        createDate?: (number|null);
+
+                        /** Grade state */
+                        state?: (number|null);
+
+                        /** Grade summary */
+                        summary?: (string|null);
+
+                        /** Grade page */
+                        page?: (number|null);
+
+                        /** Grade pageSize */
+                        pageSize?: (number|null);
+
+                        /** Grade orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Grade. */
+                    class Grade implements IGrade {
+
+                        /**
+                         * Constructs a new Grade.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IGrade);
+
+                        /** Grade id. */
+                        public id: string;
+
+                        /** Grade name. */
+                        public name: string;
+
+                        /** Grade remark. */
+                        public remark: string;
+
+                        /** Grade gradeMaster. */
+                        public gradeMaster: string;
+
+                        /** Grade createDate. */
+                        public createDate: (number);
+
+                        /** Grade state. */
+                        public state: number;
+
+                        /** Grade summary. */
+                        public summary: string;
+
+                        /** Grade page. */
+                        public page: number;
+
+                        /** Grade pageSize. */
+                        public pageSize: number;
+
+                        /** Grade orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Grade instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Grade instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IGrade): com.xueershangda.tianxun.classroom.model.Grade;
+
+                        /**
+                         * Encodes the specified Grade message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Grade.verify|verify} messages.
+                         * @param message Grade message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IGrade, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Grade message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Grade.verify|verify} messages.
+                         * @param message Grade message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IGrade, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Grade message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Grade
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Grade;
+
+                        /**
+                         * Decodes a Grade message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Grade
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Grade;
+
+                        /**
+                         * Verifies a Grade message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Grade message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Grade
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Grade;
+
+                        /**
+                         * Creates a plain object from a Grade message. Also converts values to other types if specified.
+                         * @param message Grade
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Grade, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Grade to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a GradeReply. */
+                    interface IGradeReply {
+
+                        /** GradeReply code */
+                        code?: (number|null);
+
+                        /** GradeReply message */
+                        message?: (string|null);
+
+                        /** GradeReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IGrade[]|null);
+                    }
+
+                    /** Represents a GradeReply. */
+                    class GradeReply implements IGradeReply {
+
+                        /**
+                         * Constructs a new GradeReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IGradeReply);
+
+                        /** GradeReply code. */
+                        public code: number;
+
+                        /** GradeReply message. */
+                        public message: string;
+
+                        /** GradeReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IGrade[];
+
+                        /**
+                         * Creates a new GradeReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns GradeReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IGradeReply): com.xueershangda.tianxun.classroom.model.GradeReply;
+
+                        /**
+                         * Encodes the specified GradeReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.GradeReply.verify|verify} messages.
+                         * @param message GradeReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IGradeReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified GradeReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.GradeReply.verify|verify} messages.
+                         * @param message GradeReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IGradeReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a GradeReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns GradeReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.GradeReply;
+
+                        /**
+                         * Decodes a GradeReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns GradeReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.GradeReply;
+
+                        /**
+                         * Verifies a GradeReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a GradeReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns GradeReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.GradeReply;
+
+                        /**
+                         * Creates a plain object from a GradeReply message. Also converts values to other types if specified.
+                         * @param message GradeReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.GradeReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this GradeReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an Options. */
+                    interface IOptions {
+
+                        /** Options id */
+                        id?: (string|null);
+
+                        /** Options questionId */
+                        questionId?: (string|null);
+
+                        /** Options content */
+                        content?: (string|null);
+
+                        /** Options type */
+                        type?: (number|null);
+
+                        /** Options name */
+                        name?: (string|null);
+
+                        /** Options right */
+                        right?: (string|null);
+
+                        /** Options matched */
+                        matched?: (number|null);
+
+                        /** Options answer */
+                        answer?: (string|null);
+
+                        /** Options page */
+                        page?: (number|null);
+
+                        /** Options pageSize */
+                        pageSize?: (number|null);
+
+                        /** Options orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents an Options. */
+                    class Options implements IOptions {
+
+                        /**
+                         * Constructs a new Options.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IOptions);
+
+                        /** Options id. */
+                        public id: string;
+
+                        /** Options questionId. */
+                        public questionId: string;
+
+                        /** Options content. */
+                        public content: string;
+
+                        /** Options type. */
+                        public type: number;
+
+                        /** Options name. */
+                        public name: string;
+
+                        /** Options right. */
+                        public right: string;
+
+                        /** Options matched. */
+                        public matched: number;
+
+                        /** Options answer. */
+                        public answer: string;
+
+                        /** Options page. */
+                        public page: number;
+
+                        /** Options pageSize. */
+                        public pageSize: number;
+
+                        /** Options orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Options instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Options instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IOptions): com.xueershangda.tianxun.classroom.model.Options;
+
+                        /**
+                         * Encodes the specified Options message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Options.verify|verify} messages.
+                         * @param message Options message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IOptions, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Options message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Options.verify|verify} messages.
+                         * @param message Options message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IOptions, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an Options message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Options
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Options;
+
+                        /**
+                         * Decodes an Options message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Options
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Options;
+
+                        /**
+                         * Verifies an Options message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an Options message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Options
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Options;
+
+                        /**
+                         * Creates a plain object from an Options message. Also converts values to other types if specified.
+                         * @param message Options
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Options, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Options to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of an OptionsReply. */
+                    interface IOptionsReply {
+
+                        /** OptionsReply code */
+                        code?: (number|null);
+
+                        /** OptionsReply message */
+                        message?: (string|null);
+
+                        /** OptionsReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IOptions[]|null);
+                    }
+
+                    /** Represents an OptionsReply. */
+                    class OptionsReply implements IOptionsReply {
+
+                        /**
+                         * Constructs a new OptionsReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IOptionsReply);
+
+                        /** OptionsReply code. */
+                        public code: number;
+
+                        /** OptionsReply message. */
+                        public message: string;
+
+                        /** OptionsReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IOptions[];
+
+                        /**
+                         * Creates a new OptionsReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns OptionsReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IOptionsReply): com.xueershangda.tianxun.classroom.model.OptionsReply;
+
+                        /**
+                         * Encodes the specified OptionsReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.OptionsReply.verify|verify} messages.
+                         * @param message OptionsReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IOptionsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified OptionsReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.OptionsReply.verify|verify} messages.
+                         * @param message OptionsReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IOptionsReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes an OptionsReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns OptionsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.OptionsReply;
+
+                        /**
+                         * Decodes an OptionsReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns OptionsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.OptionsReply;
+
+                        /**
+                         * Verifies an OptionsReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates an OptionsReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns OptionsReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.OptionsReply;
+
+                        /**
+                         * Creates a plain object from an OptionsReply message. Also converts values to other types if specified.
+                         * @param message OptionsReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.OptionsReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this OptionsReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Paper. */
+                    interface IPaper {
+
+                        /** Paper id */
+                        id?: (string|null);
+
+                        /** Paper name */
+                        name?: (string|null);
+
+                        /** Paper gradeId */
+                        gradeId?: (string|null);
+
+                        /** Paper subjectId */
+                        subjectId?: (string|null);
+
+                        /** Paper teacherId */
+                        teacherId?: (string|null);
+
+                        /** Paper courseId */
+                        courseId?: (string|null);
+
+                        /** Paper classId */
+                        classId?: (string|null);
+
+                        /** Paper state */
+                        state?: (number|null);
+
+                        /** Paper type */
+                        type?: (number|null);
+
+                        /** Paper remark */
+                        remark?: (string|null);
+
+                        /** Paper score */
+                        score?: (number|null);
+
+                        /** Paper createDate */
+                        createDate?: (number|null);
+
+                        /** Paper createUser */
+                        createUser?: (string|null);
+
+                        /** Paper updateDate */
+                        updateDate?: (number|null);
+
+                        /** Paper updateUser */
+                        updateUser?: (string|null);
+
+                        /** Paper page */
+                        page?: (number|null);
+
+                        /** Paper pageSize */
+                        pageSize?: (number|null);
+
+                        /** Paper orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Paper. */
+                    class Paper implements IPaper {
+
+                        /**
+                         * Constructs a new Paper.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaper);
+
+                        /** Paper id. */
+                        public id: string;
+
+                        /** Paper name. */
+                        public name: string;
+
+                        /** Paper gradeId. */
+                        public gradeId: string;
+
+                        /** Paper subjectId. */
+                        public subjectId: string;
+
+                        /** Paper teacherId. */
+                        public teacherId: string;
+
+                        /** Paper courseId. */
+                        public courseId: string;
+
+                        /** Paper classId. */
+                        public classId: string;
+
+                        /** Paper state. */
+                        public state: number;
+
+                        /** Paper type. */
+                        public type: number;
+
+                        /** Paper remark. */
+                        public remark: string;
+
+                        /** Paper score. */
+                        public score: number;
+
+                        /** Paper createDate. */
+                        public createDate: (number);
+
+                        /** Paper createUser. */
+                        public createUser: string;
+
+                        /** Paper updateDate. */
+                        public updateDate: (number);
+
+                        /** Paper updateUser. */
+                        public updateUser: string;
+
+                        /** Paper page. */
+                        public page: number;
+
+                        /** Paper pageSize. */
+                        public pageSize: number;
+
+                        /** Paper orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Paper instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Paper instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaper): com.xueershangda.tianxun.classroom.model.Paper;
+
+                        /**
+                         * Encodes the specified Paper message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Paper.verify|verify} messages.
+                         * @param message Paper message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Paper message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Paper.verify|verify} messages.
+                         * @param message Paper message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaper, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Paper message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Paper
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Paper;
+
+                        /**
+                         * Decodes a Paper message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Paper
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Paper;
+
+                        /**
+                         * Verifies a Paper message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Paper message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Paper
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Paper;
+
+                        /**
+                         * Creates a plain object from a Paper message. Also converts values to other types if specified.
+                         * @param message Paper
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Paper, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Paper to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a PaperReply. */
+                    interface IPaperReply {
+
+                        /** PaperReply code */
+                        code?: (number|null);
+
+                        /** PaperReply message */
+                        message?: (string|null);
+
+                        /** PaperReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IPaper[]|null);
+                    }
+
+                    /** Represents a PaperReply. */
+                    class PaperReply implements IPaperReply {
+
+                        /**
+                         * Constructs a new PaperReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperReply);
+
+                        /** PaperReply code. */
+                        public code: number;
+
+                        /** PaperReply message. */
+                        public message: string;
+
+                        /** PaperReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IPaper[];
+
+                        /**
+                         * Creates a new PaperReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns PaperReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperReply): com.xueershangda.tianxun.classroom.model.PaperReply;
+
+                        /**
+                         * Encodes the specified PaperReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperReply.verify|verify} messages.
+                         * @param message PaperReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified PaperReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperReply.verify|verify} messages.
+                         * @param message PaperReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a PaperReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns PaperReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperReply;
+
+                        /**
+                         * Decodes a PaperReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns PaperReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperReply;
+
+                        /**
+                         * Verifies a PaperReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a PaperReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns PaperReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperReply;
+
+                        /**
+                         * Creates a plain object from a PaperReply message. Also converts values to other types if specified.
+                         * @param message PaperReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this PaperReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a PaperDetail. */
+                    interface IPaperDetail {
+
+                        /** PaperDetail id */
+                        id?: (string|null);
+
+                        /** PaperDetail paperId */
+                        paperId?: (string|null);
+
+                        /** PaperDetail questionId */
+                        questionId?: (string|null);
+
+                        /** PaperDetail orders */
+                        orders?: (number|null);
+
+                        /** PaperDetail page */
+                        page?: (number|null);
+
+                        /** PaperDetail pageSize */
+                        pageSize?: (number|null);
+
+                        /** PaperDetail orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a PaperDetail. */
+                    class PaperDetail implements IPaperDetail {
+
+                        /**
+                         * Constructs a new PaperDetail.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail);
+
+                        /** PaperDetail id. */
+                        public id: string;
+
+                        /** PaperDetail paperId. */
+                        public paperId: string;
+
+                        /** PaperDetail questionId. */
+                        public questionId: string;
+
+                        /** PaperDetail orders. */
+                        public orders: number;
+
+                        /** PaperDetail page. */
+                        public page: number;
+
+                        /** PaperDetail pageSize. */
+                        public pageSize: number;
+
+                        /** PaperDetail orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new PaperDetail instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns PaperDetail instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @param message PaperDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @param message PaperDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Verifies a PaperDetail message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns PaperDetail
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
+                         * @param message PaperDetail
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetail, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this PaperDetail to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a PaperDetailReply. */
+                    interface IPaperDetailReply {
+
+                        /** PaperDetailReply code */
+                        code?: (number|null);
+
+                        /** PaperDetailReply message */
+                        message?: (string|null);
+
+                        /** PaperDetailReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IPaperDetail[]|null);
+                    }
+
+                    /** Represents a PaperDetailReply. */
+                    class PaperDetailReply implements IPaperDetailReply {
+
+                        /**
+                         * Constructs a new PaperDetailReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply);
+
+                        /** PaperDetailReply code. */
+                        public code: number;
+
+                        /** PaperDetailReply message. */
+                        public message: string;
+
+                        /** PaperDetailReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IPaperDetail[];
+
+                        /**
+                         * Creates a new PaperDetailReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns PaperDetailReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @param message PaperDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @param message PaperDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Verifies a PaperDetailReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns PaperDetailReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
+                         * @param message PaperDetailReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetailReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this PaperDetailReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a QuestionBank. */
+                    interface IQuestionBank {
+
+                        /** QuestionBank id */
+                        id?: (string|null);
+
+                        /** QuestionBank title */
+                        title?: (string|null);
+
+                        /** QuestionBank remark */
+                        remark?: (string|null);
+
+                        /** QuestionBank state */
+                        state?: (number|null);
+
+                        /** QuestionBank images */
+                        images?: (string|null);
+
+                        /** QuestionBank type */
+                        type?: (number|null);
+
+                        /** QuestionBank author */
+                        author?: (string|null);
+
+                        /** QuestionBank gradeId */
+                        gradeId?: (string|null);
+
+                        /** QuestionBank subjectId */
+                        subjectId?: (string|null);
+
+                        /** QuestionBank createDate */
+                        createDate?: (number|null);
+
+                        /** QuestionBank updateDate */
+                        updateDate?: (number|null);
+
+                        /** QuestionBank createUser */
+                        createUser?: (string|null);
+
+                        /** QuestionBank updateUser */
+                        updateUser?: (string|null);
+
+                        /** QuestionBank status */
+                        status?: (number|null);
+
+                        /** QuestionBank summary */
+                        summary?: (string|null);
+
+                        /** QuestionBank rightAnswer */
+                        rightAnswer?: (string|null);
+
+                        /** QuestionBank page */
+                        page?: (number|null);
+
+                        /** QuestionBank pageSize */
+                        pageSize?: (number|null);
+
+                        /** QuestionBank orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a QuestionBank. */
+                    class QuestionBank implements IQuestionBank {
+
+                        /**
+                         * Constructs a new QuestionBank.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IQuestionBank);
+
+                        /** QuestionBank id. */
+                        public id: string;
+
+                        /** QuestionBank title. */
+                        public title: string;
+
+                        /** QuestionBank remark. */
+                        public remark: string;
+
+                        /** QuestionBank state. */
+                        public state: number;
+
+                        /** QuestionBank images. */
+                        public images: string;
+
+                        /** QuestionBank type. */
+                        public type: number;
+
+                        /** QuestionBank author. */
+                        public author: string;
+
+                        /** QuestionBank gradeId. */
+                        public gradeId: string;
+
+                        /** QuestionBank subjectId. */
+                        public subjectId: string;
+
+                        /** QuestionBank createDate. */
+                        public createDate: (number);
+
+                        /** QuestionBank updateDate. */
+                        public updateDate: (number);
+
+                        /** QuestionBank createUser. */
+                        public createUser: string;
+
+                        /** QuestionBank updateUser. */
+                        public updateUser: string;
+
+                        /** QuestionBank status. */
+                        public status: number;
+
+                        /** QuestionBank summary. */
+                        public summary: string;
+
+                        /** QuestionBank rightAnswer. */
+                        public rightAnswer: string;
+
+                        /** QuestionBank page. */
+                        public page: number;
+
+                        /** QuestionBank pageSize. */
+                        public pageSize: number;
+
+                        /** QuestionBank orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new QuestionBank instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns QuestionBank instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IQuestionBank): com.xueershangda.tianxun.classroom.model.QuestionBank;
+
+                        /**
+                         * Encodes the specified QuestionBank message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBank.verify|verify} messages.
+                         * @param message QuestionBank message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IQuestionBank, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified QuestionBank message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBank.verify|verify} messages.
+                         * @param message QuestionBank message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IQuestionBank, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a QuestionBank message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns QuestionBank
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.QuestionBank;
+
+                        /**
+                         * Decodes a QuestionBank message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns QuestionBank
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.QuestionBank;
+
+                        /**
+                         * Verifies a QuestionBank message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a QuestionBank message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns QuestionBank
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.QuestionBank;
+
+                        /**
+                         * Creates a plain object from a QuestionBank message. Also converts values to other types if specified.
+                         * @param message QuestionBank
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.QuestionBank, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this QuestionBank to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a QuestionBankReply. */
+                    interface IQuestionBankReply {
+
+                        /** QuestionBankReply code */
+                        code?: (number|null);
+
+                        /** QuestionBankReply message */
+                        message?: (string|null);
+
+                        /** QuestionBankReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IQuestionBank[]|null);
+                    }
+
+                    /** Represents a QuestionBankReply. */
+                    class QuestionBankReply implements IQuestionBankReply {
+
+                        /**
+                         * Constructs a new QuestionBankReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IQuestionBankReply);
+
+                        /** QuestionBankReply code. */
+                        public code: number;
+
+                        /** QuestionBankReply message. */
+                        public message: string;
+
+                        /** QuestionBankReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IQuestionBank[];
+
+                        /**
+                         * Creates a new QuestionBankReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns QuestionBankReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IQuestionBankReply): com.xueershangda.tianxun.classroom.model.QuestionBankReply;
+
+                        /**
+                         * Encodes the specified QuestionBankReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBankReply.verify|verify} messages.
+                         * @param message QuestionBankReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IQuestionBankReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified QuestionBankReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBankReply.verify|verify} messages.
+                         * @param message QuestionBankReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IQuestionBankReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a QuestionBankReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns QuestionBankReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.QuestionBankReply;
+
+                        /**
+                         * Decodes a QuestionBankReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns QuestionBankReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.QuestionBankReply;
+
+                        /**
+                         * Verifies a QuestionBankReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a QuestionBankReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns QuestionBankReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.QuestionBankReply;
+
+                        /**
+                         * Creates a plain object from a QuestionBankReply message. Also converts values to other types if specified.
+                         * @param message QuestionBankReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.QuestionBankReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this QuestionBankReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Subject. */
+                    interface ISubject {
+
+                        /** Subject id */
+                        id?: (string|null);
+
+                        /** Subject name */
+                        name?: (string|null);
+
+                        /** Subject state */
+                        state?: (number|null);
+
+                        /** Subject gradeId */
+                        gradeId?: (string|null);
+
+                        /** Subject remark */
+                        remark?: (string|null);
+
+                        /** Subject version */
+                        version?: (string|null);
+
+                        /** Subject volume */
+                        volume?: (string|null);
+
+                        /** Subject createDate */
+                        createDate?: (number|null);
+
+                        /** Subject createUser */
+                        createUser?: (string|null);
+
+                        /** Subject page */
+                        page?: (number|null);
+
+                        /** Subject pageSize */
+                        pageSize?: (number|null);
+
+                        /** Subject orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Subject. */
+                    class Subject implements ISubject {
+
+                        /**
+                         * Constructs a new Subject.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ISubject);
+
+                        /** Subject id. */
+                        public id: string;
+
+                        /** Subject name. */
+                        public name: string;
+
+                        /** Subject state. */
+                        public state: number;
+
+                        /** Subject gradeId. */
+                        public gradeId: string;
+
+                        /** Subject remark. */
+                        public remark: string;
+
+                        /** Subject version. */
+                        public version: string;
+
+                        /** Subject volume. */
+                        public volume: string;
+
+                        /** Subject createDate. */
+                        public createDate: (number);
+
+                        /** Subject createUser. */
+                        public createUser: string;
+
+                        /** Subject page. */
+                        public page: number;
+
+                        /** Subject pageSize. */
+                        public pageSize: number;
+
+                        /** Subject orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Subject instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Subject instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ISubject): com.xueershangda.tianxun.classroom.model.Subject;
+
+                        /**
+                         * Encodes the specified Subject message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Subject.verify|verify} messages.
+                         * @param message Subject message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ISubject, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Subject message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Subject.verify|verify} messages.
+                         * @param message Subject message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ISubject, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Subject message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Subject
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Subject;
+
+                        /**
+                         * Decodes a Subject message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Subject
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Subject;
+
+                        /**
+                         * Verifies a Subject message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Subject message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Subject
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Subject;
+
+                        /**
+                         * Creates a plain object from a Subject message. Also converts values to other types if specified.
+                         * @param message Subject
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Subject, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Subject to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a SubjectReply. */
+                    interface ISubjectReply {
+
+                        /** SubjectReply code */
+                        code?: (number|null);
+
+                        /** SubjectReply message */
+                        message?: (string|null);
+
+                        /** SubjectReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.ISubject[]|null);
+                    }
+
+                    /** Represents a SubjectReply. */
+                    class SubjectReply implements ISubjectReply {
+
+                        /**
+                         * Constructs a new SubjectReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ISubjectReply);
+
+                        /** SubjectReply code. */
+                        public code: number;
+
+                        /** SubjectReply message. */
+                        public message: string;
+
+                        /** SubjectReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.ISubject[];
+
+                        /**
+                         * Creates a new SubjectReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns SubjectReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ISubjectReply): com.xueershangda.tianxun.classroom.model.SubjectReply;
+
+                        /**
+                         * Encodes the specified SubjectReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.SubjectReply.verify|verify} messages.
+                         * @param message SubjectReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ISubjectReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified SubjectReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.SubjectReply.verify|verify} messages.
+                         * @param message SubjectReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ISubjectReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a SubjectReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns SubjectReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.SubjectReply;
+
+                        /**
+                         * Decodes a SubjectReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns SubjectReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.SubjectReply;
+
+                        /**
+                         * Verifies a SubjectReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a SubjectReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns SubjectReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.SubjectReply;
+
+                        /**
+                         * Creates a plain object from a SubjectReply message. Also converts values to other types if specified.
+                         * @param message SubjectReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.SubjectReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this SubjectReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a Teacher. */
+                    interface ITeacher {
+
+                        /** Teacher id */
+                        id?: (string|null);
+
+                        /** Teacher name */
+                        name?: (string|null);
+
+                        /** Teacher remark */
+                        remark?: (string|null);
+
+                        /** Teacher state */
+                        state?: (number|null);
+
+                        /** Teacher avatar */
+                        avatar?: (string|null);
+
+                        /** Teacher nickName */
+                        nickName?: (string|null);
+
+                        /** Teacher mainlyTeach */
+                        mainlyTeach?: (string|null);
+
+                        /** Teacher courseList */
+                        courseList?: (string|null);
+
+                        /** Teacher summary */
+                        summary?: (string|null);
+
+                        /** Teacher page */
+                        page?: (number|null);
+
+                        /** Teacher pageSize */
+                        pageSize?: (number|null);
+
+                        /** Teacher orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a Teacher. */
+                    class Teacher implements ITeacher {
+
+                        /**
+                         * Constructs a new Teacher.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ITeacher);
+
+                        /** Teacher id. */
+                        public id: string;
+
+                        /** Teacher name. */
+                        public name: string;
+
+                        /** Teacher remark. */
+                        public remark: string;
+
+                        /** Teacher state. */
+                        public state: number;
+
+                        /** Teacher avatar. */
+                        public avatar: string;
+
+                        /** Teacher nickName. */
+                        public nickName: string;
+
+                        /** Teacher mainlyTeach. */
+                        public mainlyTeach: string;
+
+                        /** Teacher courseList. */
+                        public courseList: string;
+
+                        /** Teacher summary. */
+                        public summary: string;
+
+                        /** Teacher page. */
+                        public page: number;
+
+                        /** Teacher pageSize. */
+                        public pageSize: number;
+
+                        /** Teacher orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new Teacher instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns Teacher instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ITeacher): com.xueershangda.tianxun.classroom.model.Teacher;
+
+                        /**
+                         * Encodes the specified Teacher message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Teacher.verify|verify} messages.
+                         * @param message Teacher message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ITeacher, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified Teacher message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Teacher.verify|verify} messages.
+                         * @param message Teacher message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ITeacher, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a Teacher message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns Teacher
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.Teacher;
+
+                        /**
+                         * Decodes a Teacher message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns Teacher
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.Teacher;
+
+                        /**
+                         * Verifies a Teacher message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a Teacher message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns Teacher
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.Teacher;
+
+                        /**
+                         * Creates a plain object from a Teacher message. Also converts values to other types if specified.
+                         * @param message Teacher
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.Teacher, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this Teacher to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a TeacherReply. */
+                    interface ITeacherReply {
+
+                        /** TeacherReply code */
+                        code?: (number|null);
+
+                        /** TeacherReply message */
+                        message?: (string|null);
+
+                        /** TeacherReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.ITeacher[]|null);
+                    }
+
+                    /** Represents a TeacherReply. */
+                    class TeacherReply implements ITeacherReply {
+
+                        /**
+                         * Constructs a new TeacherReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.ITeacherReply);
+
+                        /** TeacherReply code. */
+                        public code: number;
+
+                        /** TeacherReply message. */
+                        public message: string;
+
+                        /** TeacherReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.ITeacher[];
+
+                        /**
+                         * Creates a new TeacherReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns TeacherReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.ITeacherReply): com.xueershangda.tianxun.classroom.model.TeacherReply;
+
+                        /**
+                         * Encodes the specified TeacherReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.TeacherReply.verify|verify} messages.
+                         * @param message TeacherReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.ITeacherReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified TeacherReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.TeacherReply.verify|verify} messages.
+                         * @param message TeacherReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.ITeacherReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a TeacherReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns TeacherReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.TeacherReply;
+
+                        /**
+                         * Decodes a TeacherReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns TeacherReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.TeacherReply;
+
+                        /**
+                         * Verifies a TeacherReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a TeacherReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns TeacherReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.TeacherReply;
+
+                        /**
+                         * Creates a plain object from a TeacherReply message. Also converts values to other types if specified.
+                         * @param message TeacherReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.TeacherReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this TeacherReply to JSON.
                          * @returns JSON object
                          */
                         public toJSON(): { [k: string]: any };

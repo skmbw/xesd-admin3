@@ -4560,6 +4560,7 @@ export const com = $root.com = (() => {
                          * @property {string|null} [message] AnswerReply message
                          * @property {Array.<com.xueershangda.tianxun.answer.model.IAnswer>|null} [data] AnswerReply data
                          * @property {com.xueershangda.tianxun.question.model.IQuestion|null} [question] AnswerReply question
+                         * @property {Array.<com.xueershangda.tianxun.answer.model.IDialogue>|null} [dialogueList] AnswerReply dialogueList
                          */
 
                         /**
@@ -4572,6 +4573,7 @@ export const com = $root.com = (() => {
                          */
                         function AnswerReply(properties) {
                             this.data = [];
+                            this.dialogueList = [];
                             if (properties)
                                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
@@ -4611,6 +4613,14 @@ export const com = $root.com = (() => {
                         AnswerReply.prototype.question = null;
 
                         /**
+                         * AnswerReply dialogueList.
+                         * @member {Array.<com.xueershangda.tianxun.answer.model.IDialogue>} dialogueList
+                         * @memberof com.xueershangda.tianxun.answer.model.AnswerReply
+                         * @instance
+                         */
+                        AnswerReply.prototype.dialogueList = $util.emptyArray;
+
+                        /**
                          * Creates a new AnswerReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.answer.model.AnswerReply
@@ -4643,6 +4653,9 @@ export const com = $root.com = (() => {
                                     $root.com.xueershangda.tianxun.answer.model.Answer.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                             if (message.question != null && message.hasOwnProperty("question"))
                                 $root.com.xueershangda.tianxun.question.model.Question.encode(message.question, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                            if (message.dialogueList != null && message.dialogueList.length)
+                                for (let i = 0; i < message.dialogueList.length; ++i)
+                                    $root.com.xueershangda.tianxun.answer.model.Dialogue.encode(message.dialogueList[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                             return writer;
                         };
 
@@ -4690,6 +4703,11 @@ export const com = $root.com = (() => {
                                     break;
                                 case 4:
                                     message.question = $root.com.xueershangda.tianxun.question.model.Question.decode(reader, reader.uint32());
+                                    break;
+                                case 5:
+                                    if (!(message.dialogueList && message.dialogueList.length))
+                                        message.dialogueList = [];
+                                    message.dialogueList.push($root.com.xueershangda.tianxun.answer.model.Dialogue.decode(reader, reader.uint32()));
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -4746,6 +4764,15 @@ export const com = $root.com = (() => {
                                 if (error)
                                     return "question." + error;
                             }
+                            if (message.dialogueList != null && message.hasOwnProperty("dialogueList")) {
+                                if (!Array.isArray(message.dialogueList))
+                                    return "dialogueList: array expected";
+                                for (let i = 0; i < message.dialogueList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.answer.model.Dialogue.verify(message.dialogueList[i]);
+                                    if (error)
+                                        return "dialogueList." + error;
+                                }
+                            }
                             return null;
                         };
 
@@ -4780,6 +4807,16 @@ export const com = $root.com = (() => {
                                     throw TypeError(".com.xueershangda.tianxun.answer.model.AnswerReply.question: object expected");
                                 message.question = $root.com.xueershangda.tianxun.question.model.Question.fromObject(object.question);
                             }
+                            if (object.dialogueList) {
+                                if (!Array.isArray(object.dialogueList))
+                                    throw TypeError(".com.xueershangda.tianxun.answer.model.AnswerReply.dialogueList: array expected");
+                                message.dialogueList = [];
+                                for (let i = 0; i < object.dialogueList.length; ++i) {
+                                    if (typeof object.dialogueList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.answer.model.AnswerReply.dialogueList: object expected");
+                                    message.dialogueList[i] = $root.com.xueershangda.tianxun.answer.model.Dialogue.fromObject(object.dialogueList[i]);
+                                }
+                            }
                             return message;
                         };
 
@@ -4796,8 +4833,10 @@ export const com = $root.com = (() => {
                             if (!options)
                                 options = {};
                             let object = {};
-                            if (options.arrays || options.defaults)
+                            if (options.arrays || options.defaults) {
                                 object.data = [];
+                                object.dialogueList = [];
+                            }
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
@@ -4814,6 +4853,11 @@ export const com = $root.com = (() => {
                             }
                             if (message.question != null && message.hasOwnProperty("question"))
                                 object.question = $root.com.xueershangda.tianxun.question.model.Question.toObject(message.question, options);
+                            if (message.dialogueList && message.dialogueList.length) {
+                                object.dialogueList = [];
+                                for (let j = 0; j < message.dialogueList.length; ++j)
+                                    object.dialogueList[j] = $root.com.xueershangda.tianxun.answer.model.Dialogue.toObject(message.dialogueList[j], options);
+                            }
                             return object;
                         };
 
@@ -13300,7 +13344,7 @@ export const com = $root.com = (() => {
                          * @interface IOrders
                          * @property {string|null} [id] Orders id
                          * @property {string|null} [targetId] Orders targetId
-                         * @property {number|null} [type] Orders type
+                         * @property {number|null} [type] 1文章、2问题、3专栏、4视频课程
                          * @property {number|Long|null} [createDate] Orders createDate
                          * @property {number|Long|null} [payDate] Orders payDate
                          * @property {number|null} [amount] Orders amount
@@ -13349,7 +13393,7 @@ export const com = $root.com = (() => {
                         Orders.prototype.targetId = "";
 
                         /**
-                         * Orders type.
+                         * 1文章、2问题、3专栏、4视频课程
                          * @member {number} type
                          * @memberof com.xueershangda.tianxun.orders.model.Orders
                          * @instance
@@ -13861,6 +13905,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] OrdersReply code
                          * @property {string|null} [message] OrdersReply message
                          * @property {Array.<com.xueershangda.tianxun.orders.model.IOrders>|null} [data] OrdersReply data
+                         * @property {com.xueershangda.tianxun.orders.model.IOrders|null} [orders] OrdersReply orders
                          */
 
                         /**
@@ -13904,6 +13949,14 @@ export const com = $root.com = (() => {
                         OrdersReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * OrdersReply orders.
+                         * @member {com.xueershangda.tianxun.orders.model.IOrders|null|undefined} orders
+                         * @memberof com.xueershangda.tianxun.orders.model.OrdersReply
+                         * @instance
+                         */
+                        OrdersReply.prototype.orders = null;
+
+                        /**
                          * Creates a new OrdersReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.orders.model.OrdersReply
@@ -13934,6 +13987,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.orders.model.Orders.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                $root.com.xueershangda.tianxun.orders.model.Orders.encode(message.orders, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                             return writer;
                         };
 
@@ -13978,6 +14033,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.orders.model.Orders.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.orders = $root.com.xueershangda.tianxun.orders.model.Orders.decode(reader, reader.uint32());
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -14029,6 +14087,11 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.orders != null && message.hasOwnProperty("orders")) {
+                                let error = $root.com.xueershangda.tianxun.orders.model.Orders.verify(message.orders);
+                                if (error)
+                                    return "orders." + error;
+                            }
                             return null;
                         };
 
@@ -14058,6 +14121,11 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.orders.model.Orders.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.orders != null) {
+                                if (typeof object.orders !== "object")
+                                    throw TypeError(".com.xueershangda.tianxun.orders.model.OrdersReply.orders: object expected");
+                                message.orders = $root.com.xueershangda.tianxun.orders.model.Orders.fromObject(object.orders);
+                            }
                             return message;
                         };
 
@@ -14079,6 +14147,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.orders = null;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -14089,6 +14158,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.orders.model.Orders.toObject(message.data[j], options);
                             }
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                object.orders = $root.com.xueershangda.tianxun.orders.model.Orders.toObject(message.orders, options);
                             return object;
                         };
 
@@ -23344,6 +23415,10 @@ export const com = $root.com = (() => {
                          * @property {string|null} [remark] 备注，备用
                          * @property {string|null} [authorId] 作者id
                          * @property {string|null} [authorName] 作者名字
+                         * @property {number|null} [page] 页码
+                         * @property {number|null} [pageSize] 每页大小
+                         * @property {number|null} [ranks] 排序
+                         * @property {string|null} [backup] 备用
                          */
 
                         /**
@@ -23458,6 +23533,38 @@ export const com = $root.com = (() => {
                         SpecialDetail.prototype.authorName = "";
 
                         /**
+                         * 页码
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.page = 0;
+
+                        /**
+                         * 每页大小
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.pageSize = 0;
+
+                        /**
+                         * 排序
+                         * @member {number} ranks
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.ranks = 0;
+
+                        /**
+                         * 备用
+                         * @member {string} backup
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
+                         * @instance
+                         */
+                        SpecialDetail.prototype.backup = "";
+
+                        /**
                          * Creates a new SpecialDetail instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.special.model.SpecialDetail
@@ -23505,6 +23612,14 @@ export const com = $root.com = (() => {
                                 writer.uint32(/* id 11, wireType 2 =*/90).string(message.authorId);
                             if (message.authorName != null && message.hasOwnProperty("authorName"))
                                 writer.uint32(/* id 12, wireType 2 =*/98).string(message.authorName);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.pageSize);
+                            if (message.ranks != null && message.hasOwnProperty("ranks"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.ranks);
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.backup);
                             return writer;
                         };
 
@@ -23574,6 +23689,18 @@ export const com = $root.com = (() => {
                                     break;
                                 case 12:
                                     message.authorName = reader.string();
+                                    break;
+                                case 13:
+                                    message.page = reader.int32();
+                                    break;
+                                case 14:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 15:
+                                    message.ranks = reader.int32();
+                                    break;
+                                case 16:
+                                    message.backup = reader.string();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -23646,6 +23773,18 @@ export const com = $root.com = (() => {
                             if (message.authorName != null && message.hasOwnProperty("authorName"))
                                 if (!$util.isString(message.authorName))
                                     return "authorName: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.ranks != null && message.hasOwnProperty("ranks"))
+                                if (!$util.isInteger(message.ranks))
+                                    return "ranks: integer expected";
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                if (!$util.isString(message.backup))
+                                    return "backup: string expected";
                             return null;
                         };
 
@@ -23699,6 +23838,14 @@ export const com = $root.com = (() => {
                                 message.authorId = String(object.authorId);
                             if (object.authorName != null)
                                 message.authorName = String(object.authorName);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.ranks != null)
+                                message.ranks = object.ranks | 0;
+                            if (object.backup != null)
+                                message.backup = String(object.backup);
                             return message;
                         };
 
@@ -23728,6 +23875,10 @@ export const com = $root.com = (() => {
                                 object.remark = "";
                                 object.authorId = "";
                                 object.authorName = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.ranks = 0;
+                                object.backup = "";
                             }
                             if (message.id != null && message.hasOwnProperty("id"))
                                 object.id = message.id;
@@ -23759,6 +23910,14 @@ export const com = $root.com = (() => {
                                 object.authorId = message.authorId;
                             if (message.authorName != null && message.hasOwnProperty("authorName"))
                                 object.authorName = message.authorName;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.ranks != null && message.hasOwnProperty("ranks"))
+                                object.ranks = message.ranks;
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                object.backup = message.backup;
                             return object;
                         };
 
@@ -23783,7 +23942,7 @@ export const com = $root.com = (() => {
                          * @memberof com.xueershangda.tianxun.special.model
                          * @interface ISpecial
                          * @property {string|null} [id] Special id
-                         * @property {string|null} [articleId] 文章id
+                         * @property {string|null} [coverImage] 文章id
                          * @property {string|null} [name] 专题名称
                          * @property {string|null} [summary] 专题概述
                          * @property {string|null} [userId] 专题所属用户id
@@ -23795,6 +23954,14 @@ export const com = $root.com = (() => {
                          * @property {number|null} [subscribePeriod] 订阅周期，默认3年
                          * @property {number|null} [discount] 订阅折扣，默认1不打折
                          * @property {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>|null} [specialDetailList] 专栏详情列表
+                         * @property {number|null} [page] 页码
+                         * @property {number|null} [pageSize] 每页大小
+                         * @property {number|null} [loveNumber] 点赞数
+                         * @property {number|null} [focusNumber] 关注数
+                         * @property {string|null} [tag] 标签
+                         * @property {string|null} [key] 查询关键字
+                         * @property {string|null} [userName] 用户名
+                         * @property {string|null} [remark] 备注备用
                          */
 
                         /**
@@ -23823,11 +23990,11 @@ export const com = $root.com = (() => {
 
                         /**
                          * 文章id
-                         * @member {string} articleId
+                         * @member {string} coverImage
                          * @memberof com.xueershangda.tianxun.special.model.Special
                          * @instance
                          */
-                        Special.prototype.articleId = "";
+                        Special.prototype.coverImage = "";
 
                         /**
                          * 专题名称
@@ -23918,6 +24085,70 @@ export const com = $root.com = (() => {
                         Special.prototype.specialDetailList = $util.emptyArray;
 
                         /**
+                         * 页码
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.page = 0;
+
+                        /**
+                         * 每页大小
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.pageSize = 0;
+
+                        /**
+                         * 点赞数
+                         * @member {number} loveNumber
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.loveNumber = 0;
+
+                        /**
+                         * 关注数
+                         * @member {number} focusNumber
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.focusNumber = 0;
+
+                        /**
+                         * 标签
+                         * @member {string} tag
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.tag = "";
+
+                        /**
+                         * 查询关键字
+                         * @member {string} key
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.key = "";
+
+                        /**
+                         * 用户名
+                         * @member {string} userName
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.userName = "";
+
+                        /**
+                         * 备注备用
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.special.model.Special
+                         * @instance
+                         */
+                        Special.prototype.remark = "";
+
+                        /**
                          * Creates a new Special instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.special.model.Special
@@ -23943,8 +24174,8 @@ export const com = $root.com = (() => {
                                 writer = $Writer.create();
                             if (message.id != null && message.hasOwnProperty("id"))
                                 writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                            if (message.articleId != null && message.hasOwnProperty("articleId"))
-                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.articleId);
+                            if (message.coverImage != null && message.hasOwnProperty("coverImage"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.coverImage);
                             if (message.name != null && message.hasOwnProperty("name"))
                                 writer.uint32(/* id 3, wireType 2 =*/26).string(message.name);
                             if (message.summary != null && message.hasOwnProperty("summary"))
@@ -23968,6 +24199,22 @@ export const com = $root.com = (() => {
                             if (message.specialDetailList != null && message.specialDetailList.length)
                                 for (let i = 0; i < message.specialDetailList.length; ++i)
                                     $root.com.xueershangda.tianxun.special.model.SpecialDetail.encode(message.specialDetailList[i], writer.uint32(/* id 13, wireType 2 =*/106).fork()).ldelim();
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.pageSize);
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.loveNumber);
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.focusNumber);
+                            if (message.tag != null && message.hasOwnProperty("tag"))
+                                writer.uint32(/* id 18, wireType 2 =*/146).string(message.tag);
+                            if (message.key != null && message.hasOwnProperty("key"))
+                                writer.uint32(/* id 19, wireType 2 =*/154).string(message.key);
+                            if (message.userName != null && message.hasOwnProperty("userName"))
+                                writer.uint32(/* id 20, wireType 2 =*/162).string(message.userName);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 21, wireType 2 =*/170).string(message.remark);
                             return writer;
                         };
 
@@ -24006,7 +24253,7 @@ export const com = $root.com = (() => {
                                     message.id = reader.string();
                                     break;
                                 case 2:
-                                    message.articleId = reader.string();
+                                    message.coverImage = reader.string();
                                     break;
                                 case 3:
                                     message.name = reader.string();
@@ -24042,6 +24289,30 @@ export const com = $root.com = (() => {
                                     if (!(message.specialDetailList && message.specialDetailList.length))
                                         message.specialDetailList = [];
                                     message.specialDetailList.push($root.com.xueershangda.tianxun.special.model.SpecialDetail.decode(reader, reader.uint32()));
+                                    break;
+                                case 14:
+                                    message.page = reader.int32();
+                                    break;
+                                case 15:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 16:
+                                    message.loveNumber = reader.int32();
+                                    break;
+                                case 17:
+                                    message.focusNumber = reader.int32();
+                                    break;
+                                case 18:
+                                    message.tag = reader.string();
+                                    break;
+                                case 19:
+                                    message.key = reader.string();
+                                    break;
+                                case 20:
+                                    message.userName = reader.string();
+                                    break;
+                                case 21:
+                                    message.remark = reader.string();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -24081,9 +24352,9 @@ export const com = $root.com = (() => {
                             if (message.id != null && message.hasOwnProperty("id"))
                                 if (!$util.isString(message.id))
                                     return "id: string expected";
-                            if (message.articleId != null && message.hasOwnProperty("articleId"))
-                                if (!$util.isString(message.articleId))
-                                    return "articleId: string expected";
+                            if (message.coverImage != null && message.hasOwnProperty("coverImage"))
+                                if (!$util.isString(message.coverImage))
+                                    return "coverImage: string expected";
                             if (message.name != null && message.hasOwnProperty("name"))
                                 if (!$util.isString(message.name))
                                     return "name: string expected";
@@ -24123,6 +24394,30 @@ export const com = $root.com = (() => {
                                         return "specialDetailList." + error;
                                 }
                             }
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                if (!$util.isInteger(message.loveNumber))
+                                    return "loveNumber: integer expected";
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                if (!$util.isInteger(message.focusNumber))
+                                    return "focusNumber: integer expected";
+                            if (message.tag != null && message.hasOwnProperty("tag"))
+                                if (!$util.isString(message.tag))
+                                    return "tag: string expected";
+                            if (message.key != null && message.hasOwnProperty("key"))
+                                if (!$util.isString(message.key))
+                                    return "key: string expected";
+                            if (message.userName != null && message.hasOwnProperty("userName"))
+                                if (!$util.isString(message.userName))
+                                    return "userName: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
                             return null;
                         };
 
@@ -24140,8 +24435,8 @@ export const com = $root.com = (() => {
                             let message = new $root.com.xueershangda.tianxun.special.model.Special();
                             if (object.id != null)
                                 message.id = String(object.id);
-                            if (object.articleId != null)
-                                message.articleId = String(object.articleId);
+                            if (object.coverImage != null)
+                                message.coverImage = String(object.coverImage);
                             if (object.name != null)
                                 message.name = String(object.name);
                             if (object.summary != null)
@@ -24186,6 +24481,22 @@ export const com = $root.com = (() => {
                                     message.specialDetailList[i] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.fromObject(object.specialDetailList[i]);
                                 }
                             }
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.loveNumber != null)
+                                message.loveNumber = object.loveNumber | 0;
+                            if (object.focusNumber != null)
+                                message.focusNumber = object.focusNumber | 0;
+                            if (object.tag != null)
+                                message.tag = String(object.tag);
+                            if (object.key != null)
+                                message.key = String(object.key);
+                            if (object.userName != null)
+                                message.userName = String(object.userName);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
                             return message;
                         };
 
@@ -24206,7 +24517,7 @@ export const com = $root.com = (() => {
                                 object.specialDetailList = [];
                             if (options.defaults) {
                                 object.id = "";
-                                object.articleId = "";
+                                object.coverImage = "";
                                 object.name = "";
                                 object.summary = "";
                                 object.userId = "";
@@ -24217,11 +24528,19 @@ export const com = $root.com = (() => {
                                 object.price = 0;
                                 object.subscribePeriod = 0;
                                 object.discount = 0;
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.loveNumber = 0;
+                                object.focusNumber = 0;
+                                object.tag = "";
+                                object.key = "";
+                                object.userName = "";
+                                object.remark = "";
                             }
                             if (message.id != null && message.hasOwnProperty("id"))
                                 object.id = message.id;
-                            if (message.articleId != null && message.hasOwnProperty("articleId"))
-                                object.articleId = message.articleId;
+                            if (message.coverImage != null && message.hasOwnProperty("coverImage"))
+                                object.coverImage = message.coverImage;
                             if (message.name != null && message.hasOwnProperty("name"))
                                 object.name = message.name;
                             if (message.summary != null && message.hasOwnProperty("summary"))
@@ -24253,6 +24572,22 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.specialDetailList.length; ++j)
                                     object.specialDetailList[j] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.toObject(message.specialDetailList[j], options);
                             }
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.loveNumber != null && message.hasOwnProperty("loveNumber"))
+                                object.loveNumber = message.loveNumber;
+                            if (message.focusNumber != null && message.hasOwnProperty("focusNumber"))
+                                object.focusNumber = message.focusNumber;
+                            if (message.tag != null && message.hasOwnProperty("tag"))
+                                object.tag = message.tag;
+                            if (message.key != null && message.hasOwnProperty("key"))
+                                object.key = message.key;
+                            if (message.userName != null && message.hasOwnProperty("userName"))
+                                object.userName = message.userName;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
                             return object;
                         };
 
@@ -24524,10 +24859,10652 @@ export const com = $root.com = (() => {
                         return SpecialReply;
                     })();
 
+                    model.SpecialDetailReply = (function() {
+
+                        /**
+                         * Properties of a SpecialDetailReply.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @interface ISpecialDetailReply
+                         * @property {number|null} [code] SpecialDetailReply code
+                         * @property {string|null} [message] SpecialDetailReply message
+                         * @property {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>|null} [specialDetailList] SpecialDetailReply specialDetailList
+                         * @property {com.xueershangda.tianxun.special.model.ISpecial|null} [special] SpecialDetailReply special
+                         */
+
+                        /**
+                         * Constructs a new SpecialDetailReply.
+                         * @memberof com.xueershangda.tianxun.special.model
+                         * @classdesc Represents a SpecialDetailReply.
+                         * @implements ISpecialDetailReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetailReply=} [properties] Properties to set
+                         */
+                        function SpecialDetailReply(properties) {
+                            this.specialDetailList = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * SpecialDetailReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         */
+                        SpecialDetailReply.prototype.code = 0;
+
+                        /**
+                         * SpecialDetailReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         */
+                        SpecialDetailReply.prototype.message = "";
+
+                        /**
+                         * SpecialDetailReply specialDetailList.
+                         * @member {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>} specialDetailList
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         */
+                        SpecialDetailReply.prototype.specialDetailList = $util.emptyArray;
+
+                        /**
+                         * SpecialDetailReply special.
+                         * @member {com.xueershangda.tianxun.special.model.ISpecial|null|undefined} special
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         */
+                        SpecialDetailReply.prototype.special = null;
+
+                        /**
+                         * Creates a new SpecialDetailReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetailReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetailReply} SpecialDetailReply instance
+                         */
+                        SpecialDetailReply.create = function create(properties) {
+                            return new SpecialDetailReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified SpecialDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetailReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetailReply} message SpecialDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialDetailReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.specialDetailList != null && message.specialDetailList.length)
+                                for (let i = 0; i < message.specialDetailList.length; ++i)
+                                    $root.com.xueershangda.tianxun.special.model.SpecialDetail.encode(message.specialDetailList[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.special != null && message.hasOwnProperty("special"))
+                                $root.com.xueershangda.tianxun.special.model.Special.encode(message.special, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified SpecialDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.special.model.SpecialDetailReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.ISpecialDetailReply} message SpecialDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SpecialDetailReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a SpecialDetailReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetailReply} SpecialDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialDetailReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.special.model.SpecialDetailReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.specialDetailList && message.specialDetailList.length))
+                                        message.specialDetailList = [];
+                                    message.specialDetailList.push($root.com.xueershangda.tianxun.special.model.SpecialDetail.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.special = $root.com.xueershangda.tianxun.special.model.Special.decode(reader, reader.uint32());
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a SpecialDetailReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetailReply} SpecialDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SpecialDetailReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a SpecialDetailReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        SpecialDetailReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.specialDetailList != null && message.hasOwnProperty("specialDetailList")) {
+                                if (!Array.isArray(message.specialDetailList))
+                                    return "specialDetailList: array expected";
+                                for (let i = 0; i < message.specialDetailList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.special.model.SpecialDetail.verify(message.specialDetailList[i]);
+                                    if (error)
+                                        return "specialDetailList." + error;
+                                }
+                            }
+                            if (message.special != null && message.hasOwnProperty("special")) {
+                                let error = $root.com.xueershangda.tianxun.special.model.Special.verify(message.special);
+                                if (error)
+                                    return "special." + error;
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a SpecialDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.special.model.SpecialDetailReply} SpecialDetailReply
+                         */
+                        SpecialDetailReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.special.model.SpecialDetailReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.special.model.SpecialDetailReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.specialDetailList) {
+                                if (!Array.isArray(object.specialDetailList))
+                                    throw TypeError(".com.xueershangda.tianxun.special.model.SpecialDetailReply.specialDetailList: array expected");
+                                message.specialDetailList = [];
+                                for (let i = 0; i < object.specialDetailList.length; ++i) {
+                                    if (typeof object.specialDetailList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.special.model.SpecialDetailReply.specialDetailList: object expected");
+                                    message.specialDetailList[i] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.fromObject(object.specialDetailList[i]);
+                                }
+                            }
+                            if (object.special != null) {
+                                if (typeof object.special !== "object")
+                                    throw TypeError(".com.xueershangda.tianxun.special.model.SpecialDetailReply.special: object expected");
+                                message.special = $root.com.xueershangda.tianxun.special.model.Special.fromObject(object.special);
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a SpecialDetailReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.special.model.SpecialDetailReply} message SpecialDetailReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        SpecialDetailReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.specialDetailList = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                                object.special = null;
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.specialDetailList && message.specialDetailList.length) {
+                                object.specialDetailList = [];
+                                for (let j = 0; j < message.specialDetailList.length; ++j)
+                                    object.specialDetailList[j] = $root.com.xueershangda.tianxun.special.model.SpecialDetail.toObject(message.specialDetailList[j], options);
+                            }
+                            if (message.special != null && message.hasOwnProperty("special"))
+                                object.special = $root.com.xueershangda.tianxun.special.model.Special.toObject(message.special, options);
+                            return object;
+                        };
+
+                        /**
+                         * Converts this SpecialDetailReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        SpecialDetailReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return SpecialDetailReply;
+                    })();
+
                     return model;
                 })();
 
                 return special;
+            })();
+
+            tianxun.common = (function() {
+
+                /**
+                 * Namespace common.
+                 * @memberof com.xueershangda.tianxun
+                 * @namespace
+                 */
+                const common = {};
+
+                common.model = (function() {
+
+                    /**
+                     * Namespace model.
+                     * @memberof com.xueershangda.tianxun.common
+                     * @namespace
+                     */
+                    const model = {};
+
+                    model.Request = (function() {
+
+                        /**
+                         * Properties of a Request.
+                         * @memberof com.xueershangda.tianxun.common.model
+                         * @interface IRequest
+                         * @property {number|null} [code] Request code
+                         * @property {string|null} [message] Request message
+                         * @property {string|null} [type] Request type
+                         * @property {number|null} [intField1] Request intField1
+                         * @property {number|null} [intField2] Request intField2
+                         * @property {number|null} [intField3] Request intField3
+                         * @property {number|null} [intField4] Request intField4
+                         * @property {number|null} [intField5] Request intField5
+                         * @property {number|null} [intField6] Request intField6
+                         * @property {number|null} [intField7] Request intField7
+                         * @property {number|null} [intField8] Request intField8
+                         * @property {number|null} [intField9] Request intField9
+                         * @property {number|Long|null} [longField1] Request longField1
+                         * @property {number|Long|null} [longField2] Request longField2
+                         * @property {number|Long|null} [longField3] Request longField3
+                         * @property {number|Long|null} [longField4] Request longField4
+                         * @property {number|Long|null} [longField5] Request longField5
+                         * @property {string|null} [stringField1] Request stringField1
+                         * @property {string|null} [stringField2] Request stringField2
+                         * @property {string|null} [stringField3] Request stringField3
+                         * @property {string|null} [stringField4] Request stringField4
+                         * @property {string|null} [stringField5] Request stringField5
+                         * @property {string|null} [stringField6] Request stringField6
+                         * @property {string|null} [stringField7] Request stringField7
+                         * @property {string|null} [stringField8] Request stringField8
+                         * @property {string|null} [stringField9] Request stringField9
+                         * @property {string|null} [stringField10] Request stringField10
+                         */
+
+                        /**
+                         * Constructs a new Request.
+                         * @memberof com.xueershangda.tianxun.common.model
+                         * @classdesc Represents a Request.
+                         * @implements IRequest
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.common.model.IRequest=} [properties] Properties to set
+                         */
+                        function Request(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Request code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.code = 0;
+
+                        /**
+                         * Request message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.message = "";
+
+                        /**
+                         * Request type.
+                         * @member {string} type
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.type = "";
+
+                        /**
+                         * Request intField1.
+                         * @member {number} intField1
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField1 = 0;
+
+                        /**
+                         * Request intField2.
+                         * @member {number} intField2
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField2 = 0;
+
+                        /**
+                         * Request intField3.
+                         * @member {number} intField3
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField3 = 0;
+
+                        /**
+                         * Request intField4.
+                         * @member {number} intField4
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField4 = 0;
+
+                        /**
+                         * Request intField5.
+                         * @member {number} intField5
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField5 = 0;
+
+                        /**
+                         * Request intField6.
+                         * @member {number} intField6
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField6 = 0;
+
+                        /**
+                         * Request intField7.
+                         * @member {number} intField7
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField7 = 0;
+
+                        /**
+                         * Request intField8.
+                         * @member {number} intField8
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField8 = 0;
+
+                        /**
+                         * Request intField9.
+                         * @member {number} intField9
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.intField9 = 0;
+
+                        /**
+                         * Request longField1.
+                         * @member {number|Long} longField1
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.longField1 = 0;
+
+                        /**
+                         * Request longField2.
+                         * @member {number|Long} longField2
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.longField2 = 0;
+
+                        /**
+                         * Request longField3.
+                         * @member {number|Long} longField3
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.longField3 = 0;
+
+                        /**
+                         * Request longField4.
+                         * @member {number|Long} longField4
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.longField4 = 0;
+
+                        /**
+                         * Request longField5.
+                         * @member {number|Long} longField5
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.longField5 = 0;
+
+                        /**
+                         * Request stringField1.
+                         * @member {string} stringField1
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField1 = "";
+
+                        /**
+                         * Request stringField2.
+                         * @member {string} stringField2
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField2 = "";
+
+                        /**
+                         * Request stringField3.
+                         * @member {string} stringField3
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField3 = "";
+
+                        /**
+                         * Request stringField4.
+                         * @member {string} stringField4
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField4 = "";
+
+                        /**
+                         * Request stringField5.
+                         * @member {string} stringField5
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField5 = "";
+
+                        /**
+                         * Request stringField6.
+                         * @member {string} stringField6
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField6 = "";
+
+                        /**
+                         * Request stringField7.
+                         * @member {string} stringField7
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField7 = "";
+
+                        /**
+                         * Request stringField8.
+                         * @member {string} stringField8
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField8 = "";
+
+                        /**
+                         * Request stringField9.
+                         * @member {string} stringField9
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField9 = "";
+
+                        /**
+                         * Request stringField10.
+                         * @member {string} stringField10
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         */
+                        Request.prototype.stringField10 = "";
+
+                        /**
+                         * Creates a new Request instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequest=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.common.model.Request} Request instance
+                         */
+                        Request.create = function create(properties) {
+                            return new Request(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Request message. Does not implicitly {@link com.xueershangda.tianxun.common.model.Request.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequest} message Request message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Request.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.type);
+                            if (message.intField1 != null && message.hasOwnProperty("intField1"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.intField1);
+                            if (message.intField2 != null && message.hasOwnProperty("intField2"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.intField2);
+                            if (message.intField3 != null && message.hasOwnProperty("intField3"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.intField3);
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.intField4);
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.intField5);
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.intField6);
+                            if (message.intField7 != null && message.hasOwnProperty("intField7"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.intField7);
+                            if (message.intField8 != null && message.hasOwnProperty("intField8"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.intField8);
+                            if (message.intField9 != null && message.hasOwnProperty("intField9"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.intField9);
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                writer.uint32(/* id 13, wireType 0 =*/104).int64(message.longField1);
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int64(message.longField2);
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int64(message.longField3);
+                            if (message.longField4 != null && message.hasOwnProperty("longField4"))
+                                writer.uint32(/* id 16, wireType 0 =*/128).int64(message.longField4);
+                            if (message.longField5 != null && message.hasOwnProperty("longField5"))
+                                writer.uint32(/* id 17, wireType 0 =*/136).int64(message.longField5);
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                writer.uint32(/* id 18, wireType 2 =*/146).string(message.stringField1);
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                writer.uint32(/* id 19, wireType 2 =*/154).string(message.stringField2);
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                writer.uint32(/* id 20, wireType 2 =*/162).string(message.stringField3);
+                            if (message.stringField4 != null && message.hasOwnProperty("stringField4"))
+                                writer.uint32(/* id 21, wireType 2 =*/170).string(message.stringField4);
+                            if (message.stringField5 != null && message.hasOwnProperty("stringField5"))
+                                writer.uint32(/* id 22, wireType 2 =*/178).string(message.stringField5);
+                            if (message.stringField6 != null && message.hasOwnProperty("stringField6"))
+                                writer.uint32(/* id 23, wireType 2 =*/186).string(message.stringField6);
+                            if (message.stringField7 != null && message.hasOwnProperty("stringField7"))
+                                writer.uint32(/* id 24, wireType 2 =*/194).string(message.stringField7);
+                            if (message.stringField8 != null && message.hasOwnProperty("stringField8"))
+                                writer.uint32(/* id 25, wireType 2 =*/202).string(message.stringField8);
+                            if (message.stringField9 != null && message.hasOwnProperty("stringField9"))
+                                writer.uint32(/* id 26, wireType 2 =*/210).string(message.stringField9);
+                            if (message.stringField10 != null && message.hasOwnProperty("stringField10"))
+                                writer.uint32(/* id 27, wireType 2 =*/218).string(message.stringField10);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Request message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.common.model.Request.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequest} message Request message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Request.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Request message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.common.model.Request} Request
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Request.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.common.model.Request();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    message.type = reader.string();
+                                    break;
+                                case 4:
+                                    message.intField1 = reader.int32();
+                                    break;
+                                case 5:
+                                    message.intField2 = reader.int32();
+                                    break;
+                                case 6:
+                                    message.intField3 = reader.int32();
+                                    break;
+                                case 7:
+                                    message.intField4 = reader.int32();
+                                    break;
+                                case 8:
+                                    message.intField5 = reader.int32();
+                                    break;
+                                case 9:
+                                    message.intField6 = reader.int32();
+                                    break;
+                                case 10:
+                                    message.intField7 = reader.int32();
+                                    break;
+                                case 11:
+                                    message.intField8 = reader.int32();
+                                    break;
+                                case 12:
+                                    message.intField9 = reader.int32();
+                                    break;
+                                case 13:
+                                    message.longField1 = reader.int64();
+                                    break;
+                                case 14:
+                                    message.longField2 = reader.int64();
+                                    break;
+                                case 15:
+                                    message.longField3 = reader.int64();
+                                    break;
+                                case 16:
+                                    message.longField4 = reader.int64();
+                                    break;
+                                case 17:
+                                    message.longField5 = reader.int64();
+                                    break;
+                                case 18:
+                                    message.stringField1 = reader.string();
+                                    break;
+                                case 19:
+                                    message.stringField2 = reader.string();
+                                    break;
+                                case 20:
+                                    message.stringField3 = reader.string();
+                                    break;
+                                case 21:
+                                    message.stringField4 = reader.string();
+                                    break;
+                                case 22:
+                                    message.stringField5 = reader.string();
+                                    break;
+                                case 23:
+                                    message.stringField6 = reader.string();
+                                    break;
+                                case 24:
+                                    message.stringField7 = reader.string();
+                                    break;
+                                case 25:
+                                    message.stringField8 = reader.string();
+                                    break;
+                                case 26:
+                                    message.stringField9 = reader.string();
+                                    break;
+                                case 27:
+                                    message.stringField10 = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Request message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.common.model.Request} Request
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Request.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Request message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Request.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isString(message.type))
+                                    return "type: string expected";
+                            if (message.intField1 != null && message.hasOwnProperty("intField1"))
+                                if (!$util.isInteger(message.intField1))
+                                    return "intField1: integer expected";
+                            if (message.intField2 != null && message.hasOwnProperty("intField2"))
+                                if (!$util.isInteger(message.intField2))
+                                    return "intField2: integer expected";
+                            if (message.intField3 != null && message.hasOwnProperty("intField3"))
+                                if (!$util.isInteger(message.intField3))
+                                    return "intField3: integer expected";
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                if (!$util.isInteger(message.intField4))
+                                    return "intField4: integer expected";
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                if (!$util.isInteger(message.intField5))
+                                    return "intField5: integer expected";
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                if (!$util.isInteger(message.intField6))
+                                    return "intField6: integer expected";
+                            if (message.intField7 != null && message.hasOwnProperty("intField7"))
+                                if (!$util.isInteger(message.intField7))
+                                    return "intField7: integer expected";
+                            if (message.intField8 != null && message.hasOwnProperty("intField8"))
+                                if (!$util.isInteger(message.intField8))
+                                    return "intField8: integer expected";
+                            if (message.intField9 != null && message.hasOwnProperty("intField9"))
+                                if (!$util.isInteger(message.intField9))
+                                    return "intField9: integer expected";
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                if (!$util.isInteger(message.longField1) && !(message.longField1 && $util.isInteger(message.longField1.low) && $util.isInteger(message.longField1.high)))
+                                    return "longField1: integer|Long expected";
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                if (!$util.isInteger(message.longField2) && !(message.longField2 && $util.isInteger(message.longField2.low) && $util.isInteger(message.longField2.high)))
+                                    return "longField2: integer|Long expected";
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                if (!$util.isInteger(message.longField3) && !(message.longField3 && $util.isInteger(message.longField3.low) && $util.isInteger(message.longField3.high)))
+                                    return "longField3: integer|Long expected";
+                            if (message.longField4 != null && message.hasOwnProperty("longField4"))
+                                if (!$util.isInteger(message.longField4) && !(message.longField4 && $util.isInteger(message.longField4.low) && $util.isInteger(message.longField4.high)))
+                                    return "longField4: integer|Long expected";
+                            if (message.longField5 != null && message.hasOwnProperty("longField5"))
+                                if (!$util.isInteger(message.longField5) && !(message.longField5 && $util.isInteger(message.longField5.low) && $util.isInteger(message.longField5.high)))
+                                    return "longField5: integer|Long expected";
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                if (!$util.isString(message.stringField1))
+                                    return "stringField1: string expected";
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                if (!$util.isString(message.stringField2))
+                                    return "stringField2: string expected";
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                if (!$util.isString(message.stringField3))
+                                    return "stringField3: string expected";
+                            if (message.stringField4 != null && message.hasOwnProperty("stringField4"))
+                                if (!$util.isString(message.stringField4))
+                                    return "stringField4: string expected";
+                            if (message.stringField5 != null && message.hasOwnProperty("stringField5"))
+                                if (!$util.isString(message.stringField5))
+                                    return "stringField5: string expected";
+                            if (message.stringField6 != null && message.hasOwnProperty("stringField6"))
+                                if (!$util.isString(message.stringField6))
+                                    return "stringField6: string expected";
+                            if (message.stringField7 != null && message.hasOwnProperty("stringField7"))
+                                if (!$util.isString(message.stringField7))
+                                    return "stringField7: string expected";
+                            if (message.stringField8 != null && message.hasOwnProperty("stringField8"))
+                                if (!$util.isString(message.stringField8))
+                                    return "stringField8: string expected";
+                            if (message.stringField9 != null && message.hasOwnProperty("stringField9"))
+                                if (!$util.isString(message.stringField9))
+                                    return "stringField9: string expected";
+                            if (message.stringField10 != null && message.hasOwnProperty("stringField10"))
+                                if (!$util.isString(message.stringField10))
+                                    return "stringField10: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Request message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.common.model.Request} Request
+                         */
+                        Request.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.common.model.Request)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.common.model.Request();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.type != null)
+                                message.type = String(object.type);
+                            if (object.intField1 != null)
+                                message.intField1 = object.intField1 | 0;
+                            if (object.intField2 != null)
+                                message.intField2 = object.intField2 | 0;
+                            if (object.intField3 != null)
+                                message.intField3 = object.intField3 | 0;
+                            if (object.intField4 != null)
+                                message.intField4 = object.intField4 | 0;
+                            if (object.intField5 != null)
+                                message.intField5 = object.intField5 | 0;
+                            if (object.intField6 != null)
+                                message.intField6 = object.intField6 | 0;
+                            if (object.intField7 != null)
+                                message.intField7 = object.intField7 | 0;
+                            if (object.intField8 != null)
+                                message.intField8 = object.intField8 | 0;
+                            if (object.intField9 != null)
+                                message.intField9 = object.intField9 | 0;
+                            if (object.longField1 != null)
+                                if ($util.Long)
+                                    (message.longField1 = $util.Long.fromValue(object.longField1)).unsigned = false;
+                                else if (typeof object.longField1 === "string")
+                                    message.longField1 = parseInt(object.longField1, 10);
+                                else if (typeof object.longField1 === "number")
+                                    message.longField1 = object.longField1;
+                                else if (typeof object.longField1 === "object")
+                                    message.longField1 = new $util.LongBits(object.longField1.low >>> 0, object.longField1.high >>> 0).toNumber();
+                            if (object.longField2 != null)
+                                if ($util.Long)
+                                    (message.longField2 = $util.Long.fromValue(object.longField2)).unsigned = false;
+                                else if (typeof object.longField2 === "string")
+                                    message.longField2 = parseInt(object.longField2, 10);
+                                else if (typeof object.longField2 === "number")
+                                    message.longField2 = object.longField2;
+                                else if (typeof object.longField2 === "object")
+                                    message.longField2 = new $util.LongBits(object.longField2.low >>> 0, object.longField2.high >>> 0).toNumber();
+                            if (object.longField3 != null)
+                                if ($util.Long)
+                                    (message.longField3 = $util.Long.fromValue(object.longField3)).unsigned = false;
+                                else if (typeof object.longField3 === "string")
+                                    message.longField3 = parseInt(object.longField3, 10);
+                                else if (typeof object.longField3 === "number")
+                                    message.longField3 = object.longField3;
+                                else if (typeof object.longField3 === "object")
+                                    message.longField3 = new $util.LongBits(object.longField3.low >>> 0, object.longField3.high >>> 0).toNumber();
+                            if (object.longField4 != null)
+                                if ($util.Long)
+                                    (message.longField4 = $util.Long.fromValue(object.longField4)).unsigned = false;
+                                else if (typeof object.longField4 === "string")
+                                    message.longField4 = parseInt(object.longField4, 10);
+                                else if (typeof object.longField4 === "number")
+                                    message.longField4 = object.longField4;
+                                else if (typeof object.longField4 === "object")
+                                    message.longField4 = new $util.LongBits(object.longField4.low >>> 0, object.longField4.high >>> 0).toNumber();
+                            if (object.longField5 != null)
+                                if ($util.Long)
+                                    (message.longField5 = $util.Long.fromValue(object.longField5)).unsigned = false;
+                                else if (typeof object.longField5 === "string")
+                                    message.longField5 = parseInt(object.longField5, 10);
+                                else if (typeof object.longField5 === "number")
+                                    message.longField5 = object.longField5;
+                                else if (typeof object.longField5 === "object")
+                                    message.longField5 = new $util.LongBits(object.longField5.low >>> 0, object.longField5.high >>> 0).toNumber();
+                            if (object.stringField1 != null)
+                                message.stringField1 = String(object.stringField1);
+                            if (object.stringField2 != null)
+                                message.stringField2 = String(object.stringField2);
+                            if (object.stringField3 != null)
+                                message.stringField3 = String(object.stringField3);
+                            if (object.stringField4 != null)
+                                message.stringField4 = String(object.stringField4);
+                            if (object.stringField5 != null)
+                                message.stringField5 = String(object.stringField5);
+                            if (object.stringField6 != null)
+                                message.stringField6 = String(object.stringField6);
+                            if (object.stringField7 != null)
+                                message.stringField7 = String(object.stringField7);
+                            if (object.stringField8 != null)
+                                message.stringField8 = String(object.stringField8);
+                            if (object.stringField9 != null)
+                                message.stringField9 = String(object.stringField9);
+                            if (object.stringField10 != null)
+                                message.stringField10 = String(object.stringField10);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Request message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.Request} message Request
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Request.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                                object.type = "";
+                                object.intField1 = 0;
+                                object.intField2 = 0;
+                                object.intField3 = 0;
+                                object.intField4 = 0;
+                                object.intField5 = 0;
+                                object.intField6 = 0;
+                                object.intField7 = 0;
+                                object.intField8 = 0;
+                                object.intField9 = 0;
+                                object.longField1 = 0;
+                                object.longField2 = 0;
+                                object.longField3 = 0;
+                                object.longField4 = 0;
+                                object.longField5 = 0;
+                                object.stringField1 = "";
+                                object.stringField2 = "";
+                                object.stringField3 = "";
+                                object.stringField4 = "";
+                                object.stringField5 = "";
+                                object.stringField6 = "";
+                                object.stringField7 = "";
+                                object.stringField8 = "";
+                                object.stringField9 = "";
+                                object.stringField10 = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.intField1 != null && message.hasOwnProperty("intField1"))
+                                object.intField1 = message.intField1;
+                            if (message.intField2 != null && message.hasOwnProperty("intField2"))
+                                object.intField2 = message.intField2;
+                            if (message.intField3 != null && message.hasOwnProperty("intField3"))
+                                object.intField3 = message.intField3;
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                object.intField4 = message.intField4;
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                object.intField5 = message.intField5;
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                object.intField6 = message.intField6;
+                            if (message.intField7 != null && message.hasOwnProperty("intField7"))
+                                object.intField7 = message.intField7;
+                            if (message.intField8 != null && message.hasOwnProperty("intField8"))
+                                object.intField8 = message.intField8;
+                            if (message.intField9 != null && message.hasOwnProperty("intField9"))
+                                object.intField9 = message.intField9;
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                if (typeof message.longField1 === "number")
+                                    object.longField1 = options.longs === String ? String(message.longField1) : message.longField1;
+                                else
+                                    object.longField1 = options.longs === String ? $util.Long.prototype.toString.call(message.longField1) : options.longs === Number ? new $util.LongBits(message.longField1.low >>> 0, message.longField1.high >>> 0).toNumber() : message.longField1;
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                if (typeof message.longField2 === "number")
+                                    object.longField2 = options.longs === String ? String(message.longField2) : message.longField2;
+                                else
+                                    object.longField2 = options.longs === String ? $util.Long.prototype.toString.call(message.longField2) : options.longs === Number ? new $util.LongBits(message.longField2.low >>> 0, message.longField2.high >>> 0).toNumber() : message.longField2;
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                if (typeof message.longField3 === "number")
+                                    object.longField3 = options.longs === String ? String(message.longField3) : message.longField3;
+                                else
+                                    object.longField3 = options.longs === String ? $util.Long.prototype.toString.call(message.longField3) : options.longs === Number ? new $util.LongBits(message.longField3.low >>> 0, message.longField3.high >>> 0).toNumber() : message.longField3;
+                            if (message.longField4 != null && message.hasOwnProperty("longField4"))
+                                if (typeof message.longField4 === "number")
+                                    object.longField4 = options.longs === String ? String(message.longField4) : message.longField4;
+                                else
+                                    object.longField4 = options.longs === String ? $util.Long.prototype.toString.call(message.longField4) : options.longs === Number ? new $util.LongBits(message.longField4.low >>> 0, message.longField4.high >>> 0).toNumber() : message.longField4;
+                            if (message.longField5 != null && message.hasOwnProperty("longField5"))
+                                if (typeof message.longField5 === "number")
+                                    object.longField5 = options.longs === String ? String(message.longField5) : message.longField5;
+                                else
+                                    object.longField5 = options.longs === String ? $util.Long.prototype.toString.call(message.longField5) : options.longs === Number ? new $util.LongBits(message.longField5.low >>> 0, message.longField5.high >>> 0).toNumber() : message.longField5;
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                object.stringField1 = message.stringField1;
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                object.stringField2 = message.stringField2;
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                object.stringField3 = message.stringField3;
+                            if (message.stringField4 != null && message.hasOwnProperty("stringField4"))
+                                object.stringField4 = message.stringField4;
+                            if (message.stringField5 != null && message.hasOwnProperty("stringField5"))
+                                object.stringField5 = message.stringField5;
+                            if (message.stringField6 != null && message.hasOwnProperty("stringField6"))
+                                object.stringField6 = message.stringField6;
+                            if (message.stringField7 != null && message.hasOwnProperty("stringField7"))
+                                object.stringField7 = message.stringField7;
+                            if (message.stringField8 != null && message.hasOwnProperty("stringField8"))
+                                object.stringField8 = message.stringField8;
+                            if (message.stringField9 != null && message.hasOwnProperty("stringField9"))
+                                object.stringField9 = message.stringField9;
+                            if (message.stringField10 != null && message.hasOwnProperty("stringField10"))
+                                object.stringField10 = message.stringField10;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Request to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.common.model.Request
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Request.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Request;
+                    })();
+
+                    model.RequestReply = (function() {
+
+                        /**
+                         * Properties of a RequestReply.
+                         * @memberof com.xueershangda.tianxun.common.model
+                         * @interface IRequestReply
+                         * @property {number|null} [code] RequestReply code
+                         * @property {string|null} [message] RequestReply message
+                         * @property {com.xueershangda.tianxun.common.model.IRequest|null} [request] RequestReply request
+                         * @property {Array.<com.xueershangda.tianxun.common.model.IRequest>|null} [requestList] RequestReply requestList
+                         * @property {string|null} [type] RequestReply type
+                         * @property {string|null} [remark] RequestReply remark
+                         * @property {number|null} [intField4] RequestReply intField4
+                         * @property {number|null} [intField5] RequestReply intField5
+                         * @property {number|null} [intField6] RequestReply intField6
+                         * @property {number|Long|null} [longField1] RequestReply longField1
+                         * @property {number|Long|null} [longField2] RequestReply longField2
+                         * @property {number|Long|null} [longField3] RequestReply longField3
+                         * @property {string|null} [stringField1] RequestReply stringField1
+                         * @property {string|null} [stringField2] RequestReply stringField2
+                         * @property {string|null} [stringField3] RequestReply stringField3
+                         */
+
+                        /**
+                         * Constructs a new RequestReply.
+                         * @memberof com.xueershangda.tianxun.common.model
+                         * @classdesc Represents a RequestReply.
+                         * @implements IRequestReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.common.model.IRequestReply=} [properties] Properties to set
+                         */
+                        function RequestReply(properties) {
+                            this.requestList = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * RequestReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.code = 0;
+
+                        /**
+                         * RequestReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.message = "";
+
+                        /**
+                         * RequestReply request.
+                         * @member {com.xueershangda.tianxun.common.model.IRequest|null|undefined} request
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.request = null;
+
+                        /**
+                         * RequestReply requestList.
+                         * @member {Array.<com.xueershangda.tianxun.common.model.IRequest>} requestList
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.requestList = $util.emptyArray;
+
+                        /**
+                         * RequestReply type.
+                         * @member {string} type
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.type = "";
+
+                        /**
+                         * RequestReply remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.remark = "";
+
+                        /**
+                         * RequestReply intField4.
+                         * @member {number} intField4
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.intField4 = 0;
+
+                        /**
+                         * RequestReply intField5.
+                         * @member {number} intField5
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.intField5 = 0;
+
+                        /**
+                         * RequestReply intField6.
+                         * @member {number} intField6
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.intField6 = 0;
+
+                        /**
+                         * RequestReply longField1.
+                         * @member {number|Long} longField1
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.longField1 = 0;
+
+                        /**
+                         * RequestReply longField2.
+                         * @member {number|Long} longField2
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.longField2 = 0;
+
+                        /**
+                         * RequestReply longField3.
+                         * @member {number|Long} longField3
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.longField3 = 0;
+
+                        /**
+                         * RequestReply stringField1.
+                         * @member {string} stringField1
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.stringField1 = "";
+
+                        /**
+                         * RequestReply stringField2.
+                         * @member {string} stringField2
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.stringField2 = "";
+
+                        /**
+                         * RequestReply stringField3.
+                         * @member {string} stringField3
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         */
+                        RequestReply.prototype.stringField3 = "";
+
+                        /**
+                         * Creates a new RequestReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequestReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.common.model.RequestReply} RequestReply instance
+                         */
+                        RequestReply.create = function create(properties) {
+                            return new RequestReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified RequestReply message. Does not implicitly {@link com.xueershangda.tianxun.common.model.RequestReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequestReply} message RequestReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        RequestReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.request != null && message.hasOwnProperty("request"))
+                                $root.com.xueershangda.tianxun.common.model.Request.encode(message.request, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.requestList != null && message.requestList.length)
+                                for (let i = 0; i < message.requestList.length; ++i)
+                                    $root.com.xueershangda.tianxun.common.model.Request.encode(message.requestList[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.type);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.remark);
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.intField4);
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.intField5);
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.intField6);
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int64(message.longField1);
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.longField2);
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int64(message.longField3);
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                writer.uint32(/* id 13, wireType 2 =*/106).string(message.stringField1);
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                writer.uint32(/* id 14, wireType 2 =*/114).string(message.stringField2);
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                writer.uint32(/* id 15, wireType 2 =*/122).string(message.stringField3);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified RequestReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.common.model.RequestReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.IRequestReply} message RequestReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        RequestReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a RequestReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.common.model.RequestReply} RequestReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        RequestReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.common.model.RequestReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    message.request = $root.com.xueershangda.tianxun.common.model.Request.decode(reader, reader.uint32());
+                                    break;
+                                case 4:
+                                    if (!(message.requestList && message.requestList.length))
+                                        message.requestList = [];
+                                    message.requestList.push($root.com.xueershangda.tianxun.common.model.Request.decode(reader, reader.uint32()));
+                                    break;
+                                case 5:
+                                    message.type = reader.string();
+                                    break;
+                                case 6:
+                                    message.remark = reader.string();
+                                    break;
+                                case 7:
+                                    message.intField4 = reader.int32();
+                                    break;
+                                case 8:
+                                    message.intField5 = reader.int32();
+                                    break;
+                                case 9:
+                                    message.intField6 = reader.int32();
+                                    break;
+                                case 10:
+                                    message.longField1 = reader.int64();
+                                    break;
+                                case 11:
+                                    message.longField2 = reader.int64();
+                                    break;
+                                case 12:
+                                    message.longField3 = reader.int64();
+                                    break;
+                                case 13:
+                                    message.stringField1 = reader.string();
+                                    break;
+                                case 14:
+                                    message.stringField2 = reader.string();
+                                    break;
+                                case 15:
+                                    message.stringField3 = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a RequestReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.common.model.RequestReply} RequestReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        RequestReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a RequestReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        RequestReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.request != null && message.hasOwnProperty("request")) {
+                                let error = $root.com.xueershangda.tianxun.common.model.Request.verify(message.request);
+                                if (error)
+                                    return "request." + error;
+                            }
+                            if (message.requestList != null && message.hasOwnProperty("requestList")) {
+                                if (!Array.isArray(message.requestList))
+                                    return "requestList: array expected";
+                                for (let i = 0; i < message.requestList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.common.model.Request.verify(message.requestList[i]);
+                                    if (error)
+                                        return "requestList." + error;
+                                }
+                            }
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isString(message.type))
+                                    return "type: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                if (!$util.isInteger(message.intField4))
+                                    return "intField4: integer expected";
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                if (!$util.isInteger(message.intField5))
+                                    return "intField5: integer expected";
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                if (!$util.isInteger(message.intField6))
+                                    return "intField6: integer expected";
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                if (!$util.isInteger(message.longField1) && !(message.longField1 && $util.isInteger(message.longField1.low) && $util.isInteger(message.longField1.high)))
+                                    return "longField1: integer|Long expected";
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                if (!$util.isInteger(message.longField2) && !(message.longField2 && $util.isInteger(message.longField2.low) && $util.isInteger(message.longField2.high)))
+                                    return "longField2: integer|Long expected";
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                if (!$util.isInteger(message.longField3) && !(message.longField3 && $util.isInteger(message.longField3.low) && $util.isInteger(message.longField3.high)))
+                                    return "longField3: integer|Long expected";
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                if (!$util.isString(message.stringField1))
+                                    return "stringField1: string expected";
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                if (!$util.isString(message.stringField2))
+                                    return "stringField2: string expected";
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                if (!$util.isString(message.stringField3))
+                                    return "stringField3: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a RequestReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.common.model.RequestReply} RequestReply
+                         */
+                        RequestReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.common.model.RequestReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.common.model.RequestReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.request != null) {
+                                if (typeof object.request !== "object")
+                                    throw TypeError(".com.xueershangda.tianxun.common.model.RequestReply.request: object expected");
+                                message.request = $root.com.xueershangda.tianxun.common.model.Request.fromObject(object.request);
+                            }
+                            if (object.requestList) {
+                                if (!Array.isArray(object.requestList))
+                                    throw TypeError(".com.xueershangda.tianxun.common.model.RequestReply.requestList: array expected");
+                                message.requestList = [];
+                                for (let i = 0; i < object.requestList.length; ++i) {
+                                    if (typeof object.requestList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.common.model.RequestReply.requestList: object expected");
+                                    message.requestList[i] = $root.com.xueershangda.tianxun.common.model.Request.fromObject(object.requestList[i]);
+                                }
+                            }
+                            if (object.type != null)
+                                message.type = String(object.type);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.intField4 != null)
+                                message.intField4 = object.intField4 | 0;
+                            if (object.intField5 != null)
+                                message.intField5 = object.intField5 | 0;
+                            if (object.intField6 != null)
+                                message.intField6 = object.intField6 | 0;
+                            if (object.longField1 != null)
+                                if ($util.Long)
+                                    (message.longField1 = $util.Long.fromValue(object.longField1)).unsigned = false;
+                                else if (typeof object.longField1 === "string")
+                                    message.longField1 = parseInt(object.longField1, 10);
+                                else if (typeof object.longField1 === "number")
+                                    message.longField1 = object.longField1;
+                                else if (typeof object.longField1 === "object")
+                                    message.longField1 = new $util.LongBits(object.longField1.low >>> 0, object.longField1.high >>> 0).toNumber();
+                            if (object.longField2 != null)
+                                if ($util.Long)
+                                    (message.longField2 = $util.Long.fromValue(object.longField2)).unsigned = false;
+                                else if (typeof object.longField2 === "string")
+                                    message.longField2 = parseInt(object.longField2, 10);
+                                else if (typeof object.longField2 === "number")
+                                    message.longField2 = object.longField2;
+                                else if (typeof object.longField2 === "object")
+                                    message.longField2 = new $util.LongBits(object.longField2.low >>> 0, object.longField2.high >>> 0).toNumber();
+                            if (object.longField3 != null)
+                                if ($util.Long)
+                                    (message.longField3 = $util.Long.fromValue(object.longField3)).unsigned = false;
+                                else if (typeof object.longField3 === "string")
+                                    message.longField3 = parseInt(object.longField3, 10);
+                                else if (typeof object.longField3 === "number")
+                                    message.longField3 = object.longField3;
+                                else if (typeof object.longField3 === "object")
+                                    message.longField3 = new $util.LongBits(object.longField3.low >>> 0, object.longField3.high >>> 0).toNumber();
+                            if (object.stringField1 != null)
+                                message.stringField1 = String(object.stringField1);
+                            if (object.stringField2 != null)
+                                message.stringField2 = String(object.stringField2);
+                            if (object.stringField3 != null)
+                                message.stringField3 = String(object.stringField3);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a RequestReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.common.model.RequestReply} message RequestReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        RequestReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.requestList = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                                object.request = null;
+                                object.type = "";
+                                object.remark = "";
+                                object.intField4 = 0;
+                                object.intField5 = 0;
+                                object.intField6 = 0;
+                                object.longField1 = 0;
+                                object.longField2 = 0;
+                                object.longField3 = 0;
+                                object.stringField1 = "";
+                                object.stringField2 = "";
+                                object.stringField3 = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.request != null && message.hasOwnProperty("request"))
+                                object.request = $root.com.xueershangda.tianxun.common.model.Request.toObject(message.request, options);
+                            if (message.requestList && message.requestList.length) {
+                                object.requestList = [];
+                                for (let j = 0; j < message.requestList.length; ++j)
+                                    object.requestList[j] = $root.com.xueershangda.tianxun.common.model.Request.toObject(message.requestList[j], options);
+                            }
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.intField4 != null && message.hasOwnProperty("intField4"))
+                                object.intField4 = message.intField4;
+                            if (message.intField5 != null && message.hasOwnProperty("intField5"))
+                                object.intField5 = message.intField5;
+                            if (message.intField6 != null && message.hasOwnProperty("intField6"))
+                                object.intField6 = message.intField6;
+                            if (message.longField1 != null && message.hasOwnProperty("longField1"))
+                                if (typeof message.longField1 === "number")
+                                    object.longField1 = options.longs === String ? String(message.longField1) : message.longField1;
+                                else
+                                    object.longField1 = options.longs === String ? $util.Long.prototype.toString.call(message.longField1) : options.longs === Number ? new $util.LongBits(message.longField1.low >>> 0, message.longField1.high >>> 0).toNumber() : message.longField1;
+                            if (message.longField2 != null && message.hasOwnProperty("longField2"))
+                                if (typeof message.longField2 === "number")
+                                    object.longField2 = options.longs === String ? String(message.longField2) : message.longField2;
+                                else
+                                    object.longField2 = options.longs === String ? $util.Long.prototype.toString.call(message.longField2) : options.longs === Number ? new $util.LongBits(message.longField2.low >>> 0, message.longField2.high >>> 0).toNumber() : message.longField2;
+                            if (message.longField3 != null && message.hasOwnProperty("longField3"))
+                                if (typeof message.longField3 === "number")
+                                    object.longField3 = options.longs === String ? String(message.longField3) : message.longField3;
+                                else
+                                    object.longField3 = options.longs === String ? $util.Long.prototype.toString.call(message.longField3) : options.longs === Number ? new $util.LongBits(message.longField3.low >>> 0, message.longField3.high >>> 0).toNumber() : message.longField3;
+                            if (message.stringField1 != null && message.hasOwnProperty("stringField1"))
+                                object.stringField1 = message.stringField1;
+                            if (message.stringField2 != null && message.hasOwnProperty("stringField2"))
+                                object.stringField2 = message.stringField2;
+                            if (message.stringField3 != null && message.hasOwnProperty("stringField3"))
+                                object.stringField3 = message.stringField3;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this RequestReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.common.model.RequestReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        RequestReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return RequestReply;
+                    })();
+
+                    return model;
+                })();
+
+                return common;
+            })();
+
+            tianxun.classroom = (function() {
+
+                /**
+                 * Namespace classroom.
+                 * @memberof com.xueershangda.tianxun
+                 * @namespace
+                 */
+                const classroom = {};
+
+                classroom.model = (function() {
+
+                    /**
+                     * Namespace model.
+                     * @memberof com.xueershangda.tianxun.classroom
+                     * @namespace
+                     */
+                    const model = {};
+
+                    model.Catalogs = (function() {
+
+                        /**
+                         * Properties of a Catalogs.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ICatalogs
+                         * @property {string|null} [id] Catalogs id
+                         * @property {string|null} [name] Catalogs name
+                         * @property {string|null} [cover] Catalogs cover
+                         * @property {string|null} [remark] Catalogs remark
+                         * @property {number|null} [state] Catalogs state
+                         * @property {string|null} [courseId] Catalogs courseId
+                         * @property {number|null} [page] Catalogs page
+                         * @property {number|null} [pageSize] Catalogs pageSize
+                         * @property {string|null} [orderBy] Catalogs orderBy
+                         */
+
+                        /**
+                         * Constructs a new Catalogs.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Catalogs.
+                         * @implements ICatalogs
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogs=} [properties] Properties to set
+                         */
+                        function Catalogs(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Catalogs id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.id = "";
+
+                        /**
+                         * Catalogs name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.name = "";
+
+                        /**
+                         * Catalogs cover.
+                         * @member {string} cover
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.cover = "";
+
+                        /**
+                         * Catalogs remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.remark = "";
+
+                        /**
+                         * Catalogs state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.state = 0;
+
+                        /**
+                         * Catalogs courseId.
+                         * @member {string} courseId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.courseId = "";
+
+                        /**
+                         * Catalogs page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.page = 0;
+
+                        /**
+                         * Catalogs pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.pageSize = 0;
+
+                        /**
+                         * Catalogs orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         */
+                        Catalogs.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Catalogs instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogs=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Catalogs} Catalogs instance
+                         */
+                        Catalogs.create = function create(properties) {
+                            return new Catalogs(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Catalogs message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Catalogs.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogs} message Catalogs message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Catalogs.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.cover != null && message.hasOwnProperty("cover"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.cover);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.remark);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.state);
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.courseId);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Catalogs message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Catalogs.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogs} message Catalogs message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Catalogs.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Catalogs message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Catalogs} Catalogs
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Catalogs.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Catalogs();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.cover = reader.string();
+                                    break;
+                                case 4:
+                                    message.remark = reader.string();
+                                    break;
+                                case 5:
+                                    message.state = reader.int32();
+                                    break;
+                                case 6:
+                                    message.courseId = reader.string();
+                                    break;
+                                case 7:
+                                    message.page = reader.int32();
+                                    break;
+                                case 8:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 9:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Catalogs message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Catalogs} Catalogs
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Catalogs.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Catalogs message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Catalogs.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.cover != null && message.hasOwnProperty("cover"))
+                                if (!$util.isString(message.cover))
+                                    return "cover: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                if (!$util.isString(message.courseId))
+                                    return "courseId: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Catalogs message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Catalogs} Catalogs
+                         */
+                        Catalogs.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Catalogs)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Catalogs();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.cover != null)
+                                message.cover = String(object.cover);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.courseId != null)
+                                message.courseId = String(object.courseId);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Catalogs message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Catalogs} message Catalogs
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Catalogs.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.cover = "";
+                                object.remark = "";
+                                object.state = 0;
+                                object.courseId = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.cover != null && message.hasOwnProperty("cover"))
+                                object.cover = message.cover;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                object.courseId = message.courseId;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Catalogs to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Catalogs
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Catalogs.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Catalogs;
+                    })();
+
+                    model.CatalogsReply = (function() {
+
+                        /**
+                         * Properties of a CatalogsReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ICatalogsReply
+                         * @property {number|null} [code] CatalogsReply code
+                         * @property {string|null} [message] CatalogsReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.ICatalogs>|null} [data] CatalogsReply data
+                         */
+
+                        /**
+                         * Constructs a new CatalogsReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a CatalogsReply.
+                         * @implements ICatalogsReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogsReply=} [properties] Properties to set
+                         */
+                        function CatalogsReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * CatalogsReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @instance
+                         */
+                        CatalogsReply.prototype.code = 0;
+
+                        /**
+                         * CatalogsReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @instance
+                         */
+                        CatalogsReply.prototype.message = "";
+
+                        /**
+                         * CatalogsReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.ICatalogs>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @instance
+                         */
+                        CatalogsReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new CatalogsReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogsReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.CatalogsReply} CatalogsReply instance
+                         */
+                        CatalogsReply.create = function create(properties) {
+                            return new CatalogsReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified CatalogsReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CatalogsReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogsReply} message CatalogsReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        CatalogsReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Catalogs.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified CatalogsReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CatalogsReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICatalogsReply} message CatalogsReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        CatalogsReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a CatalogsReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.CatalogsReply} CatalogsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        CatalogsReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.CatalogsReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Catalogs.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a CatalogsReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.CatalogsReply} CatalogsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        CatalogsReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a CatalogsReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        CatalogsReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Catalogs.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a CatalogsReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.CatalogsReply} CatalogsReply
+                         */
+                        CatalogsReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.CatalogsReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.CatalogsReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.CatalogsReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.CatalogsReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Catalogs.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a CatalogsReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.CatalogsReply} message CatalogsReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        CatalogsReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Catalogs.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this CatalogsReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        CatalogsReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return CatalogsReply;
+                    })();
+
+                    model.Classes = (function() {
+
+                        /**
+                         * Properties of a Classes.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IClasses
+                         * @property {string|null} [id] Classes id
+                         * @property {string|null} [name] Classes name
+                         * @property {string|null} [remark] Classes remark
+                         * @property {number|null} [state] Classes state
+                         * @property {string|null} [gradeId] Classes gradeId
+                         * @property {number|Long|null} [createDate] Classes createDate
+                         * @property {string|null} [createUser] Classes createUser
+                         * @property {number|Long|null} [updateDate] Classes updateDate
+                         * @property {string|null} [updateUser] Classes updateUser
+                         * @property {string|null} [classMaster] Classes classMaster
+                         * @property {number|Long|null} [startDate] Classes startDate
+                         * @property {number|Long|null} [endDate] Classes endDate
+                         * @property {number|null} [type] Classes type
+                         * @property {number|null} [page] Classes page
+                         * @property {number|null} [pageSize] Classes pageSize
+                         * @property {string|null} [orderBy] Classes orderBy
+                         */
+
+                        /**
+                         * Constructs a new Classes.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Classes.
+                         * @implements IClasses
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IClasses=} [properties] Properties to set
+                         */
+                        function Classes(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Classes id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.id = "";
+
+                        /**
+                         * Classes name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.name = "";
+
+                        /**
+                         * Classes remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.remark = "";
+
+                        /**
+                         * Classes state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.state = 0;
+
+                        /**
+                         * Classes gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.gradeId = "";
+
+                        /**
+                         * Classes createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.createDate = 0;
+
+                        /**
+                         * Classes createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.createUser = "";
+
+                        /**
+                         * Classes updateDate.
+                         * @member {number|Long} updateDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.updateDate = 0;
+
+                        /**
+                         * Classes updateUser.
+                         * @member {string} updateUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.updateUser = "";
+
+                        /**
+                         * Classes classMaster.
+                         * @member {string} classMaster
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.classMaster = "";
+
+                        /**
+                         * Classes startDate.
+                         * @member {number|Long} startDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.startDate = 0;
+
+                        /**
+                         * Classes endDate.
+                         * @member {number|Long} endDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.endDate = 0;
+
+                        /**
+                         * Classes type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.type = 0;
+
+                        /**
+                         * Classes page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.page = 0;
+
+                        /**
+                         * Classes pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.pageSize = 0;
+
+                        /**
+                         * Classes orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         */
+                        Classes.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Classes instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClasses=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Classes} Classes instance
+                         */
+                        Classes.create = function create(properties) {
+                            return new Classes(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Classes message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Classes.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClasses} message Classes message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Classes.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.remark);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.state);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.gradeId);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.createDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.createUser);
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.updateDate);
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.updateUser);
+                            if (message.classMaster != null && message.hasOwnProperty("classMaster"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.classMaster);
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.startDate);
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int64(message.endDate);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 13, wireType 0 =*/104).int32(message.type);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Classes message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Classes.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClasses} message Classes message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Classes.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Classes message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Classes} Classes
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Classes.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Classes();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.remark = reader.string();
+                                    break;
+                                case 4:
+                                    message.state = reader.int32();
+                                    break;
+                                case 5:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 6:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 7:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 8:
+                                    message.updateDate = reader.int64();
+                                    break;
+                                case 9:
+                                    message.updateUser = reader.string();
+                                    break;
+                                case 10:
+                                    message.classMaster = reader.string();
+                                    break;
+                                case 11:
+                                    message.startDate = reader.int64();
+                                    break;
+                                case 12:
+                                    message.endDate = reader.int64();
+                                    break;
+                                case 13:
+                                    message.type = reader.int32();
+                                    break;
+                                case 14:
+                                    message.page = reader.int32();
+                                    break;
+                                case 15:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 16:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Classes message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Classes} Classes
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Classes.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Classes message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Classes.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (!$util.isInteger(message.updateDate) && !(message.updateDate && $util.isInteger(message.updateDate.low) && $util.isInteger(message.updateDate.high)))
+                                    return "updateDate: integer|Long expected";
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                if (!$util.isString(message.updateUser))
+                                    return "updateUser: string expected";
+                            if (message.classMaster != null && message.hasOwnProperty("classMaster"))
+                                if (!$util.isString(message.classMaster))
+                                    return "classMaster: string expected";
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                if (!$util.isInteger(message.startDate) && !(message.startDate && $util.isInteger(message.startDate.low) && $util.isInteger(message.startDate.high)))
+                                    return "startDate: integer|Long expected";
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                if (!$util.isInteger(message.endDate) && !(message.endDate && $util.isInteger(message.endDate.low) && $util.isInteger(message.endDate.high)))
+                                    return "endDate: integer|Long expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Classes message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Classes} Classes
+                         */
+                        Classes.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Classes)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Classes();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.updateDate != null)
+                                if ($util.Long)
+                                    (message.updateDate = $util.Long.fromValue(object.updateDate)).unsigned = false;
+                                else if (typeof object.updateDate === "string")
+                                    message.updateDate = parseInt(object.updateDate, 10);
+                                else if (typeof object.updateDate === "number")
+                                    message.updateDate = object.updateDate;
+                                else if (typeof object.updateDate === "object")
+                                    message.updateDate = new $util.LongBits(object.updateDate.low >>> 0, object.updateDate.high >>> 0).toNumber();
+                            if (object.updateUser != null)
+                                message.updateUser = String(object.updateUser);
+                            if (object.classMaster != null)
+                                message.classMaster = String(object.classMaster);
+                            if (object.startDate != null)
+                                if ($util.Long)
+                                    (message.startDate = $util.Long.fromValue(object.startDate)).unsigned = false;
+                                else if (typeof object.startDate === "string")
+                                    message.startDate = parseInt(object.startDate, 10);
+                                else if (typeof object.startDate === "number")
+                                    message.startDate = object.startDate;
+                                else if (typeof object.startDate === "object")
+                                    message.startDate = new $util.LongBits(object.startDate.low >>> 0, object.startDate.high >>> 0).toNumber();
+                            if (object.endDate != null)
+                                if ($util.Long)
+                                    (message.endDate = $util.Long.fromValue(object.endDate)).unsigned = false;
+                                else if (typeof object.endDate === "string")
+                                    message.endDate = parseInt(object.endDate, 10);
+                                else if (typeof object.endDate === "number")
+                                    message.endDate = object.endDate;
+                                else if (typeof object.endDate === "object")
+                                    message.endDate = new $util.LongBits(object.endDate.low >>> 0, object.endDate.high >>> 0).toNumber();
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Classes message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Classes} message Classes
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Classes.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.remark = "";
+                                object.state = 0;
+                                object.gradeId = "";
+                                object.createDate = 0;
+                                object.createUser = "";
+                                object.updateDate = 0;
+                                object.updateUser = "";
+                                object.classMaster = "";
+                                object.startDate = 0;
+                                object.endDate = 0;
+                                object.type = 0;
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (typeof message.updateDate === "number")
+                                    object.updateDate = options.longs === String ? String(message.updateDate) : message.updateDate;
+                                else
+                                    object.updateDate = options.longs === String ? $util.Long.prototype.toString.call(message.updateDate) : options.longs === Number ? new $util.LongBits(message.updateDate.low >>> 0, message.updateDate.high >>> 0).toNumber() : message.updateDate;
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                object.updateUser = message.updateUser;
+                            if (message.classMaster != null && message.hasOwnProperty("classMaster"))
+                                object.classMaster = message.classMaster;
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                if (typeof message.startDate === "number")
+                                    object.startDate = options.longs === String ? String(message.startDate) : message.startDate;
+                                else
+                                    object.startDate = options.longs === String ? $util.Long.prototype.toString.call(message.startDate) : options.longs === Number ? new $util.LongBits(message.startDate.low >>> 0, message.startDate.high >>> 0).toNumber() : message.startDate;
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                if (typeof message.endDate === "number")
+                                    object.endDate = options.longs === String ? String(message.endDate) : message.endDate;
+                                else
+                                    object.endDate = options.longs === String ? $util.Long.prototype.toString.call(message.endDate) : options.longs === Number ? new $util.LongBits(message.endDate.low >>> 0, message.endDate.high >>> 0).toNumber() : message.endDate;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Classes to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Classes
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Classes.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Classes;
+                    })();
+
+                    model.ClassesReply = (function() {
+
+                        /**
+                         * Properties of a ClassesReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IClassesReply
+                         * @property {number|null} [code] ClassesReply code
+                         * @property {string|null} [message] ClassesReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IClasses>|null} [data] ClassesReply data
+                         */
+
+                        /**
+                         * Constructs a new ClassesReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a ClassesReply.
+                         * @implements IClassesReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IClassesReply=} [properties] Properties to set
+                         */
+                        function ClassesReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * ClassesReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @instance
+                         */
+                        ClassesReply.prototype.code = 0;
+
+                        /**
+                         * ClassesReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @instance
+                         */
+                        ClassesReply.prototype.message = "";
+
+                        /**
+                         * ClassesReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IClasses>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @instance
+                         */
+                        ClassesReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new ClassesReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClassesReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.ClassesReply} ClassesReply instance
+                         */
+                        ClassesReply.create = function create(properties) {
+                            return new ClassesReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified ClassesReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ClassesReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClassesReply} message ClassesReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ClassesReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Classes.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified ClassesReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ClassesReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IClassesReply} message ClassesReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ClassesReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a ClassesReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.ClassesReply} ClassesReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ClassesReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.ClassesReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Classes.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a ClassesReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.ClassesReply} ClassesReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ClassesReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a ClassesReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        ClassesReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Classes.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a ClassesReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.ClassesReply} ClassesReply
+                         */
+                        ClassesReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.ClassesReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.ClassesReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.ClassesReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.ClassesReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Classes.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a ClassesReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ClassesReply} message ClassesReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        ClassesReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Classes.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this ClassesReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        ClassesReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return ClassesReply;
+                    })();
+
+                    model.Course = (function() {
+
+                        /**
+                         * Properties of a Course.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ICourse
+                         * @property {string|null} [id] Course id
+                         * @property {string|null} [name] Course name
+                         * @property {string|null} [subjectId] Course subjectId
+                         * @property {string|null} [remark] Course remark
+                         * @property {number|null} [state] Course state
+                         * @property {number|Long|null} [createDate] Course createDate
+                         * @property {string|null} [createUser] Course createUser
+                         * @property {string|null} [teacherId] Course teacherId
+                         * @property {number|Long|null} [updateDate] Course updateDate
+                         * @property {number|null} [type] Course type
+                         * @property {number|Long|null} [startDate] Course startDate
+                         * @property {number|Long|null} [endDate] Course endDate
+                         * @property {string|null} [updateUser] Course updateUser
+                         * @property {string|null} [classId] Course classId
+                         * @property {string|null} [gradeId] Course gradeId
+                         * @property {string|null} [summary] Course summary
+                         * @property {string|null} [version] Course version
+                         * @property {string|null} [volume] Course volume
+                         * @property {string|null} [userId] Course userId
+                         * @property {string|null} [backup] Course backup
+                         * @property {number|null} [page] Course page
+                         * @property {number|null} [pageSize] Course pageSize
+                         * @property {string|null} [orderBy] Course orderBy
+                         */
+
+                        /**
+                         * Constructs a new Course.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Course.
+                         * @implements ICourse
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourse=} [properties] Properties to set
+                         */
+                        function Course(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Course id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.id = "";
+
+                        /**
+                         * Course name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.name = "";
+
+                        /**
+                         * Course subjectId.
+                         * @member {string} subjectId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.subjectId = "";
+
+                        /**
+                         * Course remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.remark = "";
+
+                        /**
+                         * Course state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.state = 0;
+
+                        /**
+                         * Course createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.createDate = 0;
+
+                        /**
+                         * Course createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.createUser = "";
+
+                        /**
+                         * Course teacherId.
+                         * @member {string} teacherId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.teacherId = "";
+
+                        /**
+                         * Course updateDate.
+                         * @member {number|Long} updateDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.updateDate = 0;
+
+                        /**
+                         * Course type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.type = 0;
+
+                        /**
+                         * Course startDate.
+                         * @member {number|Long} startDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.startDate = 0;
+
+                        /**
+                         * Course endDate.
+                         * @member {number|Long} endDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.endDate = 0;
+
+                        /**
+                         * Course updateUser.
+                         * @member {string} updateUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.updateUser = "";
+
+                        /**
+                         * Course classId.
+                         * @member {string} classId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.classId = "";
+
+                        /**
+                         * Course gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.gradeId = "";
+
+                        /**
+                         * Course summary.
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.summary = "";
+
+                        /**
+                         * Course version.
+                         * @member {string} version
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.version = "";
+
+                        /**
+                         * Course volume.
+                         * @member {string} volume
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.volume = "";
+
+                        /**
+                         * Course userId.
+                         * @member {string} userId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.userId = "";
+
+                        /**
+                         * Course backup.
+                         * @member {string} backup
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.backup = "";
+
+                        /**
+                         * Course page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.page = 0;
+
+                        /**
+                         * Course pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.pageSize = 0;
+
+                        /**
+                         * Course orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         */
+                        Course.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Course instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourse=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Course} Course instance
+                         */
+                        Course.create = function create(properties) {
+                            return new Course(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Course message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Course.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourse} message Course message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Course.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.subjectId);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.remark);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.state);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int64(message.createDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.createUser);
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.teacherId);
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int64(message.updateDate);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.type);
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.startDate);
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int64(message.endDate);
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                writer.uint32(/* id 13, wireType 2 =*/106).string(message.updateUser);
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                writer.uint32(/* id 14, wireType 2 =*/114).string(message.classId);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 15, wireType 2 =*/122).string(message.gradeId);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.summary);
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                writer.uint32(/* id 17, wireType 2 =*/138).string(message.version);
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                writer.uint32(/* id 18, wireType 2 =*/146).string(message.volume);
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                writer.uint32(/* id 19, wireType 2 =*/154).string(message.userId);
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                writer.uint32(/* id 20, wireType 2 =*/162).string(message.backup);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 21, wireType 0 =*/168).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 22, wireType 0 =*/176).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 23, wireType 2 =*/186).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Course message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Course.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourse} message Course message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Course.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Course message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Course} Course
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Course.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Course();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.subjectId = reader.string();
+                                    break;
+                                case 4:
+                                    message.remark = reader.string();
+                                    break;
+                                case 5:
+                                    message.state = reader.int32();
+                                    break;
+                                case 6:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 7:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 8:
+                                    message.teacherId = reader.string();
+                                    break;
+                                case 9:
+                                    message.updateDate = reader.int64();
+                                    break;
+                                case 10:
+                                    message.type = reader.int32();
+                                    break;
+                                case 11:
+                                    message.startDate = reader.int64();
+                                    break;
+                                case 12:
+                                    message.endDate = reader.int64();
+                                    break;
+                                case 13:
+                                    message.updateUser = reader.string();
+                                    break;
+                                case 14:
+                                    message.classId = reader.string();
+                                    break;
+                                case 15:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 16:
+                                    message.summary = reader.string();
+                                    break;
+                                case 17:
+                                    message.version = reader.string();
+                                    break;
+                                case 18:
+                                    message.volume = reader.string();
+                                    break;
+                                case 19:
+                                    message.userId = reader.string();
+                                    break;
+                                case 20:
+                                    message.backup = reader.string();
+                                    break;
+                                case 21:
+                                    message.page = reader.int32();
+                                    break;
+                                case 22:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 23:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Course message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Course} Course
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Course.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Course message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Course.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                if (!$util.isString(message.subjectId))
+                                    return "subjectId: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                if (!$util.isString(message.teacherId))
+                                    return "teacherId: string expected";
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (!$util.isInteger(message.updateDate) && !(message.updateDate && $util.isInteger(message.updateDate.low) && $util.isInteger(message.updateDate.high)))
+                                    return "updateDate: integer|Long expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                if (!$util.isInteger(message.startDate) && !(message.startDate && $util.isInteger(message.startDate.low) && $util.isInteger(message.startDate.high)))
+                                    return "startDate: integer|Long expected";
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                if (!$util.isInteger(message.endDate) && !(message.endDate && $util.isInteger(message.endDate.low) && $util.isInteger(message.endDate.high)))
+                                    return "endDate: integer|Long expected";
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                if (!$util.isString(message.updateUser))
+                                    return "updateUser: string expected";
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                if (!$util.isString(message.classId))
+                                    return "classId: string expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                if (!$util.isString(message.version))
+                                    return "version: string expected";
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                if (!$util.isString(message.volume))
+                                    return "volume: string expected";
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                if (!$util.isString(message.userId))
+                                    return "userId: string expected";
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                if (!$util.isString(message.backup))
+                                    return "backup: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Course message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Course} Course
+                         */
+                        Course.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Course)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Course();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.subjectId != null)
+                                message.subjectId = String(object.subjectId);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.teacherId != null)
+                                message.teacherId = String(object.teacherId);
+                            if (object.updateDate != null)
+                                if ($util.Long)
+                                    (message.updateDate = $util.Long.fromValue(object.updateDate)).unsigned = false;
+                                else if (typeof object.updateDate === "string")
+                                    message.updateDate = parseInt(object.updateDate, 10);
+                                else if (typeof object.updateDate === "number")
+                                    message.updateDate = object.updateDate;
+                                else if (typeof object.updateDate === "object")
+                                    message.updateDate = new $util.LongBits(object.updateDate.low >>> 0, object.updateDate.high >>> 0).toNumber();
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.startDate != null)
+                                if ($util.Long)
+                                    (message.startDate = $util.Long.fromValue(object.startDate)).unsigned = false;
+                                else if (typeof object.startDate === "string")
+                                    message.startDate = parseInt(object.startDate, 10);
+                                else if (typeof object.startDate === "number")
+                                    message.startDate = object.startDate;
+                                else if (typeof object.startDate === "object")
+                                    message.startDate = new $util.LongBits(object.startDate.low >>> 0, object.startDate.high >>> 0).toNumber();
+                            if (object.endDate != null)
+                                if ($util.Long)
+                                    (message.endDate = $util.Long.fromValue(object.endDate)).unsigned = false;
+                                else if (typeof object.endDate === "string")
+                                    message.endDate = parseInt(object.endDate, 10);
+                                else if (typeof object.endDate === "number")
+                                    message.endDate = object.endDate;
+                                else if (typeof object.endDate === "object")
+                                    message.endDate = new $util.LongBits(object.endDate.low >>> 0, object.endDate.high >>> 0).toNumber();
+                            if (object.updateUser != null)
+                                message.updateUser = String(object.updateUser);
+                            if (object.classId != null)
+                                message.classId = String(object.classId);
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.version != null)
+                                message.version = String(object.version);
+                            if (object.volume != null)
+                                message.volume = String(object.volume);
+                            if (object.userId != null)
+                                message.userId = String(object.userId);
+                            if (object.backup != null)
+                                message.backup = String(object.backup);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Course message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Course} message Course
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Course.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.subjectId = "";
+                                object.remark = "";
+                                object.state = 0;
+                                object.createDate = 0;
+                                object.createUser = "";
+                                object.teacherId = "";
+                                object.updateDate = 0;
+                                object.type = 0;
+                                object.startDate = 0;
+                                object.endDate = 0;
+                                object.updateUser = "";
+                                object.classId = "";
+                                object.gradeId = "";
+                                object.summary = "";
+                                object.version = "";
+                                object.volume = "";
+                                object.userId = "";
+                                object.backup = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                object.subjectId = message.subjectId;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                object.teacherId = message.teacherId;
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (typeof message.updateDate === "number")
+                                    object.updateDate = options.longs === String ? String(message.updateDate) : message.updateDate;
+                                else
+                                    object.updateDate = options.longs === String ? $util.Long.prototype.toString.call(message.updateDate) : options.longs === Number ? new $util.LongBits(message.updateDate.low >>> 0, message.updateDate.high >>> 0).toNumber() : message.updateDate;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.startDate != null && message.hasOwnProperty("startDate"))
+                                if (typeof message.startDate === "number")
+                                    object.startDate = options.longs === String ? String(message.startDate) : message.startDate;
+                                else
+                                    object.startDate = options.longs === String ? $util.Long.prototype.toString.call(message.startDate) : options.longs === Number ? new $util.LongBits(message.startDate.low >>> 0, message.startDate.high >>> 0).toNumber() : message.startDate;
+                            if (message.endDate != null && message.hasOwnProperty("endDate"))
+                                if (typeof message.endDate === "number")
+                                    object.endDate = options.longs === String ? String(message.endDate) : message.endDate;
+                                else
+                                    object.endDate = options.longs === String ? $util.Long.prototype.toString.call(message.endDate) : options.longs === Number ? new $util.LongBits(message.endDate.low >>> 0, message.endDate.high >>> 0).toNumber() : message.endDate;
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                object.updateUser = message.updateUser;
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                object.classId = message.classId;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                object.version = message.version;
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                object.volume = message.volume;
+                            if (message.userId != null && message.hasOwnProperty("userId"))
+                                object.userId = message.userId;
+                            if (message.backup != null && message.hasOwnProperty("backup"))
+                                object.backup = message.backup;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Course to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Course
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Course.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Course;
+                    })();
+
+                    model.CourseReply = (function() {
+
+                        /**
+                         * Properties of a CourseReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ICourseReply
+                         * @property {number|null} [code] CourseReply code
+                         * @property {string|null} [message] CourseReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.ICourse>|null} [data] CourseReply data
+                         */
+
+                        /**
+                         * Constructs a new CourseReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a CourseReply.
+                         * @implements ICourseReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourseReply=} [properties] Properties to set
+                         */
+                        function CourseReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * CourseReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @instance
+                         */
+                        CourseReply.prototype.code = 0;
+
+                        /**
+                         * CourseReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @instance
+                         */
+                        CourseReply.prototype.message = "";
+
+                        /**
+                         * CourseReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.ICourse>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @instance
+                         */
+                        CourseReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new CourseReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourseReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.CourseReply} CourseReply instance
+                         */
+                        CourseReply.create = function create(properties) {
+                            return new CourseReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified CourseReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CourseReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourseReply} message CourseReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        CourseReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Course.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified CourseReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.CourseReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ICourseReply} message CourseReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        CourseReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a CourseReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.CourseReply} CourseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        CourseReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.CourseReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Course.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a CourseReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.CourseReply} CourseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        CourseReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a CourseReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        CourseReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Course.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a CourseReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.CourseReply} CourseReply
+                         */
+                        CourseReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.CourseReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.CourseReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.CourseReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.CourseReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Course.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a CourseReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.CourseReply} message CourseReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        CourseReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Course.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this CourseReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        CourseReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return CourseReply;
+                    })();
+
+                    model.Exercise = (function() {
+
+                        /**
+                         * Properties of an Exercise.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IExercise
+                         * @property {string|null} [id] Exercise id
+                         * @property {string|null} [name] Exercise name
+                         * @property {number|null} [state] Exercise state
+                         * @property {string|null} [paperId] Exercise paperId
+                         * @property {string|null} [studentId] Exercise studentId
+                         * @property {string|null} [classId] Exercise classId
+                         * @property {string|null} [courseId] Exercise courseId
+                         * @property {string|null} [teacherId] Exercise teacherId
+                         * @property {string|null} [gradeId] Exercise gradeId
+                         * @property {string|null} [subjectId] Exercise subjectId
+                         * @property {string|null} [remark] Exercise remark
+                         * @property {number|null} [type] Exercise type
+                         * @property {number|Long|null} [createDate] Exercise createDate
+                         * @property {string|null} [createUser] Exercise createUser
+                         * @property {number|null} [page] Exercise page
+                         * @property {number|null} [pageSize] Exercise pageSize
+                         * @property {string|null} [orderBy] Exercise orderBy
+                         */
+
+                        /**
+                         * Constructs a new Exercise.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an Exercise.
+                         * @implements IExercise
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IExercise=} [properties] Properties to set
+                         */
+                        function Exercise(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Exercise id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.id = "";
+
+                        /**
+                         * Exercise name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.name = "";
+
+                        /**
+                         * Exercise state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.state = 0;
+
+                        /**
+                         * Exercise paperId.
+                         * @member {string} paperId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.paperId = "";
+
+                        /**
+                         * Exercise studentId.
+                         * @member {string} studentId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.studentId = "";
+
+                        /**
+                         * Exercise classId.
+                         * @member {string} classId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.classId = "";
+
+                        /**
+                         * Exercise courseId.
+                         * @member {string} courseId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.courseId = "";
+
+                        /**
+                         * Exercise teacherId.
+                         * @member {string} teacherId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.teacherId = "";
+
+                        /**
+                         * Exercise gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.gradeId = "";
+
+                        /**
+                         * Exercise subjectId.
+                         * @member {string} subjectId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.subjectId = "";
+
+                        /**
+                         * Exercise remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.remark = "";
+
+                        /**
+                         * Exercise type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.type = 0;
+
+                        /**
+                         * Exercise createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.createDate = 0;
+
+                        /**
+                         * Exercise createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.createUser = "";
+
+                        /**
+                         * Exercise page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.page = 0;
+
+                        /**
+                         * Exercise pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.pageSize = 0;
+
+                        /**
+                         * Exercise orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         */
+                        Exercise.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Exercise instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExercise=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Exercise} Exercise instance
+                         */
+                        Exercise.create = function create(properties) {
+                            return new Exercise(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Exercise message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Exercise.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExercise} message Exercise message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Exercise.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.state);
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.paperId);
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.studentId);
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.classId);
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.courseId);
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.teacherId);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.gradeId);
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.subjectId);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 11, wireType 2 =*/90).string(message.remark);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.type);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 13, wireType 0 =*/104).int64(message.createDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 14, wireType 2 =*/114).string(message.createUser);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 17, wireType 2 =*/138).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Exercise message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Exercise.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExercise} message Exercise message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Exercise.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an Exercise message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Exercise} Exercise
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Exercise.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Exercise();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.state = reader.int32();
+                                    break;
+                                case 4:
+                                    message.paperId = reader.string();
+                                    break;
+                                case 5:
+                                    message.studentId = reader.string();
+                                    break;
+                                case 6:
+                                    message.classId = reader.string();
+                                    break;
+                                case 7:
+                                    message.courseId = reader.string();
+                                    break;
+                                case 8:
+                                    message.teacherId = reader.string();
+                                    break;
+                                case 9:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 10:
+                                    message.subjectId = reader.string();
+                                    break;
+                                case 11:
+                                    message.remark = reader.string();
+                                    break;
+                                case 12:
+                                    message.type = reader.int32();
+                                    break;
+                                case 13:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 14:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 15:
+                                    message.page = reader.int32();
+                                    break;
+                                case 16:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 17:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an Exercise message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Exercise} Exercise
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Exercise.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an Exercise message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Exercise.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                if (!$util.isString(message.paperId))
+                                    return "paperId: string expected";
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                if (!$util.isString(message.studentId))
+                                    return "studentId: string expected";
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                if (!$util.isString(message.classId))
+                                    return "classId: string expected";
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                if (!$util.isString(message.courseId))
+                                    return "courseId: string expected";
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                if (!$util.isString(message.teacherId))
+                                    return "teacherId: string expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                if (!$util.isString(message.subjectId))
+                                    return "subjectId: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates an Exercise message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Exercise} Exercise
+                         */
+                        Exercise.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Exercise)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Exercise();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.paperId != null)
+                                message.paperId = String(object.paperId);
+                            if (object.studentId != null)
+                                message.studentId = String(object.studentId);
+                            if (object.classId != null)
+                                message.classId = String(object.classId);
+                            if (object.courseId != null)
+                                message.courseId = String(object.courseId);
+                            if (object.teacherId != null)
+                                message.teacherId = String(object.teacherId);
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.subjectId != null)
+                                message.subjectId = String(object.subjectId);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an Exercise message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Exercise} message Exercise
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Exercise.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.state = 0;
+                                object.paperId = "";
+                                object.studentId = "";
+                                object.classId = "";
+                                object.courseId = "";
+                                object.teacherId = "";
+                                object.gradeId = "";
+                                object.subjectId = "";
+                                object.remark = "";
+                                object.type = 0;
+                                object.createDate = 0;
+                                object.createUser = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                object.paperId = message.paperId;
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                object.studentId = message.studentId;
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                object.classId = message.classId;
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                object.courseId = message.courseId;
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                object.teacherId = message.teacherId;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                object.subjectId = message.subjectId;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Exercise to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Exercise
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Exercise.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Exercise;
+                    })();
+
+                    model.ExerciseReply = (function() {
+
+                        /**
+                         * Properties of an ExerciseReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IExerciseReply
+                         * @property {number|null} [code] ExerciseReply code
+                         * @property {string|null} [message] ExerciseReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IExercise>|null} [data] ExerciseReply data
+                         */
+
+                        /**
+                         * Constructs a new ExerciseReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an ExerciseReply.
+                         * @implements IExerciseReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseReply=} [properties] Properties to set
+                         */
+                        function ExerciseReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * ExerciseReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @instance
+                         */
+                        ExerciseReply.prototype.code = 0;
+
+                        /**
+                         * ExerciseReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @instance
+                         */
+                        ExerciseReply.prototype.message = "";
+
+                        /**
+                         * ExerciseReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IExercise>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @instance
+                         */
+                        ExerciseReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new ExerciseReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseReply} ExerciseReply instance
+                         */
+                        ExerciseReply.create = function create(properties) {
+                            return new ExerciseReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseReply} message ExerciseReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Exercise.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseReply} message ExerciseReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an ExerciseReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseReply} ExerciseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Exercise.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an ExerciseReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseReply} ExerciseReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an ExerciseReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        ExerciseReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Exercise.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates an ExerciseReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseReply} ExerciseReply
+                         */
+                        ExerciseReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.ExerciseReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.ExerciseReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.ExerciseReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Exercise.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an ExerciseReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ExerciseReply} message ExerciseReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        ExerciseReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Exercise.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this ExerciseReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        ExerciseReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return ExerciseReply;
+                    })();
+
+                    model.ExerciseAnswer = (function() {
+
+                        /**
+                         * Properties of an ExerciseAnswer.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IExerciseAnswer
+                         * @property {string|null} [id] ExerciseAnswer id
+                         * @property {string|null} [exerciseId] ExerciseAnswer exerciseId
+                         * @property {number|null} [orders] ExerciseAnswer orders
+                         * @property {string|null} [questionId] ExerciseAnswer questionId
+                         * @property {string|null} [paperId] ExerciseAnswer paperId
+                         * @property {string|null} [studentId] ExerciseAnswer studentId
+                         * @property {string|null} [teacherId] ExerciseAnswer teacherId
+                         * @property {number|Long|null} [answerDate] ExerciseAnswer answerDate
+                         * @property {string|null} [content] ExerciseAnswer content
+                         * @property {string|null} [remark] ExerciseAnswer remark
+                         * @property {number|null} [score] ExerciseAnswer score
+                         * @property {number|null} [right] ExerciseAnswer right
+                         * @property {number|Long|null} [reviewDate] ExerciseAnswer reviewDate
+                         * @property {number|null} [page] ExerciseAnswer page
+                         * @property {number|null} [pageSize] ExerciseAnswer pageSize
+                         * @property {string|null} [orderBy] ExerciseAnswer orderBy
+                         */
+
+                        /**
+                         * Constructs a new ExerciseAnswer.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an ExerciseAnswer.
+                         * @implements IExerciseAnswer
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswer=} [properties] Properties to set
+                         */
+                        function ExerciseAnswer(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * ExerciseAnswer id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.id = "";
+
+                        /**
+                         * ExerciseAnswer exerciseId.
+                         * @member {string} exerciseId
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.exerciseId = "";
+
+                        /**
+                         * ExerciseAnswer orders.
+                         * @member {number} orders
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.orders = 0;
+
+                        /**
+                         * ExerciseAnswer questionId.
+                         * @member {string} questionId
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.questionId = "";
+
+                        /**
+                         * ExerciseAnswer paperId.
+                         * @member {string} paperId
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.paperId = "";
+
+                        /**
+                         * ExerciseAnswer studentId.
+                         * @member {string} studentId
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.studentId = "";
+
+                        /**
+                         * ExerciseAnswer teacherId.
+                         * @member {string} teacherId
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.teacherId = "";
+
+                        /**
+                         * ExerciseAnswer answerDate.
+                         * @member {number|Long} answerDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.answerDate = 0;
+
+                        /**
+                         * ExerciseAnswer content.
+                         * @member {string} content
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.content = "";
+
+                        /**
+                         * ExerciseAnswer remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.remark = "";
+
+                        /**
+                         * ExerciseAnswer score.
+                         * @member {number} score
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.score = 0;
+
+                        /**
+                         * ExerciseAnswer right.
+                         * @member {number} right
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.right = 0;
+
+                        /**
+                         * ExerciseAnswer reviewDate.
+                         * @member {number|Long} reviewDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.reviewDate = 0;
+
+                        /**
+                         * ExerciseAnswer page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.page = 0;
+
+                        /**
+                         * ExerciseAnswer pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.pageSize = 0;
+
+                        /**
+                         * ExerciseAnswer orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         */
+                        ExerciseAnswer.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new ExerciseAnswer instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswer=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswer} ExerciseAnswer instance
+                         */
+                        ExerciseAnswer.create = function create(properties) {
+                            return new ExerciseAnswer(properties);
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseAnswer message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswer.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswer} message ExerciseAnswer message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseAnswer.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.exerciseId != null && message.hasOwnProperty("exerciseId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.exerciseId);
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.orders);
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.questionId);
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.paperId);
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.studentId);
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.teacherId);
+                            if (message.answerDate != null && message.hasOwnProperty("answerDate"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.answerDate);
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.content);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.remark);
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                writer.uint32(/* id 11, wireType 1 =*/89).double(message.score);
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int32(message.right);
+                            if (message.reviewDate != null && message.hasOwnProperty("reviewDate"))
+                                writer.uint32(/* id 13, wireType 0 =*/104).int64(message.reviewDate);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 15, wireType 0 =*/120).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseAnswer message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswer.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswer} message ExerciseAnswer message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseAnswer.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an ExerciseAnswer message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswer} ExerciseAnswer
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseAnswer.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.exerciseId = reader.string();
+                                    break;
+                                case 3:
+                                    message.orders = reader.int32();
+                                    break;
+                                case 4:
+                                    message.questionId = reader.string();
+                                    break;
+                                case 5:
+                                    message.paperId = reader.string();
+                                    break;
+                                case 6:
+                                    message.studentId = reader.string();
+                                    break;
+                                case 7:
+                                    message.teacherId = reader.string();
+                                    break;
+                                case 8:
+                                    message.answerDate = reader.int64();
+                                    break;
+                                case 9:
+                                    message.content = reader.string();
+                                    break;
+                                case 10:
+                                    message.remark = reader.string();
+                                    break;
+                                case 11:
+                                    message.score = reader.double();
+                                    break;
+                                case 12:
+                                    message.right = reader.int32();
+                                    break;
+                                case 13:
+                                    message.reviewDate = reader.int64();
+                                    break;
+                                case 14:
+                                    message.page = reader.int32();
+                                    break;
+                                case 15:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 16:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an ExerciseAnswer message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswer} ExerciseAnswer
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseAnswer.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an ExerciseAnswer message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        ExerciseAnswer.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.exerciseId != null && message.hasOwnProperty("exerciseId"))
+                                if (!$util.isString(message.exerciseId))
+                                    return "exerciseId: string expected";
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                if (!$util.isInteger(message.orders))
+                                    return "orders: integer expected";
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                if (!$util.isString(message.questionId))
+                                    return "questionId: string expected";
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                if (!$util.isString(message.paperId))
+                                    return "paperId: string expected";
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                if (!$util.isString(message.studentId))
+                                    return "studentId: string expected";
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                if (!$util.isString(message.teacherId))
+                                    return "teacherId: string expected";
+                            if (message.answerDate != null && message.hasOwnProperty("answerDate"))
+                                if (!$util.isInteger(message.answerDate) && !(message.answerDate && $util.isInteger(message.answerDate.low) && $util.isInteger(message.answerDate.high)))
+                                    return "answerDate: integer|Long expected";
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                if (!$util.isString(message.content))
+                                    return "content: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                if (typeof message.score !== "number")
+                                    return "score: number expected";
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                if (!$util.isInteger(message.right))
+                                    return "right: integer expected";
+                            if (message.reviewDate != null && message.hasOwnProperty("reviewDate"))
+                                if (!$util.isInteger(message.reviewDate) && !(message.reviewDate && $util.isInteger(message.reviewDate.low) && $util.isInteger(message.reviewDate.high)))
+                                    return "reviewDate: integer|Long expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates an ExerciseAnswer message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswer} ExerciseAnswer
+                         */
+                        ExerciseAnswer.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.exerciseId != null)
+                                message.exerciseId = String(object.exerciseId);
+                            if (object.orders != null)
+                                message.orders = object.orders | 0;
+                            if (object.questionId != null)
+                                message.questionId = String(object.questionId);
+                            if (object.paperId != null)
+                                message.paperId = String(object.paperId);
+                            if (object.studentId != null)
+                                message.studentId = String(object.studentId);
+                            if (object.teacherId != null)
+                                message.teacherId = String(object.teacherId);
+                            if (object.answerDate != null)
+                                if ($util.Long)
+                                    (message.answerDate = $util.Long.fromValue(object.answerDate)).unsigned = false;
+                                else if (typeof object.answerDate === "string")
+                                    message.answerDate = parseInt(object.answerDate, 10);
+                                else if (typeof object.answerDate === "number")
+                                    message.answerDate = object.answerDate;
+                                else if (typeof object.answerDate === "object")
+                                    message.answerDate = new $util.LongBits(object.answerDate.low >>> 0, object.answerDate.high >>> 0).toNumber();
+                            if (object.content != null)
+                                message.content = String(object.content);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.score != null)
+                                message.score = Number(object.score);
+                            if (object.right != null)
+                                message.right = object.right | 0;
+                            if (object.reviewDate != null)
+                                if ($util.Long)
+                                    (message.reviewDate = $util.Long.fromValue(object.reviewDate)).unsigned = false;
+                                else if (typeof object.reviewDate === "string")
+                                    message.reviewDate = parseInt(object.reviewDate, 10);
+                                else if (typeof object.reviewDate === "number")
+                                    message.reviewDate = object.reviewDate;
+                                else if (typeof object.reviewDate === "object")
+                                    message.reviewDate = new $util.LongBits(object.reviewDate.low >>> 0, object.reviewDate.high >>> 0).toNumber();
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an ExerciseAnswer message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ExerciseAnswer} message ExerciseAnswer
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        ExerciseAnswer.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.exerciseId = "";
+                                object.orders = 0;
+                                object.questionId = "";
+                                object.paperId = "";
+                                object.studentId = "";
+                                object.teacherId = "";
+                                object.answerDate = 0;
+                                object.content = "";
+                                object.remark = "";
+                                object.score = 0;
+                                object.right = 0;
+                                object.reviewDate = 0;
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.exerciseId != null && message.hasOwnProperty("exerciseId"))
+                                object.exerciseId = message.exerciseId;
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                object.orders = message.orders;
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                object.questionId = message.questionId;
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                object.paperId = message.paperId;
+                            if (message.studentId != null && message.hasOwnProperty("studentId"))
+                                object.studentId = message.studentId;
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                object.teacherId = message.teacherId;
+                            if (message.answerDate != null && message.hasOwnProperty("answerDate"))
+                                if (typeof message.answerDate === "number")
+                                    object.answerDate = options.longs === String ? String(message.answerDate) : message.answerDate;
+                                else
+                                    object.answerDate = options.longs === String ? $util.Long.prototype.toString.call(message.answerDate) : options.longs === Number ? new $util.LongBits(message.answerDate.low >>> 0, message.answerDate.high >>> 0).toNumber() : message.answerDate;
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                object.content = message.content;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                object.score = options.json && !isFinite(message.score) ? String(message.score) : message.score;
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                object.right = message.right;
+                            if (message.reviewDate != null && message.hasOwnProperty("reviewDate"))
+                                if (typeof message.reviewDate === "number")
+                                    object.reviewDate = options.longs === String ? String(message.reviewDate) : message.reviewDate;
+                                else
+                                    object.reviewDate = options.longs === String ? $util.Long.prototype.toString.call(message.reviewDate) : options.longs === Number ? new $util.LongBits(message.reviewDate.low >>> 0, message.reviewDate.high >>> 0).toNumber() : message.reviewDate;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this ExerciseAnswer to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswer
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        ExerciseAnswer.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return ExerciseAnswer;
+                    })();
+
+                    model.ExerciseAnswerReply = (function() {
+
+                        /**
+                         * Properties of an ExerciseAnswerReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IExerciseAnswerReply
+                         * @property {number|null} [code] ExerciseAnswerReply code
+                         * @property {string|null} [message] ExerciseAnswerReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IExerciseAnswer>|null} [data] ExerciseAnswerReply data
+                         */
+
+                        /**
+                         * Constructs a new ExerciseAnswerReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an ExerciseAnswerReply.
+                         * @implements IExerciseAnswerReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply=} [properties] Properties to set
+                         */
+                        function ExerciseAnswerReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * ExerciseAnswerReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @instance
+                         */
+                        ExerciseAnswerReply.prototype.code = 0;
+
+                        /**
+                         * ExerciseAnswerReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @instance
+                         */
+                        ExerciseAnswerReply.prototype.message = "";
+
+                        /**
+                         * ExerciseAnswerReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IExerciseAnswer>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @instance
+                         */
+                        ExerciseAnswerReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new ExerciseAnswerReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply} ExerciseAnswerReply instance
+                         */
+                        ExerciseAnswerReply.create = function create(properties) {
+                            return new ExerciseAnswerReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseAnswerReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply} message ExerciseAnswerReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseAnswerReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified ExerciseAnswerReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IExerciseAnswerReply} message ExerciseAnswerReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        ExerciseAnswerReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an ExerciseAnswerReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply} ExerciseAnswerReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseAnswerReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an ExerciseAnswerReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply} ExerciseAnswerReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        ExerciseAnswerReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an ExerciseAnswerReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        ExerciseAnswerReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates an ExerciseAnswerReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply} ExerciseAnswerReply
+                         */
+                        ExerciseAnswerReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an ExerciseAnswerReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply} message ExerciseAnswerReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        ExerciseAnswerReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this ExerciseAnswerReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        ExerciseAnswerReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return ExerciseAnswerReply;
+                    })();
+
+                    model.Grade = (function() {
+
+                        /**
+                         * Properties of a Grade.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IGrade
+                         * @property {string|null} [id] Grade id
+                         * @property {string|null} [name] Grade name
+                         * @property {string|null} [remark] Grade remark
+                         * @property {string|null} [gradeMaster] Grade gradeMaster
+                         * @property {number|Long|null} [createDate] Grade createDate
+                         * @property {number|null} [state] Grade state
+                         * @property {string|null} [summary] Grade summary
+                         * @property {number|null} [page] Grade page
+                         * @property {number|null} [pageSize] Grade pageSize
+                         * @property {string|null} [orderBy] Grade orderBy
+                         */
+
+                        /**
+                         * Constructs a new Grade.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Grade.
+                         * @implements IGrade
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IGrade=} [properties] Properties to set
+                         */
+                        function Grade(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Grade id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.id = "";
+
+                        /**
+                         * Grade name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.name = "";
+
+                        /**
+                         * Grade remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.remark = "";
+
+                        /**
+                         * Grade gradeMaster.
+                         * @member {string} gradeMaster
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.gradeMaster = "";
+
+                        /**
+                         * Grade createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.createDate = 0;
+
+                        /**
+                         * Grade state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.state = 0;
+
+                        /**
+                         * Grade summary.
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.summary = "";
+
+                        /**
+                         * Grade page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.page = 0;
+
+                        /**
+                         * Grade pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.pageSize = 0;
+
+                        /**
+                         * Grade orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         */
+                        Grade.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Grade instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGrade=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Grade} Grade instance
+                         */
+                        Grade.create = function create(properties) {
+                            return new Grade(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Grade message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Grade.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGrade} message Grade message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Grade.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.remark);
+                            if (message.gradeMaster != null && message.hasOwnProperty("gradeMaster"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.gradeMaster);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int64(message.createDate);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.state);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.summary);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Grade message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Grade.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGrade} message Grade message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Grade.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Grade message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Grade} Grade
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Grade.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Grade();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.remark = reader.string();
+                                    break;
+                                case 4:
+                                    message.gradeMaster = reader.string();
+                                    break;
+                                case 5:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 6:
+                                    message.state = reader.int32();
+                                    break;
+                                case 7:
+                                    message.summary = reader.string();
+                                    break;
+                                case 8:
+                                    message.page = reader.int32();
+                                    break;
+                                case 9:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 10:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Grade message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Grade} Grade
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Grade.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Grade message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Grade.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.gradeMaster != null && message.hasOwnProperty("gradeMaster"))
+                                if (!$util.isString(message.gradeMaster))
+                                    return "gradeMaster: string expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Grade message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Grade} Grade
+                         */
+                        Grade.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Grade)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Grade();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.gradeMaster != null)
+                                message.gradeMaster = String(object.gradeMaster);
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Grade message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Grade} message Grade
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Grade.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.remark = "";
+                                object.gradeMaster = "";
+                                object.createDate = 0;
+                                object.state = 0;
+                                object.summary = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.gradeMaster != null && message.hasOwnProperty("gradeMaster"))
+                                object.gradeMaster = message.gradeMaster;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Grade to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Grade
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Grade.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Grade;
+                    })();
+
+                    model.GradeReply = (function() {
+
+                        /**
+                         * Properties of a GradeReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IGradeReply
+                         * @property {number|null} [code] GradeReply code
+                         * @property {string|null} [message] GradeReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IGrade>|null} [data] GradeReply data
+                         */
+
+                        /**
+                         * Constructs a new GradeReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a GradeReply.
+                         * @implements IGradeReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IGradeReply=} [properties] Properties to set
+                         */
+                        function GradeReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * GradeReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @instance
+                         */
+                        GradeReply.prototype.code = 0;
+
+                        /**
+                         * GradeReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @instance
+                         */
+                        GradeReply.prototype.message = "";
+
+                        /**
+                         * GradeReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IGrade>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @instance
+                         */
+                        GradeReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new GradeReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGradeReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.GradeReply} GradeReply instance
+                         */
+                        GradeReply.create = function create(properties) {
+                            return new GradeReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified GradeReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.GradeReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGradeReply} message GradeReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GradeReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Grade.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified GradeReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.GradeReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IGradeReply} message GradeReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        GradeReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a GradeReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.GradeReply} GradeReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GradeReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.GradeReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Grade.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a GradeReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.GradeReply} GradeReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        GradeReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a GradeReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        GradeReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Grade.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a GradeReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.GradeReply} GradeReply
+                         */
+                        GradeReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.GradeReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.GradeReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.GradeReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.GradeReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Grade.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a GradeReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.GradeReply} message GradeReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        GradeReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Grade.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this GradeReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        GradeReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return GradeReply;
+                    })();
+
+                    model.Options = (function() {
+
+                        /**
+                         * Properties of an Options.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IOptions
+                         * @property {string|null} [id] Options id
+                         * @property {string|null} [questionId] Options questionId
+                         * @property {string|null} [content] Options content
+                         * @property {number|null} [type] Options type
+                         * @property {string|null} [name] Options name
+                         * @property {string|null} [right] Options right
+                         * @property {number|null} [matched] Options matched
+                         * @property {string|null} [answer] Options answer
+                         * @property {number|null} [page] Options page
+                         * @property {number|null} [pageSize] Options pageSize
+                         * @property {string|null} [orderBy] Options orderBy
+                         */
+
+                        /**
+                         * Constructs a new Options.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an Options.
+                         * @implements IOptions
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptions=} [properties] Properties to set
+                         */
+                        function Options(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Options id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.id = "";
+
+                        /**
+                         * Options questionId.
+                         * @member {string} questionId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.questionId = "";
+
+                        /**
+                         * Options content.
+                         * @member {string} content
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.content = "";
+
+                        /**
+                         * Options type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.type = 0;
+
+                        /**
+                         * Options name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.name = "";
+
+                        /**
+                         * Options right.
+                         * @member {string} right
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.right = "";
+
+                        /**
+                         * Options matched.
+                         * @member {number} matched
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.matched = 0;
+
+                        /**
+                         * Options answer.
+                         * @member {string} answer
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.answer = "";
+
+                        /**
+                         * Options page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.page = 0;
+
+                        /**
+                         * Options pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.pageSize = 0;
+
+                        /**
+                         * Options orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         */
+                        Options.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Options instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptions=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Options} Options instance
+                         */
+                        Options.create = function create(properties) {
+                            return new Options(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Options message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Options.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptions} message Options message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Options.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.questionId);
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.content);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.type);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.name);
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.right);
+                            if (message.matched != null && message.hasOwnProperty("matched"))
+                                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.matched);
+                            if (message.answer != null && message.hasOwnProperty("answer"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.answer);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 11, wireType 2 =*/90).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Options message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Options.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptions} message Options message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Options.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an Options message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Options} Options
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Options.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Options();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.questionId = reader.string();
+                                    break;
+                                case 3:
+                                    message.content = reader.string();
+                                    break;
+                                case 4:
+                                    message.type = reader.int32();
+                                    break;
+                                case 5:
+                                    message.name = reader.string();
+                                    break;
+                                case 6:
+                                    message.right = reader.string();
+                                    break;
+                                case 7:
+                                    message.matched = reader.int32();
+                                    break;
+                                case 8:
+                                    message.answer = reader.string();
+                                    break;
+                                case 9:
+                                    message.page = reader.int32();
+                                    break;
+                                case 10:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 11:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an Options message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Options} Options
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Options.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an Options message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Options.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                if (!$util.isString(message.questionId))
+                                    return "questionId: string expected";
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                if (!$util.isString(message.content))
+                                    return "content: string expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                if (!$util.isString(message.right))
+                                    return "right: string expected";
+                            if (message.matched != null && message.hasOwnProperty("matched"))
+                                if (!$util.isInteger(message.matched))
+                                    return "matched: integer expected";
+                            if (message.answer != null && message.hasOwnProperty("answer"))
+                                if (!$util.isString(message.answer))
+                                    return "answer: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates an Options message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Options} Options
+                         */
+                        Options.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Options)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Options();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.questionId != null)
+                                message.questionId = String(object.questionId);
+                            if (object.content != null)
+                                message.content = String(object.content);
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.right != null)
+                                message.right = String(object.right);
+                            if (object.matched != null)
+                                message.matched = object.matched | 0;
+                            if (object.answer != null)
+                                message.answer = String(object.answer);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an Options message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Options} message Options
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Options.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.questionId = "";
+                                object.content = "";
+                                object.type = 0;
+                                object.name = "";
+                                object.right = "";
+                                object.matched = 0;
+                                object.answer = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                object.questionId = message.questionId;
+                            if (message.content != null && message.hasOwnProperty("content"))
+                                object.content = message.content;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.right != null && message.hasOwnProperty("right"))
+                                object.right = message.right;
+                            if (message.matched != null && message.hasOwnProperty("matched"))
+                                object.matched = message.matched;
+                            if (message.answer != null && message.hasOwnProperty("answer"))
+                                object.answer = message.answer;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Options to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Options
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Options.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Options;
+                    })();
+
+                    model.OptionsReply = (function() {
+
+                        /**
+                         * Properties of an OptionsReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IOptionsReply
+                         * @property {number|null} [code] OptionsReply code
+                         * @property {string|null} [message] OptionsReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IOptions>|null} [data] OptionsReply data
+                         */
+
+                        /**
+                         * Constructs a new OptionsReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents an OptionsReply.
+                         * @implements IOptionsReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptionsReply=} [properties] Properties to set
+                         */
+                        function OptionsReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * OptionsReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @instance
+                         */
+                        OptionsReply.prototype.code = 0;
+
+                        /**
+                         * OptionsReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @instance
+                         */
+                        OptionsReply.prototype.message = "";
+
+                        /**
+                         * OptionsReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IOptions>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @instance
+                         */
+                        OptionsReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new OptionsReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptionsReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.OptionsReply} OptionsReply instance
+                         */
+                        OptionsReply.create = function create(properties) {
+                            return new OptionsReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified OptionsReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.OptionsReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptionsReply} message OptionsReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        OptionsReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Options.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified OptionsReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.OptionsReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IOptionsReply} message OptionsReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        OptionsReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes an OptionsReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.OptionsReply} OptionsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        OptionsReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.OptionsReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Options.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes an OptionsReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.OptionsReply} OptionsReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        OptionsReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies an OptionsReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        OptionsReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Options.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates an OptionsReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.OptionsReply} OptionsReply
+                         */
+                        OptionsReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.OptionsReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.OptionsReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.OptionsReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.OptionsReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Options.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from an OptionsReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.OptionsReply} message OptionsReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        OptionsReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Options.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this OptionsReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        OptionsReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return OptionsReply;
+                    })();
+
+                    model.Paper = (function() {
+
+                        /**
+                         * Properties of a Paper.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaper
+                         * @property {string|null} [id] Paper id
+                         * @property {string|null} [name] Paper name
+                         * @property {string|null} [gradeId] Paper gradeId
+                         * @property {string|null} [subjectId] Paper subjectId
+                         * @property {string|null} [teacherId] Paper teacherId
+                         * @property {string|null} [courseId] Paper courseId
+                         * @property {string|null} [classId] Paper classId
+                         * @property {number|null} [state] Paper state
+                         * @property {number|null} [type] Paper type
+                         * @property {string|null} [remark] Paper remark
+                         * @property {number|null} [score] Paper score
+                         * @property {number|Long|null} [createDate] Paper createDate
+                         * @property {string|null} [createUser] Paper createUser
+                         * @property {number|Long|null} [updateDate] Paper updateDate
+                         * @property {string|null} [updateUser] Paper updateUser
+                         * @property {number|null} [page] Paper page
+                         * @property {number|null} [pageSize] Paper pageSize
+                         * @property {string|null} [orderBy] Paper orderBy
+                         */
+
+                        /**
+                         * Constructs a new Paper.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Paper.
+                         * @implements IPaper
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaper=} [properties] Properties to set
+                         */
+                        function Paper(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Paper id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.id = "";
+
+                        /**
+                         * Paper name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.name = "";
+
+                        /**
+                         * Paper gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.gradeId = "";
+
+                        /**
+                         * Paper subjectId.
+                         * @member {string} subjectId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.subjectId = "";
+
+                        /**
+                         * Paper teacherId.
+                         * @member {string} teacherId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.teacherId = "";
+
+                        /**
+                         * Paper courseId.
+                         * @member {string} courseId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.courseId = "";
+
+                        /**
+                         * Paper classId.
+                         * @member {string} classId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.classId = "";
+
+                        /**
+                         * Paper state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.state = 0;
+
+                        /**
+                         * Paper type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.type = 0;
+
+                        /**
+                         * Paper remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.remark = "";
+
+                        /**
+                         * Paper score.
+                         * @member {number} score
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.score = 0;
+
+                        /**
+                         * Paper createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.createDate = 0;
+
+                        /**
+                         * Paper createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.createUser = "";
+
+                        /**
+                         * Paper updateDate.
+                         * @member {number|Long} updateDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.updateDate = 0;
+
+                        /**
+                         * Paper updateUser.
+                         * @member {string} updateUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.updateUser = "";
+
+                        /**
+                         * Paper page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.page = 0;
+
+                        /**
+                         * Paper pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.pageSize = 0;
+
+                        /**
+                         * Paper orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Paper instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaper=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Paper} Paper instance
+                         */
+                        Paper.create = function create(properties) {
+                            return new Paper(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Paper message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Paper.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaper} message Paper message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Paper.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.gradeId);
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.subjectId);
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.teacherId);
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.courseId);
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.classId);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int32(message.state);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.type);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 10, wireType 2 =*/82).string(message.remark);
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                writer.uint32(/* id 11, wireType 1 =*/89).double(message.score);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 12, wireType 0 =*/96).int64(message.createDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 13, wireType 2 =*/106).string(message.createUser);
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int64(message.updateDate);
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                writer.uint32(/* id 15, wireType 2 =*/122).string(message.updateUser);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 16, wireType 0 =*/128).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 18, wireType 2 =*/146).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Paper message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Paper.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaper} message Paper message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Paper.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Paper message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Paper} Paper
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Paper.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Paper();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 4:
+                                    message.subjectId = reader.string();
+                                    break;
+                                case 5:
+                                    message.teacherId = reader.string();
+                                    break;
+                                case 6:
+                                    message.courseId = reader.string();
+                                    break;
+                                case 7:
+                                    message.classId = reader.string();
+                                    break;
+                                case 8:
+                                    message.state = reader.int32();
+                                    break;
+                                case 9:
+                                    message.type = reader.int32();
+                                    break;
+                                case 10:
+                                    message.remark = reader.string();
+                                    break;
+                                case 11:
+                                    message.score = reader.double();
+                                    break;
+                                case 12:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 13:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 14:
+                                    message.updateDate = reader.int64();
+                                    break;
+                                case 15:
+                                    message.updateUser = reader.string();
+                                    break;
+                                case 16:
+                                    message.page = reader.int32();
+                                    break;
+                                case 17:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 18:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Paper message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Paper} Paper
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Paper.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Paper message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Paper.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                if (!$util.isString(message.subjectId))
+                                    return "subjectId: string expected";
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                if (!$util.isString(message.teacherId))
+                                    return "teacherId: string expected";
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                if (!$util.isString(message.courseId))
+                                    return "courseId: string expected";
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                if (!$util.isString(message.classId))
+                                    return "classId: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                if (typeof message.score !== "number")
+                                    return "score: number expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (!$util.isInteger(message.updateDate) && !(message.updateDate && $util.isInteger(message.updateDate.low) && $util.isInteger(message.updateDate.high)))
+                                    return "updateDate: integer|Long expected";
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                if (!$util.isString(message.updateUser))
+                                    return "updateUser: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Paper message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Paper} Paper
+                         */
+                        Paper.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Paper)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Paper();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.subjectId != null)
+                                message.subjectId = String(object.subjectId);
+                            if (object.teacherId != null)
+                                message.teacherId = String(object.teacherId);
+                            if (object.courseId != null)
+                                message.courseId = String(object.courseId);
+                            if (object.classId != null)
+                                message.classId = String(object.classId);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.score != null)
+                                message.score = Number(object.score);
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.updateDate != null)
+                                if ($util.Long)
+                                    (message.updateDate = $util.Long.fromValue(object.updateDate)).unsigned = false;
+                                else if (typeof object.updateDate === "string")
+                                    message.updateDate = parseInt(object.updateDate, 10);
+                                else if (typeof object.updateDate === "number")
+                                    message.updateDate = object.updateDate;
+                                else if (typeof object.updateDate === "object")
+                                    message.updateDate = new $util.LongBits(object.updateDate.low >>> 0, object.updateDate.high >>> 0).toNumber();
+                            if (object.updateUser != null)
+                                message.updateUser = String(object.updateUser);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Paper message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Paper} message Paper
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Paper.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.gradeId = "";
+                                object.subjectId = "";
+                                object.teacherId = "";
+                                object.courseId = "";
+                                object.classId = "";
+                                object.state = 0;
+                                object.type = 0;
+                                object.remark = "";
+                                object.score = 0;
+                                object.createDate = 0;
+                                object.createUser = "";
+                                object.updateDate = 0;
+                                object.updateUser = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                object.subjectId = message.subjectId;
+                            if (message.teacherId != null && message.hasOwnProperty("teacherId"))
+                                object.teacherId = message.teacherId;
+                            if (message.courseId != null && message.hasOwnProperty("courseId"))
+                                object.courseId = message.courseId;
+                            if (message.classId != null && message.hasOwnProperty("classId"))
+                                object.classId = message.classId;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.score != null && message.hasOwnProperty("score"))
+                                object.score = options.json && !isFinite(message.score) ? String(message.score) : message.score;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (typeof message.updateDate === "number")
+                                    object.updateDate = options.longs === String ? String(message.updateDate) : message.updateDate;
+                                else
+                                    object.updateDate = options.longs === String ? $util.Long.prototype.toString.call(message.updateDate) : options.longs === Number ? new $util.LongBits(message.updateDate.low >>> 0, message.updateDate.high >>> 0).toNumber() : message.updateDate;
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                object.updateUser = message.updateUser;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Paper to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Paper.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Paper;
+                    })();
+
+                    model.PaperReply = (function() {
+
+                        /**
+                         * Properties of a PaperReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaperReply
+                         * @property {number|null} [code] PaperReply code
+                         * @property {string|null} [message] PaperReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaper>|null} [data] PaperReply data
+                         */
+
+                        /**
+                         * Constructs a new PaperReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a PaperReply.
+                         * @implements IPaperReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperReply=} [properties] Properties to set
+                         */
+                        function PaperReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * PaperReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @instance
+                         */
+                        PaperReply.prototype.code = 0;
+
+                        /**
+                         * PaperReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @instance
+                         */
+                        PaperReply.prototype.message = "";
+
+                        /**
+                         * PaperReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IPaper>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @instance
+                         */
+                        PaperReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new PaperReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperReply} PaperReply instance
+                         */
+                        PaperReply.create = function create(properties) {
+                            return new PaperReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified PaperReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperReply} message PaperReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Paper.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified PaperReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperReply} message PaperReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a PaperReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperReply} PaperReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Paper.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a PaperReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperReply} PaperReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a PaperReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        PaperReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Paper.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a PaperReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperReply} PaperReply
+                         */
+                        PaperReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Paper.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a PaperReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.PaperReply} message PaperReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        PaperReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Paper.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this PaperReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        PaperReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return PaperReply;
+                    })();
+
+                    model.PaperDetail = (function() {
+
+                        /**
+                         * Properties of a PaperDetail.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaperDetail
+                         * @property {string|null} [id] PaperDetail id
+                         * @property {string|null} [paperId] PaperDetail paperId
+                         * @property {string|null} [questionId] PaperDetail questionId
+                         * @property {number|null} [orders] PaperDetail orders
+                         * @property {number|null} [page] PaperDetail page
+                         * @property {number|null} [pageSize] PaperDetail pageSize
+                         * @property {string|null} [orderBy] PaperDetail orderBy
+                         */
+
+                        /**
+                         * Constructs a new PaperDetail.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a PaperDetail.
+                         * @implements IPaperDetail
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
+                         */
+                        function PaperDetail(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * PaperDetail id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.id = "";
+
+                        /**
+                         * PaperDetail paperId.
+                         * @member {string} paperId
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.paperId = "";
+
+                        /**
+                         * PaperDetail questionId.
+                         * @member {string} questionId
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.questionId = "";
+
+                        /**
+                         * PaperDetail orders.
+                         * @member {number} orders
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.orders = 0;
+
+                        /**
+                         * PaperDetail page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.page = 0;
+
+                        /**
+                         * PaperDetail pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.pageSize = 0;
+
+                        /**
+                         * PaperDetail orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new PaperDetail instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail instance
+                         */
+                        PaperDetail.create = function create(properties) {
+                            return new PaperDetail(properties);
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetail.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.paperId);
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.questionId);
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.orders);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetail.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetail.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.paperId = reader.string();
+                                    break;
+                                case 3:
+                                    message.questionId = reader.string();
+                                    break;
+                                case 4:
+                                    message.orders = reader.int32();
+                                    break;
+                                case 5:
+                                    message.page = reader.int32();
+                                    break;
+                                case 6:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 7:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetail.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a PaperDetail message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        PaperDetail.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                if (!$util.isString(message.paperId))
+                                    return "paperId: string expected";
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                if (!$util.isString(message.questionId))
+                                    return "questionId: string expected";
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                if (!$util.isInteger(message.orders))
+                                    return "orders: integer expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         */
+                        PaperDetail.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetail)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.paperId != null)
+                                message.paperId = String(object.paperId);
+                            if (object.questionId != null)
+                                message.questionId = String(object.questionId);
+                            if (object.orders != null)
+                                message.orders = object.orders | 0;
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetail} message PaperDetail
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        PaperDetail.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.paperId = "";
+                                object.questionId = "";
+                                object.orders = 0;
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                object.paperId = message.paperId;
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                object.questionId = message.questionId;
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                object.orders = message.orders;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this PaperDetail to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        PaperDetail.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return PaperDetail;
+                    })();
+
+                    model.PaperDetailReply = (function() {
+
+                        /**
+                         * Properties of a PaperDetailReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaperDetailReply
+                         * @property {number|null} [code] PaperDetailReply code
+                         * @property {string|null} [message] PaperDetailReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>|null} [data] PaperDetailReply data
+                         */
+
+                        /**
+                         * Constructs a new PaperDetailReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a PaperDetailReply.
+                         * @implements IPaperDetailReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
+                         */
+                        function PaperDetailReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * PaperDetailReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.code = 0;
+
+                        /**
+                         * PaperDetailReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.message = "";
+
+                        /**
+                         * PaperDetailReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new PaperDetailReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply instance
+                         */
+                        PaperDetailReply.create = function create(properties) {
+                            return new PaperDetailReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetailReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.PaperDetail.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetailReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetailReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.PaperDetail.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetailReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a PaperDetailReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        PaperDetailReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         */
+                        PaperDetailReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetailReply} message PaperDetailReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        PaperDetailReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this PaperDetailReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        PaperDetailReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return PaperDetailReply;
+                    })();
+
+                    model.QuestionBank = (function() {
+
+                        /**
+                         * Properties of a QuestionBank.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IQuestionBank
+                         * @property {string|null} [id] QuestionBank id
+                         * @property {string|null} [title] QuestionBank title
+                         * @property {string|null} [remark] QuestionBank remark
+                         * @property {number|null} [state] QuestionBank state
+                         * @property {string|null} [images] QuestionBank images
+                         * @property {number|null} [type] QuestionBank type
+                         * @property {string|null} [author] QuestionBank author
+                         * @property {string|null} [gradeId] QuestionBank gradeId
+                         * @property {string|null} [subjectId] QuestionBank subjectId
+                         * @property {number|Long|null} [createDate] QuestionBank createDate
+                         * @property {number|Long|null} [updateDate] QuestionBank updateDate
+                         * @property {string|null} [createUser] QuestionBank createUser
+                         * @property {string|null} [updateUser] QuestionBank updateUser
+                         * @property {number|null} [status] QuestionBank status
+                         * @property {string|null} [summary] QuestionBank summary
+                         * @property {string|null} [rightAnswer] QuestionBank rightAnswer
+                         * @property {number|null} [page] QuestionBank page
+                         * @property {number|null} [pageSize] QuestionBank pageSize
+                         * @property {string|null} [orderBy] QuestionBank orderBy
+                         */
+
+                        /**
+                         * Constructs a new QuestionBank.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a QuestionBank.
+                         * @implements IQuestionBank
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBank=} [properties] Properties to set
+                         */
+                        function QuestionBank(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * QuestionBank id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.id = "";
+
+                        /**
+                         * QuestionBank title.
+                         * @member {string} title
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.title = "";
+
+                        /**
+                         * QuestionBank remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.remark = "";
+
+                        /**
+                         * QuestionBank state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.state = 0;
+
+                        /**
+                         * QuestionBank images.
+                         * @member {string} images
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.images = "";
+
+                        /**
+                         * QuestionBank type.
+                         * @member {number} type
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.type = 0;
+
+                        /**
+                         * QuestionBank author.
+                         * @member {string} author
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.author = "";
+
+                        /**
+                         * QuestionBank gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.gradeId = "";
+
+                        /**
+                         * QuestionBank subjectId.
+                         * @member {string} subjectId
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.subjectId = "";
+
+                        /**
+                         * QuestionBank createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.createDate = 0;
+
+                        /**
+                         * QuestionBank updateDate.
+                         * @member {number|Long} updateDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.updateDate = 0;
+
+                        /**
+                         * QuestionBank createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.createUser = "";
+
+                        /**
+                         * QuestionBank updateUser.
+                         * @member {string} updateUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.updateUser = "";
+
+                        /**
+                         * QuestionBank status.
+                         * @member {number} status
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.status = 0;
+
+                        /**
+                         * QuestionBank summary.
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.summary = "";
+
+                        /**
+                         * QuestionBank rightAnswer.
+                         * @member {string} rightAnswer
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.rightAnswer = "";
+
+                        /**
+                         * QuestionBank page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.page = 0;
+
+                        /**
+                         * QuestionBank pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.pageSize = 0;
+
+                        /**
+                         * QuestionBank orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new QuestionBank instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBank=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBank} QuestionBank instance
+                         */
+                        QuestionBank.create = function create(properties) {
+                            return new QuestionBank(properties);
+                        };
+
+                        /**
+                         * Encodes the specified QuestionBank message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBank.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBank} message QuestionBank message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        QuestionBank.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.title);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.remark);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.state);
+                            if (message.images != null && message.hasOwnProperty("images"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.images);
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.type);
+                            if (message.author != null && message.hasOwnProperty("author"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.author);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.gradeId);
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.subjectId);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int64(message.createDate);
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int64(message.updateDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.createUser);
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                writer.uint32(/* id 13, wireType 2 =*/106).string(message.updateUser);
+                            if (message.status != null && message.hasOwnProperty("status"))
+                                writer.uint32(/* id 14, wireType 0 =*/112).int32(message.status);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 15, wireType 2 =*/122).string(message.summary);
+                            if (message.rightAnswer != null && message.hasOwnProperty("rightAnswer"))
+                                writer.uint32(/* id 16, wireType 2 =*/130).string(message.rightAnswer);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 17, wireType 0 =*/136).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 18, wireType 0 =*/144).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 19, wireType 2 =*/154).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified QuestionBank message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBank.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBank} message QuestionBank message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        QuestionBank.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a QuestionBank message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBank} QuestionBank
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        QuestionBank.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.QuestionBank();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.title = reader.string();
+                                    break;
+                                case 3:
+                                    message.remark = reader.string();
+                                    break;
+                                case 4:
+                                    message.state = reader.int32();
+                                    break;
+                                case 5:
+                                    message.images = reader.string();
+                                    break;
+                                case 6:
+                                    message.type = reader.int32();
+                                    break;
+                                case 7:
+                                    message.author = reader.string();
+                                    break;
+                                case 8:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 9:
+                                    message.subjectId = reader.string();
+                                    break;
+                                case 10:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 11:
+                                    message.updateDate = reader.int64();
+                                    break;
+                                case 12:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 13:
+                                    message.updateUser = reader.string();
+                                    break;
+                                case 14:
+                                    message.status = reader.int32();
+                                    break;
+                                case 15:
+                                    message.summary = reader.string();
+                                    break;
+                                case 16:
+                                    message.rightAnswer = reader.string();
+                                    break;
+                                case 17:
+                                    message.page = reader.int32();
+                                    break;
+                                case 18:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 19:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a QuestionBank message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBank} QuestionBank
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        QuestionBank.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a QuestionBank message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        QuestionBank.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                if (!$util.isString(message.title))
+                                    return "title: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.images != null && message.hasOwnProperty("images"))
+                                if (!$util.isString(message.images))
+                                    return "images: string expected";
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                if (!$util.isInteger(message.type))
+                                    return "type: integer expected";
+                            if (message.author != null && message.hasOwnProperty("author"))
+                                if (!$util.isString(message.author))
+                                    return "author: string expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                if (!$util.isString(message.subjectId))
+                                    return "subjectId: string expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (!$util.isInteger(message.updateDate) && !(message.updateDate && $util.isInteger(message.updateDate.low) && $util.isInteger(message.updateDate.high)))
+                                    return "updateDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                if (!$util.isString(message.updateUser))
+                                    return "updateUser: string expected";
+                            if (message.status != null && message.hasOwnProperty("status"))
+                                if (!$util.isInteger(message.status))
+                                    return "status: integer expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.rightAnswer != null && message.hasOwnProperty("rightAnswer"))
+                                if (!$util.isString(message.rightAnswer))
+                                    return "rightAnswer: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a QuestionBank message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBank} QuestionBank
+                         */
+                        QuestionBank.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.QuestionBank)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.QuestionBank();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.title != null)
+                                message.title = String(object.title);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.images != null)
+                                message.images = String(object.images);
+                            if (object.type != null)
+                                message.type = object.type | 0;
+                            if (object.author != null)
+                                message.author = String(object.author);
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.subjectId != null)
+                                message.subjectId = String(object.subjectId);
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.updateDate != null)
+                                if ($util.Long)
+                                    (message.updateDate = $util.Long.fromValue(object.updateDate)).unsigned = false;
+                                else if (typeof object.updateDate === "string")
+                                    message.updateDate = parseInt(object.updateDate, 10);
+                                else if (typeof object.updateDate === "number")
+                                    message.updateDate = object.updateDate;
+                                else if (typeof object.updateDate === "object")
+                                    message.updateDate = new $util.LongBits(object.updateDate.low >>> 0, object.updateDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.updateUser != null)
+                                message.updateUser = String(object.updateUser);
+                            if (object.status != null)
+                                message.status = object.status | 0;
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.rightAnswer != null)
+                                message.rightAnswer = String(object.rightAnswer);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a QuestionBank message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.QuestionBank} message QuestionBank
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        QuestionBank.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.title = "";
+                                object.remark = "";
+                                object.state = 0;
+                                object.images = "";
+                                object.type = 0;
+                                object.author = "";
+                                object.gradeId = "";
+                                object.subjectId = "";
+                                object.createDate = 0;
+                                object.updateDate = 0;
+                                object.createUser = "";
+                                object.updateUser = "";
+                                object.status = 0;
+                                object.summary = "";
+                                object.rightAnswer = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.title != null && message.hasOwnProperty("title"))
+                                object.title = message.title;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.images != null && message.hasOwnProperty("images"))
+                                object.images = message.images;
+                            if (message.type != null && message.hasOwnProperty("type"))
+                                object.type = message.type;
+                            if (message.author != null && message.hasOwnProperty("author"))
+                                object.author = message.author;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.subjectId != null && message.hasOwnProperty("subjectId"))
+                                object.subjectId = message.subjectId;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.updateDate != null && message.hasOwnProperty("updateDate"))
+                                if (typeof message.updateDate === "number")
+                                    object.updateDate = options.longs === String ? String(message.updateDate) : message.updateDate;
+                                else
+                                    object.updateDate = options.longs === String ? $util.Long.prototype.toString.call(message.updateDate) : options.longs === Number ? new $util.LongBits(message.updateDate.low >>> 0, message.updateDate.high >>> 0).toNumber() : message.updateDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.updateUser != null && message.hasOwnProperty("updateUser"))
+                                object.updateUser = message.updateUser;
+                            if (message.status != null && message.hasOwnProperty("status"))
+                                object.status = message.status;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.rightAnswer != null && message.hasOwnProperty("rightAnswer"))
+                                object.rightAnswer = message.rightAnswer;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this QuestionBank to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        QuestionBank.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return QuestionBank;
+                    })();
+
+                    model.QuestionBankReply = (function() {
+
+                        /**
+                         * Properties of a QuestionBankReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IQuestionBankReply
+                         * @property {number|null} [code] QuestionBankReply code
+                         * @property {string|null} [message] QuestionBankReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IQuestionBank>|null} [data] QuestionBankReply data
+                         */
+
+                        /**
+                         * Constructs a new QuestionBankReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a QuestionBankReply.
+                         * @implements IQuestionBankReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBankReply=} [properties] Properties to set
+                         */
+                        function QuestionBankReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * QuestionBankReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @instance
+                         */
+                        QuestionBankReply.prototype.code = 0;
+
+                        /**
+                         * QuestionBankReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @instance
+                         */
+                        QuestionBankReply.prototype.message = "";
+
+                        /**
+                         * QuestionBankReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IQuestionBank>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @instance
+                         */
+                        QuestionBankReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new QuestionBankReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBankReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBankReply} QuestionBankReply instance
+                         */
+                        QuestionBankReply.create = function create(properties) {
+                            return new QuestionBankReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified QuestionBankReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBankReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBankReply} message QuestionBankReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        QuestionBankReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.QuestionBank.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified QuestionBankReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.QuestionBankReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IQuestionBankReply} message QuestionBankReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        QuestionBankReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a QuestionBankReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBankReply} QuestionBankReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        QuestionBankReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.QuestionBankReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.QuestionBank.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a QuestionBankReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBankReply} QuestionBankReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        QuestionBankReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a QuestionBankReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        QuestionBankReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a QuestionBankReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.QuestionBankReply} QuestionBankReply
+                         */
+                        QuestionBankReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.QuestionBankReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.QuestionBankReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.QuestionBankReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.QuestionBankReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a QuestionBankReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.QuestionBankReply} message QuestionBankReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        QuestionBankReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this QuestionBankReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        QuestionBankReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return QuestionBankReply;
+                    })();
+
+                    model.Subject = (function() {
+
+                        /**
+                         * Properties of a Subject.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ISubject
+                         * @property {string|null} [id] Subject id
+                         * @property {string|null} [name] Subject name
+                         * @property {number|null} [state] Subject state
+                         * @property {string|null} [gradeId] Subject gradeId
+                         * @property {string|null} [remark] Subject remark
+                         * @property {string|null} [version] Subject version
+                         * @property {string|null} [volume] Subject volume
+                         * @property {number|Long|null} [createDate] Subject createDate
+                         * @property {string|null} [createUser] Subject createUser
+                         * @property {number|null} [page] Subject page
+                         * @property {number|null} [pageSize] Subject pageSize
+                         * @property {string|null} [orderBy] Subject orderBy
+                         */
+
+                        /**
+                         * Constructs a new Subject.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Subject.
+                         * @implements ISubject
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubject=} [properties] Properties to set
+                         */
+                        function Subject(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Subject id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.id = "";
+
+                        /**
+                         * Subject name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.name = "";
+
+                        /**
+                         * Subject state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.state = 0;
+
+                        /**
+                         * Subject gradeId.
+                         * @member {string} gradeId
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.gradeId = "";
+
+                        /**
+                         * Subject remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.remark = "";
+
+                        /**
+                         * Subject version.
+                         * @member {string} version
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.version = "";
+
+                        /**
+                         * Subject volume.
+                         * @member {string} volume
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.volume = "";
+
+                        /**
+                         * Subject createDate.
+                         * @member {number|Long} createDate
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.createDate = 0;
+
+                        /**
+                         * Subject createUser.
+                         * @member {string} createUser
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.createUser = "";
+
+                        /**
+                         * Subject page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.page = 0;
+
+                        /**
+                         * Subject pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.pageSize = 0;
+
+                        /**
+                         * Subject orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         */
+                        Subject.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Subject instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubject=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Subject} Subject instance
+                         */
+                        Subject.create = function create(properties) {
+                            return new Subject(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Subject message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Subject.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubject} message Subject message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Subject.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 3, wireType 0 =*/24).int32(message.state);
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                writer.uint32(/* id 4, wireType 2 =*/34).string(message.gradeId);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.remark);
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.version);
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.volume);
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                writer.uint32(/* id 8, wireType 0 =*/64).int64(message.createDate);
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.createUser);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Subject message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Subject.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubject} message Subject message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Subject.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Subject message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Subject} Subject
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Subject.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Subject();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.state = reader.int32();
+                                    break;
+                                case 4:
+                                    message.gradeId = reader.string();
+                                    break;
+                                case 5:
+                                    message.remark = reader.string();
+                                    break;
+                                case 6:
+                                    message.version = reader.string();
+                                    break;
+                                case 7:
+                                    message.volume = reader.string();
+                                    break;
+                                case 8:
+                                    message.createDate = reader.int64();
+                                    break;
+                                case 9:
+                                    message.createUser = reader.string();
+                                    break;
+                                case 10:
+                                    message.page = reader.int32();
+                                    break;
+                                case 11:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 12:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Subject message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Subject} Subject
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Subject.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Subject message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Subject.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                if (!$util.isString(message.gradeId))
+                                    return "gradeId: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                if (!$util.isString(message.version))
+                                    return "version: string expected";
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                if (!$util.isString(message.volume))
+                                    return "volume: string expected";
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (!$util.isInteger(message.createDate) && !(message.createDate && $util.isInteger(message.createDate.low) && $util.isInteger(message.createDate.high)))
+                                    return "createDate: integer|Long expected";
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                if (!$util.isString(message.createUser))
+                                    return "createUser: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Subject message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Subject} Subject
+                         */
+                        Subject.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Subject)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Subject();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.gradeId != null)
+                                message.gradeId = String(object.gradeId);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.version != null)
+                                message.version = String(object.version);
+                            if (object.volume != null)
+                                message.volume = String(object.volume);
+                            if (object.createDate != null)
+                                if ($util.Long)
+                                    (message.createDate = $util.Long.fromValue(object.createDate)).unsigned = false;
+                                else if (typeof object.createDate === "string")
+                                    message.createDate = parseInt(object.createDate, 10);
+                                else if (typeof object.createDate === "number")
+                                    message.createDate = object.createDate;
+                                else if (typeof object.createDate === "object")
+                                    message.createDate = new $util.LongBits(object.createDate.low >>> 0, object.createDate.high >>> 0).toNumber();
+                            if (object.createUser != null)
+                                message.createUser = String(object.createUser);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Subject message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Subject} message Subject
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Subject.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.state = 0;
+                                object.gradeId = "";
+                                object.remark = "";
+                                object.version = "";
+                                object.volume = "";
+                                object.createDate = 0;
+                                object.createUser = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.gradeId != null && message.hasOwnProperty("gradeId"))
+                                object.gradeId = message.gradeId;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.version != null && message.hasOwnProperty("version"))
+                                object.version = message.version;
+                            if (message.volume != null && message.hasOwnProperty("volume"))
+                                object.volume = message.volume;
+                            if (message.createDate != null && message.hasOwnProperty("createDate"))
+                                if (typeof message.createDate === "number")
+                                    object.createDate = options.longs === String ? String(message.createDate) : message.createDate;
+                                else
+                                    object.createDate = options.longs === String ? $util.Long.prototype.toString.call(message.createDate) : options.longs === Number ? new $util.LongBits(message.createDate.low >>> 0, message.createDate.high >>> 0).toNumber() : message.createDate;
+                            if (message.createUser != null && message.hasOwnProperty("createUser"))
+                                object.createUser = message.createUser;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Subject to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Subject
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Subject.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Subject;
+                    })();
+
+                    model.SubjectReply = (function() {
+
+                        /**
+                         * Properties of a SubjectReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ISubjectReply
+                         * @property {number|null} [code] SubjectReply code
+                         * @property {string|null} [message] SubjectReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.ISubject>|null} [data] SubjectReply data
+                         */
+
+                        /**
+                         * Constructs a new SubjectReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a SubjectReply.
+                         * @implements ISubjectReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubjectReply=} [properties] Properties to set
+                         */
+                        function SubjectReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * SubjectReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @instance
+                         */
+                        SubjectReply.prototype.code = 0;
+
+                        /**
+                         * SubjectReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @instance
+                         */
+                        SubjectReply.prototype.message = "";
+
+                        /**
+                         * SubjectReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.ISubject>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @instance
+                         */
+                        SubjectReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new SubjectReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubjectReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.SubjectReply} SubjectReply instance
+                         */
+                        SubjectReply.create = function create(properties) {
+                            return new SubjectReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified SubjectReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.SubjectReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubjectReply} message SubjectReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SubjectReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Subject.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified SubjectReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.SubjectReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ISubjectReply} message SubjectReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        SubjectReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a SubjectReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.SubjectReply} SubjectReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SubjectReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.SubjectReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Subject.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a SubjectReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.SubjectReply} SubjectReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        SubjectReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a SubjectReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        SubjectReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Subject.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a SubjectReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.SubjectReply} SubjectReply
+                         */
+                        SubjectReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.SubjectReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.SubjectReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.SubjectReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.SubjectReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Subject.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a SubjectReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.SubjectReply} message SubjectReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        SubjectReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Subject.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this SubjectReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        SubjectReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return SubjectReply;
+                    })();
+
+                    model.Teacher = (function() {
+
+                        /**
+                         * Properties of a Teacher.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ITeacher
+                         * @property {string|null} [id] Teacher id
+                         * @property {string|null} [name] Teacher name
+                         * @property {string|null} [remark] Teacher remark
+                         * @property {number|null} [state] Teacher state
+                         * @property {string|null} [avatar] Teacher avatar
+                         * @property {string|null} [nickName] Teacher nickName
+                         * @property {string|null} [mainlyTeach] Teacher mainlyTeach
+                         * @property {string|null} [courseList] Teacher courseList
+                         * @property {string|null} [summary] Teacher summary
+                         * @property {number|null} [page] Teacher page
+                         * @property {number|null} [pageSize] Teacher pageSize
+                         * @property {string|null} [orderBy] Teacher orderBy
+                         */
+
+                        /**
+                         * Constructs a new Teacher.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a Teacher.
+                         * @implements ITeacher
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacher=} [properties] Properties to set
+                         */
+                        function Teacher(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * Teacher id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.id = "";
+
+                        /**
+                         * Teacher name.
+                         * @member {string} name
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.name = "";
+
+                        /**
+                         * Teacher remark.
+                         * @member {string} remark
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.remark = "";
+
+                        /**
+                         * Teacher state.
+                         * @member {number} state
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.state = 0;
+
+                        /**
+                         * Teacher avatar.
+                         * @member {string} avatar
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.avatar = "";
+
+                        /**
+                         * Teacher nickName.
+                         * @member {string} nickName
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.nickName = "";
+
+                        /**
+                         * Teacher mainlyTeach.
+                         * @member {string} mainlyTeach
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.mainlyTeach = "";
+
+                        /**
+                         * Teacher courseList.
+                         * @member {string} courseList
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.courseList = "";
+
+                        /**
+                         * Teacher summary.
+                         * @member {string} summary
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.summary = "";
+
+                        /**
+                         * Teacher page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.page = 0;
+
+                        /**
+                         * Teacher pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.pageSize = 0;
+
+                        /**
+                         * Teacher orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         */
+                        Teacher.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new Teacher instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacher=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.Teacher} Teacher instance
+                         */
+                        Teacher.create = function create(properties) {
+                            return new Teacher(properties);
+                        };
+
+                        /**
+                         * Encodes the specified Teacher message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Teacher.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacher} message Teacher message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Teacher.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.name);
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.remark);
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.state);
+                            if (message.avatar != null && message.hasOwnProperty("avatar"))
+                                writer.uint32(/* id 5, wireType 2 =*/42).string(message.avatar);
+                            if (message.nickName != null && message.hasOwnProperty("nickName"))
+                                writer.uint32(/* id 6, wireType 2 =*/50).string(message.nickName);
+                            if (message.mainlyTeach != null && message.hasOwnProperty("mainlyTeach"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.mainlyTeach);
+                            if (message.courseList != null && message.hasOwnProperty("courseList"))
+                                writer.uint32(/* id 8, wireType 2 =*/66).string(message.courseList);
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                writer.uint32(/* id 9, wireType 2 =*/74).string(message.summary);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 10, wireType 0 =*/80).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 11, wireType 0 =*/88).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 12, wireType 2 =*/98).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified Teacher message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.Teacher.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacher} message Teacher message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        Teacher.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a Teacher message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.Teacher} Teacher
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Teacher.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.Teacher();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.name = reader.string();
+                                    break;
+                                case 3:
+                                    message.remark = reader.string();
+                                    break;
+                                case 4:
+                                    message.state = reader.int32();
+                                    break;
+                                case 5:
+                                    message.avatar = reader.string();
+                                    break;
+                                case 6:
+                                    message.nickName = reader.string();
+                                    break;
+                                case 7:
+                                    message.mainlyTeach = reader.string();
+                                    break;
+                                case 8:
+                                    message.courseList = reader.string();
+                                    break;
+                                case 9:
+                                    message.summary = reader.string();
+                                    break;
+                                case 10:
+                                    message.page = reader.int32();
+                                    break;
+                                case 11:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 12:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a Teacher message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.Teacher} Teacher
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        Teacher.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a Teacher message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        Teacher.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                if (!$util.isString(message.name))
+                                    return "name: string expected";
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                if (!$util.isString(message.remark))
+                                    return "remark: string expected";
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                if (!$util.isInteger(message.state))
+                                    return "state: integer expected";
+                            if (message.avatar != null && message.hasOwnProperty("avatar"))
+                                if (!$util.isString(message.avatar))
+                                    return "avatar: string expected";
+                            if (message.nickName != null && message.hasOwnProperty("nickName"))
+                                if (!$util.isString(message.nickName))
+                                    return "nickName: string expected";
+                            if (message.mainlyTeach != null && message.hasOwnProperty("mainlyTeach"))
+                                if (!$util.isString(message.mainlyTeach))
+                                    return "mainlyTeach: string expected";
+                            if (message.courseList != null && message.hasOwnProperty("courseList"))
+                                if (!$util.isString(message.courseList))
+                                    return "courseList: string expected";
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                if (!$util.isString(message.summary))
+                                    return "summary: string expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a Teacher message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.Teacher} Teacher
+                         */
+                        Teacher.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.Teacher)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.Teacher();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.name != null)
+                                message.name = String(object.name);
+                            if (object.remark != null)
+                                message.remark = String(object.remark);
+                            if (object.state != null)
+                                message.state = object.state | 0;
+                            if (object.avatar != null)
+                                message.avatar = String(object.avatar);
+                            if (object.nickName != null)
+                                message.nickName = String(object.nickName);
+                            if (object.mainlyTeach != null)
+                                message.mainlyTeach = String(object.mainlyTeach);
+                            if (object.courseList != null)
+                                message.courseList = String(object.courseList);
+                            if (object.summary != null)
+                                message.summary = String(object.summary);
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a Teacher message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.Teacher} message Teacher
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        Teacher.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.name = "";
+                                object.remark = "";
+                                object.state = 0;
+                                object.avatar = "";
+                                object.nickName = "";
+                                object.mainlyTeach = "";
+                                object.courseList = "";
+                                object.summary = "";
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.name != null && message.hasOwnProperty("name"))
+                                object.name = message.name;
+                            if (message.remark != null && message.hasOwnProperty("remark"))
+                                object.remark = message.remark;
+                            if (message.state != null && message.hasOwnProperty("state"))
+                                object.state = message.state;
+                            if (message.avatar != null && message.hasOwnProperty("avatar"))
+                                object.avatar = message.avatar;
+                            if (message.nickName != null && message.hasOwnProperty("nickName"))
+                                object.nickName = message.nickName;
+                            if (message.mainlyTeach != null && message.hasOwnProperty("mainlyTeach"))
+                                object.mainlyTeach = message.mainlyTeach;
+                            if (message.courseList != null && message.hasOwnProperty("courseList"))
+                                object.courseList = message.courseList;
+                            if (message.summary != null && message.hasOwnProperty("summary"))
+                                object.summary = message.summary;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this Teacher to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.Teacher
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        Teacher.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return Teacher;
+                    })();
+
+                    model.TeacherReply = (function() {
+
+                        /**
+                         * Properties of a TeacherReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface ITeacherReply
+                         * @property {number|null} [code] TeacherReply code
+                         * @property {string|null} [message] TeacherReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.ITeacher>|null} [data] TeacherReply data
+                         */
+
+                        /**
+                         * Constructs a new TeacherReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a TeacherReply.
+                         * @implements ITeacherReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacherReply=} [properties] Properties to set
+                         */
+                        function TeacherReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * TeacherReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @instance
+                         */
+                        TeacherReply.prototype.code = 0;
+
+                        /**
+                         * TeacherReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @instance
+                         */
+                        TeacherReply.prototype.message = "";
+
+                        /**
+                         * TeacherReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.ITeacher>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @instance
+                         */
+                        TeacherReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * Creates a new TeacherReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacherReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.TeacherReply} TeacherReply instance
+                         */
+                        TeacherReply.create = function create(properties) {
+                            return new TeacherReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified TeacherReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.TeacherReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacherReply} message TeacherReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        TeacherReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Teacher.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified TeacherReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.TeacherReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.ITeacherReply} message TeacherReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        TeacherReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a TeacherReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.TeacherReply} TeacherReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        TeacherReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.TeacherReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.Teacher.decode(reader, reader.uint32()));
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a TeacherReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.TeacherReply} TeacherReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        TeacherReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a TeacherReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        TeacherReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Teacher.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            return null;
+                        };
+
+                        /**
+                         * Creates a TeacherReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.TeacherReply} TeacherReply
+                         */
+                        TeacherReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.TeacherReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.TeacherReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.TeacherReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.TeacherReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Teacher.fromObject(object.data[i]);
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a TeacherReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.TeacherReply} message TeacherReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        TeacherReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Teacher.toObject(message.data[j], options);
+                            }
+                            return object;
+                        };
+
+                        /**
+                         * Converts this TeacherReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        TeacherReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return TeacherReply;
+                    })();
+
+                    return model;
+                })();
+
+                return classroom;
             })();
 
             return tianxun;
