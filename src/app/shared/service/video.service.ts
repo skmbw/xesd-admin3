@@ -15,18 +15,11 @@ export class VideoService extends CommonService {
     super(httpClient);
   }
 
-  encode(video: Video): ArrayBufferLike {
-    const body = Video.encode(video).finish();
-    const int8Array = new Int8Array(body.byteLength);
-    int8Array.set(body);
-    return int8Array.buffer;
-  }
-
   saveOrUpdate(video: Video): Observable<ArrayBuffer> {
     if (video.update === 1) {
-      return this.postProtobuf('video/add', this.encode(video));
+      return this.postProtobuf('video/add', this.encodeVideo(video));
     } else if (video.update === 2) {
-      return this.postProtobuf('video/update', this.encode(video));
+      return this.postProtobuf('video/update', this.encodeVideo(video));
     } else { // 这个也可以delete，没必要
       const reply = new VideoReply();
       reply.code = -10;
@@ -38,7 +31,7 @@ export class VideoService extends CommonService {
   }
 
   list(video: Video): Observable<ArrayBuffer> {
-    return this.postProtobuf('video/list', this.encode(video));
+    return this.postProtobuf('video/list', this.encodeVideo(video));
   }
 
   get(id: string): Observable<ArrayBuffer> {

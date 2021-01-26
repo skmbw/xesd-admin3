@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { com } from '@shared';
-import Answer = com.xueershangda.tianxun.answer.model.Answer;
 import { CommonService } from './common.service';
+import Answer = com.xueershangda.tianxun.answer.model.Answer;
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +15,12 @@ export class AnswerService extends CommonService {
     super(httpClient);
   }
 
-  encode(answer: Answer): ArrayBufferLike {
-    const body = Answer.encode(answer).finish();
-    const int8Array = new Int8Array(body.byteLength);
-    int8Array.set(body);
-    return int8Array.buffer;
-  }
-
   save(answer: Answer): Observable<ArrayBuffer> {
-    return this.postProtobuf('answer/add', this.encode(answer));
+    return this.postProtobuf('answer/add', this.encodeAnswer(answer));
   }
 
   list(answer: Answer): Observable<ArrayBuffer> {
-    return this.postProtobuf('answer/list', this.encode(answer));
+    return this.postProtobuf('answer/list', this.encodeAnswer(answer));
   }
 
   get(id: string): Observable<ArrayBuffer> {

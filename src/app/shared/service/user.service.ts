@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { com } from '@shared';
-import User = com.xueershangda.tianxun.user.model.User;
 import { CommonService } from './common.service';
+import User = com.xueershangda.tianxun.user.model.User;
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +15,12 @@ export class UserService extends CommonService {
     super(httpClient);
   }
 
-  encode(user: User): ArrayBufferLike {
-    const body = User.encode(user).finish();
-    const int8Array = new Int8Array(body.byteLength);
-    int8Array.set(body);
-    return int8Array.buffer;
-  }
-
   save(user: User): Observable<ArrayBuffer> {
-    return this.postProtobuf('user/add', this.encode(user));
+    return this.postProtobuf('user/add', this.encodeUser(user));
   }
 
   list(user: User): Observable<ArrayBuffer> {
-    return this.postProtobuf('user/list', this.encode(user));
+    return this.postProtobuf('user/list', this.encodeUser(user));
   }
 
   get(id: string): Observable<ArrayBuffer> {

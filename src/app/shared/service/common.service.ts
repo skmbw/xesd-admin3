@@ -1,6 +1,16 @@
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { JsUtils } from '@shared';
+import { com, JsUtils } from '@shared';
+import Employee = com.xueershangda.tianxun.employee.model.Employee;
+import Article = com.xueershangda.tianxun.article.model.Article;
+import Answer = com.xueershangda.tianxun.answer.model.Answer;
+import Question = com.xueershangda.tianxun.question.model.Question;
+import User = com.xueershangda.tianxun.user.model.User;
+import Video = com.xueershangda.tianxun.video.model.Video;
+import Course = com.xueershangda.tianxun.classroom.model.Course;
+import Classes = com.xueershangda.tianxun.classroom.model.Classes;
+import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
+import QuestionBank = com.xueershangda.tianxun.classroom.model.QuestionBank;
 
 /**
  * 公共服务的一些抽象啊
@@ -87,5 +97,75 @@ export class CommonService {
       headers: new HttpHeaders({'Content-Type': 'multipart/form-data;charset=utf-8;boundary=skmbw_mp_' + (Math.random() * 10)}),
       responseType: 'arraybuffer'
     });
+  }
+
+  encodeEmployee(employee: Employee): ArrayBufferLike {
+    const body = Employee.encode(employee).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeArticle(article: Article): ArrayBufferLike {
+    const body = Article.encode(article).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeAnswer(answer: Answer): ArrayBufferLike {
+    const body = Answer.encode(answer).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeQuestion(question: Question): ArrayBufferLike {
+    const body = Question.encode(question).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeUser(user: User): ArrayBufferLike {
+    const body = User.encode(user).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeVideo(video: Video): ArrayBufferLike {
+    const body = Video.encode(video).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeCourse(course: Course): ArrayBufferLike {
+    const body = Course.encode(course).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeClasses(classes: Classes): ArrayBufferLike {
+    const body = Classes.encode(classes).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeTeacher(teacher: Teacher): ArrayBufferLike {
+    const body = Teacher.encode(teacher).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeQuestionBank(questionBank: QuestionBank): ArrayBufferLike {
+    const body = QuestionBank.encode(questionBank).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
   }
 }

@@ -15,19 +15,12 @@ export class ArticleService extends CommonService {
     super(httpClient);
   }
 
-  encode(article: Article): ArrayBufferLike {
-    const body = Article.encode(article).finish();
-    const int8Array = new Int8Array(body.byteLength);
-    int8Array.set(body);
-    return int8Array.buffer;
-  }
-
   save(article: Article): Observable<ArrayBuffer> {
-    return this.postProtobuf('article/add', this.encode(article));
+    return this.postProtobuf('article/add', this.encodeArticle(article));
   }
 
   list(article: Article): Observable<ArrayBuffer> {
-    return this.postProtobuf('article/list', this.encode(article));
+    return this.postProtobuf('article/list', this.encodeArticle(article));
   }
 
   get(id: string): Observable<ArrayBuffer> {
@@ -35,6 +28,6 @@ export class ArticleService extends CommonService {
   }
 
   delete(article: Article): Observable<ArrayBuffer> {
-    return this.postProtobuf('article/delete/' + article.id, this.encode(article));
+    return this.postProtobuf('article/delete/' + article.id, this.encodeArticle(article));
   }
 }
