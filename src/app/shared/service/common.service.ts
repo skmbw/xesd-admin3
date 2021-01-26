@@ -11,6 +11,16 @@ import Course = com.xueershangda.tianxun.classroom.model.Course;
 import Classes = com.xueershangda.tianxun.classroom.model.Classes;
 import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 import QuestionBank = com.xueershangda.tianxun.classroom.model.QuestionBank;
+import Special = com.xueershangda.tianxun.special.model.Special;
+import Orders = com.xueershangda.tianxun.orders.model.Orders;
+import Favorite = com.xueershangda.tianxun.user.model.Favorite;
+import Comment = com.xueershangda.tianxun.comment.model.Comment;
+import Equipment = com.xueershangda.tianxun.game.model.Equipment;
+import Characters = com.xueershangda.tianxun.game.model.Characters;
+import VirtualItems = com.xueershangda.tianxun.game.model.VirtualItems;
+import Score = com.xueershangda.tianxun.score.model.Score;
+import Search = com.xueershangda.tianxun.search.model.Search;
+import Request = com.xueershangda.tianxun.common.model.Request;
 
 /**
  * 公共服务的一些抽象啊
@@ -164,6 +174,78 @@ export class CommonService {
 
   encodeQuestionBank(questionBank: QuestionBank): ArrayBufferLike {
     const body = QuestionBank.encode(questionBank).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeSpecial(special: Special): ArrayBufferLike {
+    const body = Special.encode(special).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeRequest(request: Request): ArrayBufferLike {
+    const body = Request.encode(request).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeOrder(orders: Orders): ArrayBufferLike {
+    const body = Orders.encode(orders).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeComment(model: Comment): ArrayBufferLike {
+    const body = Comment.encode(model).finish();
+    // 这样可以数组复制，OK。直接操作内存，性能应该比循环快；待测
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeFavorite(model: Favorite): ArrayBufferLike {
+    const body = Favorite.encode(model).finish();
+    // 这样可以数组复制，OK。直接操作内存，性能应该比循环快；待测
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeEquipment(equip: Equipment): ArrayBufferLike {
+    const body = Equipment.encode(equip).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeChar(characters: Characters): ArrayBufferLike {
+    const body = Characters.encode(characters).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeVirtualItem(items: VirtualItems): ArrayBufferLike {
+    const body = VirtualItems.encode(items).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeScore(score: Score): ArrayBufferLike {
+    const body = Score.encode(score).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeSearch(search: Search): ArrayBufferLike {
+    const body = Search.encode(search).finish();
     const int8Array = new Int8Array(body.byteLength);
     int8Array.set(body);
     return int8Array.buffer;
