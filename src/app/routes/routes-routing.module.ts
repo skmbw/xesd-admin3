@@ -52,8 +52,6 @@ const routes: Routes = [
       { path: 'course', loadChildren: () => import('./course/course.module').then(m => m.CourseModule) },
       { path: 'questionbank', loadChildren: () => import('./questionbank/questionbank.module').then(m => m.QuestionbankModule) },
       { path: 'classes', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesModule) },
-      { path: 'paper/list', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesModule) },
-      { path: 'exercise', loadChildren: () => import('./classes/classes.module').then(m => m.ClassesModule) },
     ],
   },
   // 全屏布局
