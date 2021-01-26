@@ -4,7 +4,7 @@ import { QuestionbankRoutingModule } from './questionbank-routing.module';
 import { QuestionbankEditComponent } from './edit/edit.component';
 import { QuestionbankViewComponent } from './view/view.component';
 import { QuestionbankListComponent } from './list/list.component';
-import { PaperComponent, QuestionbankPaperComponent } from './paper/paper.component';
+import { QuestionbankPaperComponent } from './paper/paper.component';
 import { QuestionbankExerciseComponent } from './exercise/exercise.component';
 
 const COMPONENTS = [
@@ -23,7 +23,6 @@ const COMPONENTS_NOROUNT = [];
   declarations: [
     ...COMPONENTS,
     ...COMPONENTS_NOROUNT,
-    PaperComponent
   ],
 })
 export class QuestionbankModule { }
