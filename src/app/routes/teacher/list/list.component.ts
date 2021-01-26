@@ -1,15 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent } from '@delon/abc/st';
+import { STColumn, STComponent, STData } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
 import { Router } from '@angular/router';
+import { TeacherService } from '../../../shared/service/teacher.service';
+import { com } from '@shared';
+import { NzMessageService } from 'ng-zorro-antd';
+import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
+import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
 
 @Component({
   selector: 'app-teacher-list',
   templateUrl: './list.component.html',
 })
 export class TeacherListComponent implements OnInit {
-  url = `/user`;
+  url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
       no: {
@@ -34,9 +39,21 @@ export class TeacherListComponent implements OnInit {
   ];
 
   constructor(private http: _HttpClient, private modal: ModalHelper,
-              private router: Router) { }
+              private router: Router, private teacherService: TeacherService,
+              private message: NzMessageService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const teacher = new Teacher();
+    this.teacherService.list(teacher).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = TeacherReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.url = reply.data as STData[];
+      } else {
+        this.message.info(reply.message);
+      }
+    });
+  }
 
   add() {
     this.router.navigateByUrl('teacher/edit').catch();
