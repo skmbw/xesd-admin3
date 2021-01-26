@@ -4,15 +4,16 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
+import { JsUtils } from '@shared';
 
 @Component({
   selector: 'app-teacher-edit',
   templateUrl: './edit.component.html',
 })
 export class TeacherEditComponent implements OnInit {
-
   id = this.route.snapshot.params.id;
   i: any;
+  title = '更新老师信息';
   schema: SFSchema = {
     properties: {
       no: { type: 'string', title: '编号' },
@@ -48,8 +49,14 @@ export class TeacherEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.id > 0)
-    this.http.get(`/user/${this.i.id}`).subscribe(res => (this.i = res));
+    // if (this.id > 0)
+    // this.http.get(`/user/${this.i.id}`).subscribe(res => (this.i = res));
+    if (JsUtils.isNotBlank(this.id)) {
+
+    } else {
+      this.i = {};
+      this.title = '新增老师';
+    }
   }
 
   save(value: any) {

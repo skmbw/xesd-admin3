@@ -8,7 +8,8 @@ const routes: Routes = [
 
   { path: 'list', component: TeacherListComponent },
   { path: 'view', component: TeacherViewComponent },
-  { path: 'edit', component: TeacherEditComponent }];
+  { path: 'edit', component: TeacherEditComponent },
+  { path: 'edit/:id', component: TeacherEditComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
