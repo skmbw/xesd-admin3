@@ -1,6 +1,7 @@
 // Custom icon static resources
 
 import {
+  AppstoreOutline,
   BulbOutline,
   ExceptionOutline,
   FileTextOutline,
@@ -16,4 +17,4 @@ export const ICONS = [InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline
   FileTextOutline,
   QuestionCircleOutline,
   VideoCameraOutline,
-  PictureTwoTone];
+  PictureTwoTone, AppstoreOutline];

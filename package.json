@@ -120,10 +120,5 @@
     "@delon/testing": "^9.2.1",
     "ng-alain": "^9.2.1",
     "ng-alain-codelyzer": "^0.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged"
-    }
   }
 }
