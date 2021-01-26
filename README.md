@@ -29,6 +29,7 @@ The GPL License
 * ng g ng-alain:edit edit -m=video，创建video模块的edit组件，edit目录在video目录下，edit模块的文件在edit目录下
 * ng g ng-alain:curd list -m=trade，在trade/curd目录下，一次性创建list(在curd下)、view(在list下)、edit(在list下)模块，好像不能直接在trade目录下直接创建3个组件.
 * ng g ng-alain:view view -m=video，所以，如果不喜欢上面的目录结构，可以自己单独创建。
+* ng g ng-alain:list exercise -m=questionbank 在questionbank module下的exercise目录中，新建一个类型是list的，名为exercise.component.ts的组件
 
 ### protobufjs的使用
 * pbjs -t static-module -w commonjs -o bundled.js file1.proto file2.proto

@@ -49,13 +49,12 @@ export class CourseEditComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.id > 0)
-    this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+    this.http.get(`/user/${this.i.id}`).subscribe(res => (this.i = res));
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.record.id}`, value).subscribe(res => {
+    this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
       this.msgSrv.success('保存成功');
-      this.modal.close(true);
     });
   }
 }

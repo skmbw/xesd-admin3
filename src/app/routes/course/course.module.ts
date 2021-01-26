@@ -3,7 +3,6 @@ import { SharedModule } from '@shared';
 import { CourseRoutingModule } from './course-routing.module';
 import { CourseViewComponent } from './view/view.component';
 import { CourseListComponent } from './list/list.component';
-import { CourseNComponent } from './n/n.component';
 import { CourseEditComponent } from './edit/edit.component';
 
 const COMPONENTS = [
@@ -11,7 +10,7 @@ const COMPONENTS = [
   CourseListComponent,
   CourseEditComponent];
 const COMPONENTS_NOROUNT = [
-  CourseNComponent];
+  ];
 
 @NgModule({
   imports: [
