@@ -4,7 +4,9 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { JsUtils } from '@shared';
+import { com, JsUtils } from '@shared';
+import { TeacherService } from '../../../shared/service/teacher.service';
+import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 
 @Component({
   selector: 'app-teacher-edit',
@@ -12,7 +14,7 @@ import { JsUtils } from '@shared';
 })
 export class TeacherEditComponent implements OnInit {
   id = this.route.snapshot.params.id;
-  i: any;
+  i: Teacher;
   title = '更新老师信息';
   schema: SFSchema = {
     properties: {
@@ -45,7 +47,7 @@ export class TeacherEditComponent implements OnInit {
     private route: ActivatedRoute,
     public location: Location,
     private msgSrv: NzMessageService,
-    public http: _HttpClient,
+    public http: _HttpClient, private teacherService: TeacherService
   ) {}
 
   ngOnInit(): void {
@@ -54,15 +56,17 @@ export class TeacherEditComponent implements OnInit {
     if (JsUtils.isNotBlank(this.id)) {
 
     } else {
-      this.i = {};
+      this.i = new Teacher();
       this.title = '新增老师';
     }
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
-      // this.modal.close(true);
-    });
+    // this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
+    //   this.msgSrv.success('保存成功');
+    //   // this.modal.close(true);
+    // });
+    const teacher = value as Teacher;
+    this.teacherService.add(teacher).subscribe(result => {});
   }
 }
