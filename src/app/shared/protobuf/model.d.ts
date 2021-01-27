@@ -1572,6 +1572,9 @@ export namespace com {
 
                         /** AnswerReply dialogueList */
                         dialogueList?: (com.xueershangda.tianxun.answer.model.IDialogue[]|null);
+
+                        /** AnswerReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents an AnswerReply. */
@@ -1597,6 +1600,9 @@ export namespace com {
 
                         /** AnswerReply dialogueList. */
                         public dialogueList: com.xueershangda.tianxun.answer.model.IDialogue[];
+
+                        /** AnswerReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new AnswerReply instance using the specified properties.
@@ -2513,6 +2519,9 @@ export namespace com {
 
                         /** ArticleReply targetId */
                         targetId?: (string|null);
+
+                        /** ArticleReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents an ArticleReply. */
@@ -2547,6 +2556,9 @@ export namespace com {
 
                         /** ArticleReply targetId. */
                         public targetId: string;
+
+                        /** ArticleReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new ArticleReply instance using the specified properties.
@@ -2977,6 +2989,9 @@ export namespace com {
 
                         /** QuestionReply targetId */
                         targetId?: (string|null);
+
+                        /** QuestionReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a QuestionReply. */
@@ -3011,6 +3026,9 @@ export namespace com {
 
                         /** QuestionReply targetId. */
                         public targetId: string;
+
+                        /** QuestionReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new QuestionReply instance using the specified properties.
@@ -4970,6 +4988,9 @@ export namespace com {
 
                         /** CommentReply data */
                         data?: (com.xueershangda.tianxun.comment.model.IComment[]|null);
+
+                        /** CommentReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a CommentReply. */
@@ -4989,6 +5010,9 @@ export namespace com {
 
                         /** CommentReply data. */
                         public data: com.xueershangda.tianxun.comment.model.IComment[];
+
+                        /** CommentReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new CommentReply instance using the specified properties.
@@ -8366,6 +8390,9 @@ export namespace com {
 
                         /** SpecialReply specialList */
                         specialList?: (com.xueershangda.tianxun.special.model.ISpecial[]|null);
+
+                        /** SpecialReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a SpecialReply. */
@@ -8385,6 +8412,9 @@ export namespace com {
 
                         /** SpecialReply specialList. */
                         public specialList: com.xueershangda.tianxun.special.model.ISpecial[];
+
+                        /** SpecialReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new SpecialReply instance using the specified properties.
@@ -8471,6 +8501,9 @@ export namespace com {
 
                         /** SpecialDetailReply special */
                         special?: (com.xueershangda.tianxun.special.model.ISpecial|null);
+
+                        /** SpecialDetailReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a SpecialDetailReply. */
@@ -8493,6 +8526,9 @@ export namespace com {
 
                         /** SpecialDetailReply special. */
                         public special?: (com.xueershangda.tianxun.special.model.ISpecial|null);
+
+                        /** SpecialDetailReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new SpecialDetailReply instance using the specified properties.
@@ -9150,6 +9186,9 @@ export namespace com {
 
                         /** CatalogsReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.ICatalogs[]|null);
+
+                        /** CatalogsReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a CatalogsReply. */
@@ -9169,6 +9208,9 @@ export namespace com {
 
                         /** CatalogsReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.ICatalogs[];
+
+                        /** CatalogsReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new CatalogsReply instance using the specified properties.
@@ -9432,6 +9474,9 @@ export namespace com {
 
                         /** ClassesReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IClasses[]|null);
+
+                        /** ClassesReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a ClassesReply. */
@@ -9451,6 +9496,9 @@ export namespace com {
 
                         /** ClassesReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IClasses[];
+
+                        /** ClassesReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new ClassesReply instance using the specified properties.
@@ -9756,6 +9804,9 @@ export namespace com {
 
                         /** CourseReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.ICourse[]|null);
+
+                        /** CourseReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a CourseReply. */
@@ -9775,6 +9826,9 @@ export namespace com {
 
                         /** CourseReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.ICourse[];
+
+                        /** CourseReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new CourseReply instance using the specified properties.
@@ -10044,6 +10098,9 @@ export namespace com {
 
                         /** ExerciseReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IExercise[]|null);
+
+                        /** ExerciseReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents an ExerciseReply. */
@@ -10063,6 +10120,9 @@ export namespace com {
 
                         /** ExerciseReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IExercise[];
+
+                        /** ExerciseReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new ExerciseReply instance using the specified properties.
@@ -10326,6 +10386,9 @@ export namespace com {
 
                         /** ExerciseAnswerReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IExerciseAnswer[]|null);
+
+                        /** ExerciseAnswerReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents an ExerciseAnswerReply. */
@@ -10345,6 +10408,9 @@ export namespace com {
 
                         /** ExerciseAnswerReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IExerciseAnswer[];
+
+                        /** ExerciseAnswerReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new ExerciseAnswerReply instance using the specified properties.
@@ -10572,6 +10638,9 @@ export namespace com {
 
                         /** GradeReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IGrade[]|null);
+
+                        /** GradeReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a GradeReply. */
@@ -10591,6 +10660,9 @@ export namespace com {
 
                         /** GradeReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IGrade[];
+
+                        /** GradeReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new GradeReply instance using the specified properties.
@@ -10824,6 +10896,9 @@ export namespace com {
 
                         /** OptionsReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IOptions[]|null);
+
+                        /** OptionsReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents an OptionsReply. */
@@ -10843,6 +10918,9 @@ export namespace com {
 
                         /** OptionsReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IOptions[];
+
+                        /** OptionsReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new OptionsReply instance using the specified properties.
@@ -11118,6 +11196,9 @@ export namespace com {
 
                         /** PaperReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IPaper[]|null);
+
+                        /** PaperReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a PaperReply. */
@@ -11137,6 +11218,9 @@ export namespace com {
 
                         /** PaperReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IPaper[];
+
+                        /** PaperReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new PaperReply instance using the specified properties.
@@ -11346,6 +11430,9 @@ export namespace com {
 
                         /** PaperDetailReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IPaperDetail[]|null);
+
+                        /** PaperDetailReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a PaperDetailReply. */
@@ -11365,6 +11452,9 @@ export namespace com {
 
                         /** PaperDetailReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IPaperDetail[];
+
+                        /** PaperDetailReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new PaperDetailReply instance using the specified properties.
@@ -11646,6 +11736,9 @@ export namespace com {
 
                         /** QuestionBankReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.IQuestionBank[]|null);
+
+                        /** QuestionBankReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a QuestionBankReply. */
@@ -11665,6 +11758,9 @@ export namespace com {
 
                         /** QuestionBankReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.IQuestionBank[];
+
+                        /** QuestionBankReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new QuestionBankReply instance using the specified properties.
@@ -11904,6 +12000,9 @@ export namespace com {
 
                         /** SubjectReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.ISubject[]|null);
+
+                        /** SubjectReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a SubjectReply. */
@@ -11923,6 +12022,9 @@ export namespace com {
 
                         /** SubjectReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.ISubject[];
+
+                        /** SubjectReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new SubjectReply instance using the specified properties.
@@ -12162,6 +12264,9 @@ export namespace com {
 
                         /** TeacherReply data */
                         data?: (com.xueershangda.tianxun.classroom.model.ITeacher[]|null);
+
+                        /** TeacherReply total */
+                        total?: (number|null);
                     }
 
                     /** Represents a TeacherReply. */
@@ -12181,6 +12286,9 @@ export namespace com {
 
                         /** TeacherReply data. */
                         public data: com.xueershangda.tianxun.classroom.model.ITeacher[];
+
+                        /** TeacherReply total. */
+                        public total: number;
 
                         /**
                          * Creates a new TeacherReply instance using the specified properties.

@@ -4561,6 +4561,7 @@ export const com = $root.com = (() => {
                          * @property {Array.<com.xueershangda.tianxun.answer.model.IAnswer>|null} [data] AnswerReply data
                          * @property {com.xueershangda.tianxun.question.model.IQuestion|null} [question] AnswerReply question
                          * @property {Array.<com.xueershangda.tianxun.answer.model.IDialogue>|null} [dialogueList] AnswerReply dialogueList
+                         * @property {number|null} [total] AnswerReply total
                          */
 
                         /**
@@ -4621,6 +4622,14 @@ export const com = $root.com = (() => {
                         AnswerReply.prototype.dialogueList = $util.emptyArray;
 
                         /**
+                         * AnswerReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.answer.model.AnswerReply
+                         * @instance
+                         */
+                        AnswerReply.prototype.total = 0;
+
+                        /**
                          * Creates a new AnswerReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.answer.model.AnswerReply
@@ -4656,6 +4665,8 @@ export const com = $root.com = (() => {
                             if (message.dialogueList != null && message.dialogueList.length)
                                 for (let i = 0; i < message.dialogueList.length; ++i)
                                     $root.com.xueershangda.tianxun.answer.model.Dialogue.encode(message.dialogueList[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.total);
                             return writer;
                         };
 
@@ -4708,6 +4719,9 @@ export const com = $root.com = (() => {
                                     if (!(message.dialogueList && message.dialogueList.length))
                                         message.dialogueList = [];
                                     message.dialogueList.push($root.com.xueershangda.tianxun.answer.model.Dialogue.decode(reader, reader.uint32()));
+                                    break;
+                                case 6:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -4773,6 +4787,9 @@ export const com = $root.com = (() => {
                                         return "dialogueList." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -4817,6 +4834,8 @@ export const com = $root.com = (() => {
                                     message.dialogueList[i] = $root.com.xueershangda.tianxun.answer.model.Dialogue.fromObject(object.dialogueList[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -4841,6 +4860,7 @@ export const com = $root.com = (() => {
                                 object.code = 0;
                                 object.message = "";
                                 object.question = null;
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -4858,6 +4878,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.dialogueList.length; ++j)
                                     object.dialogueList[j] = $root.com.xueershangda.tianxun.answer.model.Dialogue.toObject(message.dialogueList[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -7334,6 +7356,7 @@ export const com = $root.com = (() => {
                          * @property {string|null} [title] ArticleReply title
                          * @property {string|null} [type] ArticleReply type
                          * @property {string|null} [targetId] ArticleReply targetId
+                         * @property {number|null} [total] ArticleReply total
                          */
 
                         /**
@@ -7417,6 +7440,14 @@ export const com = $root.com = (() => {
                         ArticleReply.prototype.targetId = "";
 
                         /**
+                         * ArticleReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.article.model.ArticleReply
+                         * @instance
+                         */
+                        ArticleReply.prototype.total = 0;
+
+                        /**
                          * Creates a new ArticleReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.article.model.ArticleReply
@@ -7457,6 +7488,8 @@ export const com = $root.com = (() => {
                                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.type);
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.targetId);
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.total);
                             return writer;
                         };
 
@@ -7516,6 +7549,9 @@ export const com = $root.com = (() => {
                                     break;
                                 case 8:
                                     message.targetId = reader.string();
+                                    break;
+                                case 9:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -7582,6 +7618,9 @@ export const com = $root.com = (() => {
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 if (!$util.isString(message.targetId))
                                     return "targetId: string expected";
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -7621,6 +7660,8 @@ export const com = $root.com = (() => {
                                 message.type = String(object.type);
                             if (object.targetId != null)
                                 message.targetId = String(object.targetId);
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -7647,6 +7688,7 @@ export const com = $root.com = (() => {
                                 object.title = "";
                                 object.type = "";
                                 object.targetId = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -7667,6 +7709,8 @@ export const com = $root.com = (() => {
                                 object.type = message.type;
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 object.targetId = message.targetId;
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -8892,6 +8936,7 @@ export const com = $root.com = (() => {
                          * @property {string|null} [title] QuestionReply title
                          * @property {string|null} [type] QuestionReply type
                          * @property {string|null} [targetId] QuestionReply targetId
+                         * @property {number|null} [total] QuestionReply total
                          */
 
                         /**
@@ -8975,6 +9020,14 @@ export const com = $root.com = (() => {
                         QuestionReply.prototype.targetId = "";
 
                         /**
+                         * QuestionReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.question.model.QuestionReply
+                         * @instance
+                         */
+                        QuestionReply.prototype.total = 0;
+
+                        /**
                          * Creates a new QuestionReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.question.model.QuestionReply
@@ -9015,6 +9068,8 @@ export const com = $root.com = (() => {
                                 writer.uint32(/* id 7, wireType 2 =*/58).string(message.type);
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 writer.uint32(/* id 8, wireType 2 =*/66).string(message.targetId);
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 9, wireType 0 =*/72).int32(message.total);
                             return writer;
                         };
 
@@ -9074,6 +9129,9 @@ export const com = $root.com = (() => {
                                     break;
                                 case 8:
                                     message.targetId = reader.string();
+                                    break;
+                                case 9:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -9140,6 +9198,9 @@ export const com = $root.com = (() => {
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 if (!$util.isString(message.targetId))
                                     return "targetId: string expected";
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -9179,6 +9240,8 @@ export const com = $root.com = (() => {
                                 message.type = String(object.type);
                             if (object.targetId != null)
                                 message.targetId = String(object.targetId);
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -9205,6 +9268,7 @@ export const com = $root.com = (() => {
                                 object.title = "";
                                 object.type = "";
                                 object.targetId = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -9225,6 +9289,8 @@ export const com = $root.com = (() => {
                                 object.type = message.type;
                             if (message.targetId != null && message.hasOwnProperty("targetId"))
                                 object.targetId = message.targetId;
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -14672,6 +14738,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] CommentReply code
                          * @property {string|null} [message] CommentReply message
                          * @property {Array.<com.xueershangda.tianxun.comment.model.IComment>|null} [data] CommentReply data
+                         * @property {number|null} [total] CommentReply total
                          */
 
                         /**
@@ -14715,6 +14782,14 @@ export const com = $root.com = (() => {
                         CommentReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * CommentReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.comment.model.CommentReply
+                         * @instance
+                         */
+                        CommentReply.prototype.total = 0;
+
+                        /**
                          * Creates a new CommentReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.comment.model.CommentReply
@@ -14745,6 +14820,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.comment.model.Comment.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -14789,6 +14866,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.comment.model.Comment.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -14840,6 +14920,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -14869,6 +14952,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.comment.model.Comment.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -14890,6 +14975,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -14900,6 +14986,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.comment.model.Comment.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -24614,6 +24702,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] SpecialReply code
                          * @property {string|null} [message] SpecialReply message
                          * @property {Array.<com.xueershangda.tianxun.special.model.ISpecial>|null} [specialList] SpecialReply specialList
+                         * @property {number|null} [total] SpecialReply total
                          */
 
                         /**
@@ -24657,6 +24746,14 @@ export const com = $root.com = (() => {
                         SpecialReply.prototype.specialList = $util.emptyArray;
 
                         /**
+                         * SpecialReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialReply
+                         * @instance
+                         */
+                        SpecialReply.prototype.total = 0;
+
+                        /**
                          * Creates a new SpecialReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.special.model.SpecialReply
@@ -24687,6 +24784,8 @@ export const com = $root.com = (() => {
                             if (message.specialList != null && message.specialList.length)
                                 for (let i = 0; i < message.specialList.length; ++i)
                                     $root.com.xueershangda.tianxun.special.model.Special.encode(message.specialList[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -24731,6 +24830,9 @@ export const com = $root.com = (() => {
                                     if (!(message.specialList && message.specialList.length))
                                         message.specialList = [];
                                     message.specialList.push($root.com.xueershangda.tianxun.special.model.Special.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -24782,6 +24884,9 @@ export const com = $root.com = (() => {
                                         return "specialList." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -24811,6 +24916,8 @@ export const com = $root.com = (() => {
                                     message.specialList[i] = $root.com.xueershangda.tianxun.special.model.Special.fromObject(object.specialList[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -24832,6 +24939,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -24842,6 +24950,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.specialList.length; ++j)
                                     object.specialList[j] = $root.com.xueershangda.tianxun.special.model.Special.toObject(message.specialList[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -24869,6 +24979,7 @@ export const com = $root.com = (() => {
                          * @property {string|null} [message] SpecialDetailReply message
                          * @property {Array.<com.xueershangda.tianxun.special.model.ISpecialDetail>|null} [specialDetailList] SpecialDetailReply specialDetailList
                          * @property {com.xueershangda.tianxun.special.model.ISpecial|null} [special] SpecialDetailReply special
+                         * @property {number|null} [total] SpecialDetailReply total
                          */
 
                         /**
@@ -24920,6 +25031,14 @@ export const com = $root.com = (() => {
                         SpecialDetailReply.prototype.special = null;
 
                         /**
+                         * SpecialDetailReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
+                         * @instance
+                         */
+                        SpecialDetailReply.prototype.total = 0;
+
+                        /**
                          * Creates a new SpecialDetailReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.special.model.SpecialDetailReply
@@ -24952,6 +25071,8 @@ export const com = $root.com = (() => {
                                     $root.com.xueershangda.tianxun.special.model.SpecialDetail.encode(message.specialDetailList[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
                             if (message.special != null && message.hasOwnProperty("special"))
                                 $root.com.xueershangda.tianxun.special.model.Special.encode(message.special, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.total);
                             return writer;
                         };
 
@@ -24999,6 +25120,9 @@ export const com = $root.com = (() => {
                                     break;
                                 case 4:
                                     message.special = $root.com.xueershangda.tianxun.special.model.Special.decode(reader, reader.uint32());
+                                    break;
+                                case 5:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -25055,6 +25179,9 @@ export const com = $root.com = (() => {
                                 if (error)
                                     return "special." + error;
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -25089,6 +25216,8 @@ export const com = $root.com = (() => {
                                     throw TypeError(".com.xueershangda.tianxun.special.model.SpecialDetailReply.special: object expected");
                                 message.special = $root.com.xueershangda.tianxun.special.model.Special.fromObject(object.special);
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -25111,6 +25240,7 @@ export const com = $root.com = (() => {
                                 object.code = 0;
                                 object.message = "";
                                 object.special = null;
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -25123,6 +25253,8 @@ export const com = $root.com = (() => {
                             }
                             if (message.special != null && message.hasOwnProperty("special"))
                                 object.special = $root.com.xueershangda.tianxun.special.model.Special.toObject(message.special, options);
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -26924,6 +27056,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] CatalogsReply code
                          * @property {string|null} [message] CatalogsReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.ICatalogs>|null} [data] CatalogsReply data
+                         * @property {number|null} [total] CatalogsReply total
                          */
 
                         /**
@@ -26967,6 +27100,14 @@ export const com = $root.com = (() => {
                         CatalogsReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * CatalogsReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
+                         * @instance
+                         */
+                        CatalogsReply.prototype.total = 0;
+
+                        /**
                          * Creates a new CatalogsReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.CatalogsReply
@@ -26997,6 +27138,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Catalogs.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -27041,6 +27184,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Catalogs.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -27092,6 +27238,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -27121,6 +27270,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Catalogs.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -27142,6 +27293,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -27152,6 +27304,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Catalogs.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -27736,6 +27890,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] ClassesReply code
                          * @property {string|null} [message] ClassesReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IClasses>|null} [data] ClassesReply data
+                         * @property {number|null} [total] ClassesReply total
                          */
 
                         /**
@@ -27779,6 +27934,14 @@ export const com = $root.com = (() => {
                         ClassesReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * ClassesReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
+                         * @instance
+                         */
+                        ClassesReply.prototype.total = 0;
+
+                        /**
                          * Creates a new ClassesReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.ClassesReply
@@ -27809,6 +27972,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Classes.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -27853,6 +28018,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Classes.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -27904,6 +28072,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -27933,6 +28104,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Classes.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -27954,6 +28127,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -27964,6 +28138,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Classes.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -28702,6 +28878,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] CourseReply code
                          * @property {string|null} [message] CourseReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.ICourse>|null} [data] CourseReply data
+                         * @property {number|null} [total] CourseReply total
                          */
 
                         /**
@@ -28745,6 +28922,14 @@ export const com = $root.com = (() => {
                         CourseReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * CourseReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
+                         * @instance
+                         */
+                        CourseReply.prototype.total = 0;
+
+                        /**
                          * Creates a new CourseReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.CourseReply
@@ -28775,6 +28960,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Course.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -28819,6 +29006,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Course.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -28870,6 +29060,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -28899,6 +29092,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Course.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -28920,6 +29115,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -28930,6 +29126,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Course.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -29506,6 +29704,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] ExerciseReply code
                          * @property {string|null} [message] ExerciseReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IExercise>|null} [data] ExerciseReply data
+                         * @property {number|null} [total] ExerciseReply total
                          */
 
                         /**
@@ -29549,6 +29748,14 @@ export const com = $root.com = (() => {
                         ExerciseReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * ExerciseReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
+                         * @instance
+                         */
+                        ExerciseReply.prototype.total = 0;
+
+                        /**
                          * Creates a new ExerciseReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.ExerciseReply
@@ -29579,6 +29786,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Exercise.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -29623,6 +29832,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Exercise.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -29674,6 +29886,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -29703,6 +29918,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Exercise.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -29724,6 +29941,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -29734,6 +29952,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Exercise.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -30298,6 +30518,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] ExerciseAnswerReply code
                          * @property {string|null} [message] ExerciseAnswerReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IExerciseAnswer>|null} [data] ExerciseAnswerReply data
+                         * @property {number|null} [total] ExerciseAnswerReply total
                          */
 
                         /**
@@ -30341,6 +30562,14 @@ export const com = $root.com = (() => {
                         ExerciseAnswerReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * ExerciseAnswerReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
+                         * @instance
+                         */
+                        ExerciseAnswerReply.prototype.total = 0;
+
+                        /**
                          * Creates a new ExerciseAnswerReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.ExerciseAnswerReply
@@ -30371,6 +30600,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -30415,6 +30646,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -30466,6 +30700,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -30495,6 +30732,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -30516,6 +30755,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -30526,6 +30766,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.ExerciseAnswer.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -30948,6 +31190,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] GradeReply code
                          * @property {string|null} [message] GradeReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IGrade>|null} [data] GradeReply data
+                         * @property {number|null} [total] GradeReply total
                          */
 
                         /**
@@ -30991,6 +31234,14 @@ export const com = $root.com = (() => {
                         GradeReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * GradeReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
+                         * @instance
+                         */
+                        GradeReply.prototype.total = 0;
+
+                        /**
                          * Creates a new GradeReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.GradeReply
@@ -31021,6 +31272,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Grade.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -31065,6 +31318,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Grade.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -31116,6 +31372,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -31145,6 +31404,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Grade.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -31166,6 +31427,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -31176,6 +31438,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Grade.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -31610,6 +31874,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] OptionsReply code
                          * @property {string|null} [message] OptionsReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IOptions>|null} [data] OptionsReply data
+                         * @property {number|null} [total] OptionsReply total
                          */
 
                         /**
@@ -31653,6 +31918,14 @@ export const com = $root.com = (() => {
                         OptionsReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * OptionsReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
+                         * @instance
+                         */
+                        OptionsReply.prototype.total = 0;
+
+                        /**
                          * Creates a new OptionsReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.OptionsReply
@@ -31683,6 +31956,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Options.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -31727,6 +32002,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Options.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -31778,6 +32056,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -31807,6 +32088,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Options.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -31828,6 +32111,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -31838,6 +32122,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Options.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -32446,6 +32732,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] PaperReply code
                          * @property {string|null} [message] PaperReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaper>|null} [data] PaperReply data
+                         * @property {number|null} [total] PaperReply total
                          */
 
                         /**
@@ -32489,6 +32776,14 @@ export const com = $root.com = (() => {
                         PaperReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * PaperReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
+                         * @instance
+                         */
+                        PaperReply.prototype.total = 0;
+
+                        /**
                          * Creates a new PaperReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.PaperReply
@@ -32519,6 +32814,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Paper.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -32563,6 +32860,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Paper.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -32614,6 +32914,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -32643,6 +32946,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Paper.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -32664,6 +32969,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -32674,6 +32980,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Paper.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -33020,6 +33328,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] PaperDetailReply code
                          * @property {string|null} [message] PaperDetailReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>|null} [data] PaperDetailReply data
+                         * @property {number|null} [total] PaperDetailReply total
                          */
 
                         /**
@@ -33063,6 +33372,14 @@ export const com = $root.com = (() => {
                         PaperDetailReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * PaperDetailReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.total = 0;
+
+                        /**
                          * Creates a new PaperDetailReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
@@ -33093,6 +33410,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.PaperDetail.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -33137,6 +33456,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.PaperDetail.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -33188,6 +33510,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -33217,6 +33542,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -33238,6 +33565,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -33248,6 +33576,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -33878,6 +34208,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] QuestionBankReply code
                          * @property {string|null} [message] QuestionBankReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.IQuestionBank>|null} [data] QuestionBankReply data
+                         * @property {number|null} [total] QuestionBankReply total
                          */
 
                         /**
@@ -33921,6 +34252,14 @@ export const com = $root.com = (() => {
                         QuestionBankReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * QuestionBankReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
+                         * @instance
+                         */
+                        QuestionBankReply.prototype.total = 0;
+
+                        /**
                          * Creates a new QuestionBankReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.QuestionBankReply
@@ -33951,6 +34290,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.QuestionBank.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -33995,6 +34336,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.QuestionBank.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -34046,6 +34390,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -34075,6 +34422,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -34096,6 +34445,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -34106,6 +34456,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -34572,6 +34924,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] SubjectReply code
                          * @property {string|null} [message] SubjectReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.ISubject>|null} [data] SubjectReply data
+                         * @property {number|null} [total] SubjectReply total
                          */
 
                         /**
@@ -34615,6 +34968,14 @@ export const com = $root.com = (() => {
                         SubjectReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * SubjectReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
+                         * @instance
+                         */
+                        SubjectReply.prototype.total = 0;
+
+                        /**
                          * Creates a new SubjectReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.SubjectReply
@@ -34645,6 +35006,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Subject.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -34689,6 +35052,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Subject.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -34740,6 +35106,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -34769,6 +35138,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Subject.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -34790,6 +35161,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -34800,6 +35172,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Subject.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
@@ -35256,6 +35630,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [code] TeacherReply code
                          * @property {string|null} [message] TeacherReply message
                          * @property {Array.<com.xueershangda.tianxun.classroom.model.ITeacher>|null} [data] TeacherReply data
+                         * @property {number|null} [total] TeacherReply total
                          */
 
                         /**
@@ -35299,6 +35674,14 @@ export const com = $root.com = (() => {
                         TeacherReply.prototype.data = $util.emptyArray;
 
                         /**
+                         * TeacherReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
+                         * @instance
+                         */
+                        TeacherReply.prototype.total = 0;
+
+                        /**
                          * Creates a new TeacherReply instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.TeacherReply
@@ -35329,6 +35712,8 @@ export const com = $root.com = (() => {
                             if (message.data != null && message.data.length)
                                 for (let i = 0; i < message.data.length; ++i)
                                     $root.com.xueershangda.tianxun.classroom.model.Teacher.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
                             return writer;
                         };
 
@@ -35373,6 +35758,9 @@ export const com = $root.com = (() => {
                                     if (!(message.data && message.data.length))
                                         message.data = [];
                                     message.data.push($root.com.xueershangda.tianxun.classroom.model.Teacher.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -35424,6 +35812,9 @@ export const com = $root.com = (() => {
                                         return "data." + error;
                                 }
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
                             return null;
                         };
 
@@ -35453,6 +35844,8 @@ export const com = $root.com = (() => {
                                     message.data[i] = $root.com.xueershangda.tianxun.classroom.model.Teacher.fromObject(object.data[i]);
                                 }
                             }
+                            if (object.total != null)
+                                message.total = object.total | 0;
                             return message;
                         };
 
@@ -35474,6 +35867,7 @@ export const com = $root.com = (() => {
                             if (options.defaults) {
                                 object.code = 0;
                                 object.message = "";
+                                object.total = 0;
                             }
                             if (message.code != null && message.hasOwnProperty("code"))
                                 object.code = message.code;
@@ -35484,6 +35878,8 @@ export const com = $root.com = (() => {
                                 for (let j = 0; j < message.data.length; ++j)
                                     object.data[j] = $root.com.xueershangda.tianxun.classroom.model.Teacher.toObject(message.data[j], options);
                             }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
                             return object;
                         };
 
