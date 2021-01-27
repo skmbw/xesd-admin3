@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CommonService } from './common.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { com } from '@shared';
+import { com, JsUtils } from '@shared';
 import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 
 @Injectable({
@@ -19,7 +19,11 @@ export class TeacherService extends CommonService {
   }
 
   add(teacher: Teacher): Observable<ArrayBuffer> {
-    return this.postProtobuf('teacher/doAdd', this.encodeTeacher(teacher));
+    if (JsUtils.isNotBlank(teacher.id)) {
+      return this.postProtobuf('teacher/update', this.encodeTeacher(teacher));
+    } else {
+      return this.postProtobuf('teacher/doAdd', this.encodeTeacher(teacher));
+    }
   }
 
   delete(teacher: Teacher): Observable<ArrayBuffer> {
