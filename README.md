@@ -57,3 +57,7 @@ The GPL License
 ### url跳转和modal弹窗，以及plupload上传初始化的问题
 - 如果类中注入了Modal，那么由Modal模式改为连接跳转，即使路由配置正确，也会报错。所以要去掉modal的注入
 - 如果使用modal的方式打开，那么因为没有$(document).ready事件，uploader初始化时会找不到对应的browse_button的id，so浏览器无法浏览文件
+
+### 都配置好了，但是UI渲染错误
+* schema配置的UI数据类型错误，导致UI没有渲染，这种清空，可以看一下浏览器的控制台，查找一下错误。
+* columns 属性中，数据类型是否正确匹配。
