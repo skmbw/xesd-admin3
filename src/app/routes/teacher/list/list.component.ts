@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TeacherService } from '../../../shared/service/teacher.service';
 import { com } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd';
+import { TeacherEditComponent } from '../edit/edit.component';
 import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
 
@@ -17,23 +18,22 @@ export class TeacherListComponent implements OnInit {
   url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
-      no: {
+      name: {
         type: 'string',
-        title: '编号'
+        title: '姓名'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: '编号', index: 'no' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '姓名', index: 'name' },
+    { title: '昵称', index: 'nickName' },
+    { title: '主讲课程', index: 'mainlyTeach' },
     {
       title: '',
       buttons: [
         // { text: '查看', click: (item: any) => `/form/${item.id}` },
-        // { text: '编辑', type: 'static', component: FormEditComponent, click: 'reload' },
+        { text: '编辑', type: 'static', component: TeacherEditComponent, click: 'reload' },
       ]
     }
   ];
@@ -44,7 +44,7 @@ export class TeacherListComponent implements OnInit {
 
   ngOnInit() {
     const teacher = new Teacher();
-    teacher.pageSize = 10; // 空对象，无法序列化？
+    teacher.pageSize = 10; // 空对象，无法序列化？这个的默认值也是10，就给它赋值10吧
     this.teacherService.list(teacher).subscribe(result => {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = TeacherReply.decode(uint8Array);
