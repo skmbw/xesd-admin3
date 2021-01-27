@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { TeacherService } from '../../../shared/service/teacher.service';
 import { com } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd';
-import { TeacherEditComponent } from '../edit/edit.component';
 import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
 
@@ -33,7 +32,7 @@ export class TeacherListComponent implements OnInit {
       title: '',
       buttons: [
         // { text: '查看', click: (item: any) => `/form/${item.id}` },
-        { text: '编辑', type: 'static', component: TeacherEditComponent, click: 'reload' },
+        { text: '编辑', type: 'link', click: (item: any) => `/teacher/edit/${item.id}` },
       ]
     }
   ];
