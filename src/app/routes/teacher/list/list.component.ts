@@ -45,6 +45,10 @@ export class TeacherListComponent implements OnInit {
   ngOnInit() {
     const teacher = new Teacher();
     teacher.pageSize = 10; // 空对象，无法序列化？这个的默认值也是10，就给它赋值10吧
+    this.load(teacher);
+  }
+
+  load(teacher: Teacher) {
     this.teacherService.list(teacher).subscribe(result => {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = TeacherReply.decode(uint8Array);
@@ -60,4 +64,7 @@ export class TeacherListComponent implements OnInit {
     this.router.navigateByUrl('teacher/edit').catch();
   }
 
+  search(event: Teacher) {
+    this.load(event);
+  }
 }
