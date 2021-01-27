@@ -23,6 +23,7 @@ export class TeacherListComponent implements OnInit {
       }
     }
   };
+  // 绑定自UI，可以在代码中操纵st这个属性
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
     { title: '姓名', index: 'name' },
