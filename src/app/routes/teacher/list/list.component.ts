@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent, STData } from '@delon/abc/st';
+import { STChange, STColumn, STComponent, STData } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
 import { Router } from '@angular/router';
 import { TeacherService } from '../../../shared/service/teacher.service';
@@ -66,5 +66,11 @@ export class TeacherListComponent implements OnInit {
 
   search(event: Teacher) {
     this.load(event);
+  }
+
+  change(change: STChange) {
+    const teacher = new Teacher();
+    // teacher.page = change.pi;
+    // this.load(teacher);
   }
 }
