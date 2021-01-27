@@ -71,11 +71,16 @@ export class TeacherEditComponent implements OnInit {
   }
 
   save(value: any) {
-    // this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
-    //   this.msgSrv.success('保存成功');
-    //   // this.modal.close(true);
-    // });
     const teacher = value as Teacher;
-    this.teacherService.add(teacher).subscribe(result => {});
+    this.teacherService.add(teacher).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = TeacherReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.msgSrv.success('新增老师信息成功。');
+        this.i = new Teacher();
+      } else {
+        this.msgSrv.success(reply.message); // 现在好像可以不用价分号了呀
+      }
+    });
   }
 }
