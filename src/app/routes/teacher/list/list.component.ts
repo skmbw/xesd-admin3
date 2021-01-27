@@ -44,6 +44,7 @@ export class TeacherListComponent implements OnInit {
 
   ngOnInit() {
     const teacher = new Teacher();
+    teacher.pageSize = 10; // 空对象，无法序列化？
     this.teacherService.list(teacher).subscribe(result => {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = TeacherReply.decode(uint8Array);
