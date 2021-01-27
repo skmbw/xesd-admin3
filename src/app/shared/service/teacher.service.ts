@@ -25,4 +25,10 @@ export class TeacherService extends CommonService {
   delete(teacher: Teacher): Observable<ArrayBuffer> {
     return this.postProtobuf('teacher/delete', this.encodeTeacher(teacher));
   }
+
+  get(id: string): Observable<ArrayBuffer> {
+    const teacher = new Teacher();
+    teacher.id = id;
+    return this.postProtobuf('teacher/detail', this.encodeTeacher(teacher));
+  }
 }
