@@ -6,7 +6,6 @@ import { ClassesEditComponent } from '../edit/edit.component';
 import { ClassesService } from '../../../shared/service/classes.service';
 import { com } from '@shared';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import Classes = com.xueershangda.tianxun.classroom.model.Classes;
 import ClassesReply = com.xueershangda.tianxun.classroom.model.ClassesReply;
 
@@ -15,7 +14,8 @@ import ClassesReply = com.xueershangda.tianxun.classroom.model.ClassesReply;
   templateUrl: './list.component.html',
 })
 export class ClassesListComponent implements OnInit {
-  url: Observable<STData[]>;
+  // url: Observable<STData[]>;
+  url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
       name: {
@@ -43,22 +43,22 @@ export class ClassesListComponent implements OnInit {
               private classesService: ClassesService, private toastr: ToastrService) { }
 
   ngOnInit() {
-    // const classes = new Classes();
-    // classes.pageSize = 10;
-    // this.load(classes);
-    this.url = new Observable<STData[]>(subscriber => {
-      const param = new Classes();
-      param.pageSize = 10;
-      this.classesService.list(param).subscribe(result => {
-        const uint8Array = new Uint8Array(result, 0, result.byteLength);
-        const reply = ClassesReply.decode(uint8Array);
-        if (reply.code === 1) {
-          subscriber.next(reply.data as STData[]);
-        } else {
-          this.toastr.success(reply.message);
-        }
-      });
-    });
+    const classes = new Classes();
+    classes.pageSize = 10;
+    this.load(classes);
+    // this.url = new Observable<STData[]>(subscriber => {
+    //   const param = new Classes();
+    //   param.pageSize = 10;
+    //   this.classesService.list(param).subscribe(result => {
+    //     const uint8Array = new Uint8Array(result, 0, result.byteLength);
+    //     const reply = ClassesReply.decode(uint8Array);
+    //     if (reply.code === 1) {
+    //       subscriber.next(reply.data as STData[]);
+    //     } else {
+    //       this.toastr.success(reply.message);
+    //     }
+    //   });
+    // });
   }
 
   load(classes: Classes) {
@@ -66,7 +66,7 @@ export class ClassesListComponent implements OnInit {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = ClassesReply.decode(uint8Array);
       if (reply.code === 1) {
-        // this.url = reply.data as STData[];
+        this.url = reply.data as STData[];
       } else {
         this.toastr.success(reply.message);
       }
