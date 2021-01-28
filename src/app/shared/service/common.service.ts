@@ -21,6 +21,7 @@ import VirtualItems = com.xueershangda.tianxun.game.model.VirtualItems;
 import Score = com.xueershangda.tianxun.score.model.Score;
 import Search = com.xueershangda.tianxun.search.model.Search;
 import Request = com.xueershangda.tianxun.common.model.Request;
+import Grade = com.xueershangda.tianxun.classroom.model.Grade;
 
 /**
  * 公共服务的一些抽象啊
@@ -160,6 +161,13 @@ export class CommonService {
 
   encodeClasses(classes: Classes): ArrayBufferLike {
     const body = Classes.encode(classes).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeGrade(grade: Grade): ArrayBufferLike {
+    const body = Grade.encode(grade).finish();
     const int8Array = new Int8Array(body.byteLength);
     int8Array.set(body);
     return int8Array.buffer;

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { com, JsUtils } from '@shared';
 import Classes = com.xueershangda.tianxun.classroom.model.Classes;
+import Grade = com.xueershangda.tianxun.classroom.model.Grade;
 
 @Injectable({
   providedIn: 'root'
@@ -34,5 +35,13 @@ export class ClassesService extends CommonService {
     const classes = new Classes();
     classes.id = id;
     return this.postProtobuf('classes/detail', this.encodeClasses(classes));
+  }
+
+  addGrade(grade: Grade) {
+    return this.postProtobuf('grade/doAdd', this.encodeGrade(grade));
+  }
+
+  gradeList(grade: Grade) {
+    return this.postProtobuf('grade/list', this.encodeGrade(grade));
   }
 }

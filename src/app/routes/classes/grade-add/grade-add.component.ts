@@ -3,6 +3,10 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
+import { com, JsUtils } from '@shared';
+import { ClassesService } from '../../../shared/service/classes.service';
+import Grade = com.xueershangda.tianxun.classroom.model.Grade;
+import GradeReply = com.xueershangda.tianxun.classroom.model.GradeReply;
 
 @Component({
   selector: 'app-classes-grade-add',
@@ -11,48 +15,55 @@ import { SFSchema, SFUISchema } from '@delon/form';
 export class ClassesGradeAddComponent implements OnInit {
   record: any = {};
   i: any;
+  title = '新增年级';
   schema: SFSchema = {
     properties: {
-      no: { type: 'string', title: '编号' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      name: { type: 'string', title: '年级名' },
+      remark: { type: 'string', title: '年级描述' },
+      gradeMaster: { type: 'string', title: '年级主任' },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['name', 'remark', 'gradeMaster'],
   };
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
       grid: { span: 12 },
     },
-    $no: {
-      widget: 'text'
+    $name: {
+      widget: 'string'
     },
-    $href: {
+    $remark: {
       widget: 'string',
     },
-    $description: {
-      widget: 'textarea',
-      grid: { span: 24 },
+    $gradeMaster: {
+      widget: 'string',
     },
   };
 
   constructor(
     private modal: NzModalRef,
     private msgSrv: NzMessageService,
-    public http: _HttpClient,
+    public http: _HttpClient, private classesService: ClassesService
   ) {}
 
   ngOnInit(): void {
-    if (this.record.id > 0)
-    this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+    if (JsUtils.isNotBlank(this.i.id)) {
+      this.title = '修改年级信息';
+      // 暂时没有修改功能
+      this.i = new Grade();
+    } else {
+      this.i = new Grade();
+    }
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.record.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
-      this.modal.close(true);
+    this.classesService.addGrade(value).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = GradeReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.msgSrv.success('保存成功');
+        this.modal.close(true);
+      }
     });
   }
 

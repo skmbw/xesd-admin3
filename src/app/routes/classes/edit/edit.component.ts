@@ -4,39 +4,56 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
+import { com, JsUtils } from '@shared';
+import { ClassesService } from '../../../shared/service/classes.service';
+import Classes = com.xueershangda.tianxun.classroom.model.Classes;
+import ClassesReply = com.xueershangda.tianxun.classroom.model.ClassesReply;
 
 @Component({
   selector: 'app-classes-edit',
   templateUrl: './edit.component.html',
 })
 export class ClassesEditComponent implements OnInit {
-
+  title = '新建班级';
   id = this.route.snapshot.params.id;
-  i: any;
+  i: Classes;
   schema: SFSchema = {
     properties: {
-      no: { type: 'string', title: '编号' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      name: { type: 'string', title: '班级名', maxLength: 50 },
+      remark: { type: 'string', title: '班级描述'},
+      gradeId: { type: 'string', title: '所属年级' },
+      classMaster: { type: 'string', title: '班主任'},
+      startDate: { type: 'string', title: '开课时间' },
+      endDate: { type: 'string', title: '结束时间' },
+      type: { type: 'string', title: '互动类型' },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['name', 'remark', 'classMaster'],
   };
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
       grid: { span: 12 },
     },
-    $no: {
-      widget: 'text'
+    $name: {
+      widget: 'string'
     },
-    $href: {
+    $remark: {
       widget: 'string',
     },
-    $description: {
-      widget: 'textarea',
-      grid: { span: 24 },
+    $gradeId: {
+      widget: 'string',
+    },
+    $classMaster: {
+      widget: 'string',
+    },
+    $startDate: {
+      widget: 'date',
+    },
+    $endDate: {
+      widget: 'date',
+    },
+    $type: {
+      widget: 'string',
     },
   };
 
@@ -44,17 +61,35 @@ export class ClassesEditComponent implements OnInit {
     private route: ActivatedRoute,
     public location: Location,
     private msgSrv: NzMessageService,
-    public http: _HttpClient,
+    public http: _HttpClient, private classesService: ClassesService
   ) {}
 
   ngOnInit(): void {
-    if (this.id > 0)
-    this.http.get(`/user/${this.i.id}`).subscribe(res => (this.i = res));
+    if (JsUtils.isNotBlank(this.id)) {
+      this.title = '修改班级信息';
+      this.classesService.get(this.id).subscribe(result => {
+        const uint8Array = new Uint8Array(result, 0, result.byteLength);
+        const reply = ClassesReply.decode(uint8Array);
+        if (reply.code === 1) {
+          this.i = reply.data[0] as Classes;
+        } else {
+          this.msgSrv.success(reply.message);
+        }
+      });
+    } else {
+      this.i = new Classes();
+    }
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
+    this.classesService.add(value).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = ClassesReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.msgSrv.success('新增班级成功');
+      } else {
+        this.msgSrv.success(reply.message);
+      }
     });
   }
 }
