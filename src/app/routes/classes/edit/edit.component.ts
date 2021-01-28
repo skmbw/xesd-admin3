@@ -6,10 +6,11 @@ import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { com, JsUtils } from '@shared';
 import { ClassesService } from '../../../shared/service/classes.service';
-import { of } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import Classes = com.xueershangda.tianxun.classroom.model.Classes;
 import ClassesReply = com.xueershangda.tianxun.classroom.model.ClassesReply;
+import Grade = com.xueershangda.tianxun.classroom.model.Grade;
+import GradeReply = com.xueershangda.tianxun.classroom.model.GradeReply;
 
 @Component({
   selector: 'app-classes-edit',
@@ -45,33 +46,33 @@ export class ClassesEditComponent implements OnInit {
     $gradeId: {
       widget: 'select',
       asyncData: () =>
-        // new Observable(subscriber => {
-        //   const grade = new Grade();
-        //   grade.pageSize = 20;
-        //   this.classesService.gradeList(grade).subscribe(result => {
-        //     const uint8Array = new Uint8Array(result, 0, result.byteLength);
-        //     const reply = GradeReply.decode(uint8Array);
-        //     if (reply.code === 1) {
-        //       const gradeList = [];
-        //       let i = 0;
-        //       for (const g of reply.data) {
-        //         gradeList[i++] = {label: g.name, value: g.id};
-        //       }
-        //       subscriber.next([{label: '年级', group: true, children: gradeList}]);
-        //     }
-        //   });
-        // }),
-        of([
-          {
-            label: '订单状态',
-            group: true,
-            children: [
-              { label: '待支付', value: 'WAIT_BUYER_PAY' },
-              { label: '已支付', value: 'TRADE_SUCCESS' },
-              { label: '交易完成', value: 'TRADE_FINISHED' },
-            ],
-          },
-        ]).pipe(delay(1200))
+        new Observable(subscriber => {
+          const grade = new Grade();
+          grade.pageSize = 20;
+          this.classesService.gradeList(grade).subscribe(result => {
+            const uint8Array = new Uint8Array(result, 0, result.byteLength);
+            const reply = GradeReply.decode(uint8Array);
+            if (reply.code === 1) {
+              const gradeList = [];
+              let i = 0;
+              for (const g of reply.data) {
+                gradeList[i++] = {label: g.name, value: g.id};
+              }
+              subscriber.next([{label: '年级', group: true, children: gradeList}]);
+            }
+          });
+        }),
+        // of([
+        //   {
+        //     label: '订单状态',
+        //     group: true,
+        //     children: [
+        //       { label: '待支付', value: 'WAIT_BUYER_PAY' },
+        //       { label: '已支付', value: 'TRADE_SUCCESS' },
+        //       { label: '交易完成', value: 'TRADE_FINISHED' },
+        //     ],
+        //   },
+        // ]).pipe(delay(1200))
     },
     $classMaster: {
       widget: 'string',
