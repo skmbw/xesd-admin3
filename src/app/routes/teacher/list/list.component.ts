@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TeacherService } from '../../../shared/service/teacher.service';
 import { com } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Observable } from 'rxjs';
 import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
 import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
 
@@ -14,7 +15,7 @@ import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
   templateUrl: './list.component.html',
 })
 export class TeacherListComponent implements OnInit {
-  url: STData[] = [];
+  url: Observable<STData[]>;
   searchSchema: SFSchema = {
     properties: {
       name: {
@@ -43,9 +44,22 @@ export class TeacherListComponent implements OnInit {
               private message: NzMessageService) { }
 
   ngOnInit() {
-    const teacher = new Teacher();
-    teacher.pageSize = 10; // 空对象，无法序列化？这个的默认值也是10，就给它赋值10吧
-    this.load(teacher);
+    // const teacher = new Teacher();
+    // teacher.pageSize = 10; // 空对象，无法序列化？这个的默认值也是10，就给它赋值10吧
+    // this.load(teacher);
+    this.url = new Observable<STData[]>(subscriber => {
+      const param = new Teacher();
+      param.pageSize = 10;
+      this.teacherService.list(param).subscribe(result => {
+        const uint8Array = new Uint8Array(result, 0, result.byteLength);
+        const reply = TeacherReply.decode(uint8Array);
+        if (reply.code === 1) {
+          subscriber.next(reply.data as STData[]);
+        } else {
+          this.message.success(reply.message);
+        }
+      });
+    });
   }
 
   load(teacher: Teacher) {
@@ -53,7 +67,7 @@ export class TeacherListComponent implements OnInit {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = TeacherReply.decode(uint8Array);
       if (reply.code === 1) {
-        this.url = reply.data as STData[];
+        // this.url = reply.data as STData[];
       } else {
         this.message.info(reply.message);
       }
