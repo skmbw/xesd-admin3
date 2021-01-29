@@ -22,6 +22,7 @@ import Score = com.xueershangda.tianxun.score.model.Score;
 import Search = com.xueershangda.tianxun.search.model.Search;
 import Request = com.xueershangda.tianxun.common.model.Request;
 import Grade = com.xueershangda.tianxun.classroom.model.Grade;
+import Subject = com.xueershangda.tianxun.classroom.model.Subject;
 
 /**
  * 公共服务的一些抽象啊
@@ -254,6 +255,13 @@ export class CommonService {
 
   encodeSearch(search: Search): ArrayBufferLike {
     const body = Search.encode(search).finish();
+    const int8Array = new Int8Array(body.byteLength);
+    int8Array.set(body);
+    return int8Array.buffer;
+  }
+
+  encodeSubject(subject: Subject): ArrayBufferLike {
+    const body = Subject.encode(subject).finish();
     const int8Array = new Int8Array(body.byteLength);
     int8Array.set(body);
     return int8Array.buffer;

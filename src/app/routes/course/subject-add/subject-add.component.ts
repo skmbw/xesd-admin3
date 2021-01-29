@@ -3,6 +3,10 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
+import { com, JsUtils } from '@shared';
+import { CourseService } from '../../../shared/service/course.service';
+import Subject = com.xueershangda.tianxun.classroom.model.Subject;
+import SubjectReply = com.xueershangda.tianxun.classroom.model.SubjectReply;
 
 @Component({
   selector: 'app-course-subject-add',
@@ -10,29 +14,36 @@ import { SFSchema, SFUISchema } from '@delon/form';
 })
 export class CourseSubjectAddComponent implements OnInit {
   record: any = {};
-  i: any;
+  i: Subject;
+  title = '新增科目';
   schema: SFSchema = {
     properties: {
-      no: { type: 'string', title: '编号' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      name: { type: 'string', title: '科目名' },
+      version: { type: 'string', title: '版本', maxLength: 15 },
+      volume: { type: 'string', title: '上下册' },
+      gradeId: { type: 'string', title: '所属年级' },
+      remark: { type: 'string', title: '描述', maxLength: 140 },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['name', 'version', 'volume', 'gradeId'],
   };
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
       grid: { span: 12 },
     },
-    $no: {
-      widget: 'text'
+    $name: {
+      widget: 'string'
     },
-    $href: {
+    $version: {
       widget: 'string',
     },
-    $description: {
+    $volume: {
+      widget: 'string',
+    },
+    $gradeId: {
+      widget: 'string',
+    },
+    $remark: {
       widget: 'textarea',
       grid: { span: 24 },
     },
@@ -41,12 +52,24 @@ export class CourseSubjectAddComponent implements OnInit {
   constructor(
     private modal: NzModalRef,
     private msgSrv: NzMessageService,
-    public http: _HttpClient,
+    public http: _HttpClient, private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
-    if (this.record.id > 0)
-    this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+    if (JsUtils.isBlank(this.i.id)) {
+      this.i = new Subject();
+    } else {
+      this.title = '修改科目信息';
+      this.courseService.getSubject(this.i.id).subscribe(result => {
+        const uint8Array = new Uint8Array(result, 0, result.byteLength);
+        const reply = SubjectReply.decode(uint8Array);
+        if (reply.code === 1) {
+          this.i = reply.data[0] as Subject;
+        } else {
+          this.msgSrv.success(reply.message);
+        }
+      });
+    }
   }
 
   save(value: any) {
