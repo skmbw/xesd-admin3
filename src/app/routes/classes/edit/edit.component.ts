@@ -108,7 +108,7 @@ export class ClassesEditComponent implements OnInit {
       const reply = ClassesReply.decode(uint8Array);
       if (reply.code === 1) {
         this.msgSrv.success('新增班级成功');
-        this.modal.close();
+        this.modal.close(true);
       } else {
         this.msgSrv.success(reply.message);
       }
