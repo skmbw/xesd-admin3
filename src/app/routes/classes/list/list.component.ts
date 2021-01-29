@@ -26,10 +26,9 @@ export class ClassesListComponent implements OnInit {
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: '编号', index: 'no' },
     { title: '班级名', index: 'name' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '班主任', index: 'classMaster' },
+    { title: '所属年级', index: 'gradeId' },
     {
       title: '',
       buttons: [

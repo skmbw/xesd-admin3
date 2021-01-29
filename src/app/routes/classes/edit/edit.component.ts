@@ -7,6 +7,7 @@ import { SFSchema, SFUISchema } from '@delon/form';
 import { com, JsUtils } from '@shared';
 import { ClassesService } from '../../../shared/service/classes.service';
 import { Observable } from 'rxjs';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import Classes = com.xueershangda.tianxun.classroom.model.Classes;
 import ClassesReply = com.xueershangda.tianxun.classroom.model.ClassesReply;
 import Grade = com.xueershangda.tianxun.classroom.model.Grade;
@@ -26,8 +27,8 @@ export class ClassesEditComponent implements OnInit {
       remark: { type: 'string', title: '班级描述'},
       gradeId: { type: 'string', title: '所属年级' },
       classMaster: { type: 'string', title: '班主任'},
-      startDate: { type: 'string', title: '开课时间' },
-      endDate: { type: 'string', title: '结束时间' },
+      startDate: { type: 'number', title: '开课时间', ui: {widget: 'date'}, default: Date.now() },
+      endDate: { type: 'number', title: '结束时间' },
       type: { type: 'string', title: '互动类型' },
     },
     required: ['name', 'remark', 'classMaster'],
@@ -61,18 +62,7 @@ export class ClassesEditComponent implements OnInit {
               subscriber.next([{label: '年级', group: true, children: gradeList}]);
             }
           });
-        }),
-        // of([
-        //   {
-        //     label: '订单状态',
-        //     group: true,
-        //     children: [
-        //       { label: '待支付', value: 'WAIT_BUYER_PAY' },
-        //       { label: '已支付', value: 'TRADE_SUCCESS' },
-        //       { label: '交易完成', value: 'TRADE_FINISHED' },
-        //     ],
-        //   },
-        // ]).pipe(delay(1200))
+        })
     },
     $classMaster: {
       widget: 'string',
@@ -91,7 +81,7 @@ export class ClassesEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public location: Location,
-    private msgSrv: NzMessageService,
+    private msgSrv: NzMessageService, private modal: NzModalRef,
     public http: _HttpClient, private classesService: ClassesService
   ) {}
 
@@ -118,6 +108,7 @@ export class ClassesEditComponent implements OnInit {
       const reply = ClassesReply.decode(uint8Array);
       if (reply.code === 1) {
         this.msgSrv.success('新增班级成功');
+        this.modal.close();
       } else {
         this.msgSrv.success(reply.message);
       }
