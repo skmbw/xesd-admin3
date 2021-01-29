@@ -57,7 +57,7 @@ export class ClassesEditComponent implements OnInit {
               const gradeList = [];
               let i = 0;
               for (const g of reply.data) {
-                gradeList[i++] = {label: g.name, value: g.id};
+                gradeList[i++] = {label: g.name, value: g.name};
               }
               subscriber.next([{label: '年级', group: true, children: gradeList}]);
             }
