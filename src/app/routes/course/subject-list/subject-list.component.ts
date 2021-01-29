@@ -17,18 +17,19 @@ export class CourseSubjectListComponent implements OnInit {
   url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
-      no: {
+      name: {
         type: 'string',
-        title: '编号'
+        title: '科目名'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
     { title: '课程名', index: 'name' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '版本', index: 'version' },
+    { title: '上下册', index: 'volume' },
+    { title: '所属年级', index: 'gradeId' },
+    { title: '说明', index: 'remark' },
     {
       title: '',
       buttons: [
