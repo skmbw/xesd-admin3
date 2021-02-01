@@ -30,18 +30,54 @@ export class CourseEditComponent implements OnInit {
       subjectId: { type: 'string', title: '所属科目', maxLength: 15 },
       remark: { type: 'string', title: '课程介绍' },
       teacherId: { type: 'string', title: '主讲老师' },
-      type: { type: 'string', title: '课程类型', enum: [
+      type: {
+        type: 'string', title: '课程类型', enum: [
           {
             label: '视频直播',
-            value: '1'
+            value: '1',
           },
           {
             label: '图文直播',
-            value: '2'
-          }
-        ]},
+            value: '2',
+          },
+        ],
+      },
       startDate: { type: 'string', title: '开课时间' },
       endDate: { type: 'string', title: '结课时间' },
+      gradeId: {
+        type: 'string', title: '所属年级', enum: [
+          {
+            label: '幼儿园', value: '幼儿园',
+          },
+          {
+            label: '一年级', value: '一年级',
+          },
+          {
+            label: '二年级', value: '二年级',
+          },
+          {
+            label: '三年级', value: '三年级',
+          },
+          {
+            label: '四年级', value: '四年级',
+          },
+          {
+            label: '五年级', value: '五年级',
+          },
+          {
+            label: '六年级', value: '六年级',
+          },
+          {
+            label: '七年级', value: '七年级',
+          },
+          {
+            label: '八年级', value: '八年级',
+          },
+          {
+            label: '九年级', value: '九年级',
+          },
+        ],
+      },
     },
     required: ['name', 'subjectId', 'teacherId', 'type'],
   };
@@ -51,7 +87,7 @@ export class CourseEditComponent implements OnInit {
       grid: { span: 12 },
     },
     $name: {
-      widget: 'string'
+      widget: 'string',
     },
     $subjectId: {
       widget: 'select',
@@ -66,12 +102,12 @@ export class CourseEditComponent implements OnInit {
               const subjectList = [];
               let i = 0;
               for (const g of reply.data) {
-                subjectList[i++] = {label: g.remark, value: g.remark};
+                subjectList[i++] = { label: g.remark, value: g.remark };
               }
-              subscriber.next([{label: '科目', group: true, children: subjectList}]);
+              subscriber.next([{ label: '科目', group: true, children: subjectList }]);
             }
           });
-        })
+        }),
     },
     $remark: {
       widget: 'textarea',
@@ -90,12 +126,12 @@ export class CourseEditComponent implements OnInit {
               const teacherList = [];
               let i = 0;
               for (const g of reply.data) {
-                teacherList[i++] = {label: g.name, value: g.name};
+                teacherList[i++] = { label: g.name, value: g.name };
               }
-              subscriber.next([{label: '主讲老师', group: true, children: teacherList}]);
+              subscriber.next([{ label: '主讲老师', group: true, children: teacherList }]);
             }
           });
-        })
+        }),
     },
     $type: {
       widget: 'select',
@@ -105,15 +141,19 @@ export class CourseEditComponent implements OnInit {
     },
     $endDate: {
       widget: 'date',
-    }
+    },
+    $gradeId: {
+      widget: 'select',
+    },
   };
 
   constructor(
     private route: ActivatedRoute,
     public location: Location, private modal: NzModalRef,
     private msgSrv: NzMessageService, private teacherService: TeacherService,
-    public http: _HttpClient, private courseService: CourseService
-  ) {}
+    public http: _HttpClient, private courseService: CourseService,
+  ) {
+  }
 
   ngOnInit(): void {
     if (JsUtils.isNotBlank(this.id)) {
