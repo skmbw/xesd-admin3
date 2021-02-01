@@ -1,14 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent } from '@delon/abc/st';
+import { STColumn, STComponent, STData } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
+import { QuestionbankEditComponent } from '../edit/edit.component';
+import { QuestionBankService } from '../../../shared/service/question-bank.service';
+import { NzMessageService } from 'ng-zorro-antd';
+import { com } from '@shared';
+import QuestionBank = com.xueershangda.tianxun.classroom.model.QuestionBank;
+import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBankReply;
 
 @Component({
   selector: 'app-questionbank-list',
   templateUrl: './list.component.html',
 })
 export class QuestionbankListComponent implements OnInit {
-  url = `/user`;
+  url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
       no: {
@@ -32,14 +38,31 @@ export class QuestionbankListComponent implements OnInit {
     }
   ];
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) { }
+  constructor(private http: _HttpClient, private modal: ModalHelper,
+              private questionBankService: QuestionBankService, private message: NzMessageService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.load();
+  }
+
+  load() {
+    const questionBank = new QuestionBank();
+    questionBank.pageSize = 20;
+    this.questionBankService.list(questionBank).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = QuestionBankReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.url = reply.data;
+      } else {
+        this.message.success(reply.message);
+      }
+    });
+  }
 
   add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+    this.modal
+      .createStatic(QuestionbankEditComponent, { i: { id: 0 } })
+      .subscribe(() => this.load());
   }
 
 }
