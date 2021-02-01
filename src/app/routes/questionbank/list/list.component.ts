@@ -34,9 +34,9 @@ export class QuestionbankListComponent implements OnInit {
     { title: '所属年级', index: 'gradeId' },
     { title: '所属科目', index: 'subjectId' },
     { title: '作者', index: 'author' },
-    { title: '状态', index: 'state' },
-    { title: '创建时间', index: 'createDate' },
-    { title: '更新时间', index: 'updateDate' },
+    { title: '状态', index: 'state', type: 'enum', enum: { 0: '正常', 1: '未启用', 2: '废弃' } },
+    { title: '创建时间', index: 'createDate', type: 'date' },
+    { title: '更新时间', index: 'updateDate', type: 'date' },
     {
       title: '',
       buttons: [
