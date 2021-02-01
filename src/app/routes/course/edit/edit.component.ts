@@ -6,8 +6,15 @@ import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
 import { com, JsUtils } from '@shared';
 import { CourseService } from '../../../shared/service/course.service';
+import { Observable } from 'rxjs';
+import { TeacherService } from '../../../shared/service/teacher.service';
+import { NzModalRef } from 'ng-zorro-antd';
 import Course = com.xueershangda.tianxun.classroom.model.Course;
 import CourseReply = com.xueershangda.tianxun.classroom.model.CourseReply;
+import Subject = com.xueershangda.tianxun.classroom.model.Subject;
+import SubjectReply = com.xueershangda.tianxun.classroom.model.SubjectReply;
+import Teacher = com.xueershangda.tianxun.classroom.model.Teacher;
+import TeacherReply = com.xueershangda.tianxun.classroom.model.TeacherReply;
 
 @Component({
   selector: 'app-course-edit',
@@ -47,14 +54,48 @@ export class CourseEditComponent implements OnInit {
       widget: 'string'
     },
     $subjectId: {
-      widget: 'string',
+      widget: 'select',
+      asyncData: () =>
+        new Observable(subscriber => {
+          const subject = new Subject();
+          subject.pageSize = 20;
+          this.courseService.querySubjectList(subject).subscribe(result => {
+            const uint8Array = new Uint8Array(result, 0, result.byteLength);
+            const reply = SubjectReply.decode(uint8Array);
+            if (reply.code === 1) {
+              const subjectList = [];
+              let i = 0;
+              for (const g of reply.data) {
+                subjectList[i++] = {label: g.remark, value: g.remark};
+              }
+              subscriber.next([{label: '科目', group: true, children: subjectList}]);
+            }
+          });
+        })
     },
     $remark: {
       widget: 'textarea',
       grid: { span: 24 },
     },
     $teacherId: {
-      widget: 'string',
+      widget: 'select',
+      asyncData: () =>
+        new Observable(subscriber => {
+          const teacher = new Teacher();
+          teacher.pageSize = 20;
+          this.teacherService.list(teacher).subscribe(result => {
+            const uint8Array = new Uint8Array(result, 0, result.byteLength);
+            const reply = TeacherReply.decode(uint8Array);
+            if (reply.code === 1) {
+              const teacherList = [];
+              let i = 0;
+              for (const g of reply.data) {
+                teacherList[i++] = {label: g.name, value: g.name};
+              }
+              subscriber.next([{label: '主讲老师', group: true, children: teacherList}]);
+            }
+          });
+        })
     },
     $type: {
       widget: 'select',
@@ -69,8 +110,8 @@ export class CourseEditComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public location: Location,
-    private msgSrv: NzMessageService,
+    public location: Location, private modal: NzModalRef,
+    private msgSrv: NzMessageService, private teacherService: TeacherService,
     public http: _HttpClient, private courseService: CourseService
   ) {}
 
@@ -93,8 +134,15 @@ export class CourseEditComponent implements OnInit {
   }
 
   save(value: any) {
-    this.http.post(`/user/${this.i.id}`, value).subscribe(res => {
-      this.msgSrv.success('保存成功');
+    this.courseService.addOrUpdate(value).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = CourseReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.msgSrv.success('新增课程成功。');
+        this.modal.close(true);
+      } else {
+        this.msgSrv.success(reply.message);
+      }
     });
   }
 }
