@@ -16,16 +16,27 @@ import CourseReply = com.xueershangda.tianxun.classroom.model.CourseReply;
 export class CourseEditComponent implements OnInit {
   title = '新增课程';
   id = this.route.snapshot.params.id;
-  i: any;
+  i: Course;
   schema: SFSchema = {
     properties: {
       name: { type: 'string', title: '课程名' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      subjectId: { type: 'string', title: '所属科目', maxLength: 15 },
+      remark: { type: 'string', title: '课程介绍' },
+      teacherId: { type: 'string', title: '主讲老师' },
+      type: { type: 'string', title: '课程类型', enum: [
+          {
+            label: '视频直播',
+            value: '1'
+          },
+          {
+            label: '图文直播',
+            value: '2'
+          }
+        ]},
+      startDate: { type: 'string', title: '开课时间' },
+      endDate: { type: 'string', title: '结课时间' },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['name', 'subjectId', 'teacherId', 'type'],
   };
   ui: SFUISchema = {
     '*': {
@@ -35,13 +46,25 @@ export class CourseEditComponent implements OnInit {
     $name: {
       widget: 'string'
     },
-    $href: {
+    $subjectId: {
       widget: 'string',
     },
-    $description: {
+    $remark: {
       widget: 'textarea',
       grid: { span: 24 },
     },
+    $teacherId: {
+      widget: 'string',
+    },
+    $type: {
+      widget: 'select',
+    },
+    $startDate: {
+      widget: 'date',
+    },
+    $endDate: {
+      widget: 'date',
+    }
   };
 
   constructor(
@@ -57,13 +80,15 @@ export class CourseEditComponent implements OnInit {
         const uint8Array = new Uint8Array(result, 0, result.byteLength);
         const reply = CourseReply.decode(uint8Array);
         if (reply.code === 1) {
-          this.i = reply.data[0];
+          this.i = reply.data[0] as Course;
         } else {
           this.msgSrv.success(reply.message);
         }
       });
     } else {
       this.i = new Course();
+      this.i.startDate = Date.now();
+      this.i.endDate = Date.now(); // 在json schema配置默认值不行，还是1970-1-1。利用angular的数据绑定，在这里给默认值吧
     }
   }
 
