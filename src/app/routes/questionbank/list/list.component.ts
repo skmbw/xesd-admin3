@@ -17,18 +17,26 @@ export class QuestionbankListComponent implements OnInit {
   url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
-      no: {
+      id: {
         type: 'string',
         title: '编号'
+      },
+      title: {
+        type: 'string',
+        title: '题目'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: '编号', index: 'no' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '题目', index: 'title' },
+    { title: '题目类型', index: 'type' },
+    { title: '所属年级', index: 'gradeId' },
+    { title: '所属科目', index: 'subjectId' },
+    { title: '作者', index: 'author' },
+    { title: '状态', index: 'state' },
+    { title: '创建时间', index: 'createDate' },
+    { title: '更新时间', index: 'updateDate' },
     {
       title: '',
       buttons: [
