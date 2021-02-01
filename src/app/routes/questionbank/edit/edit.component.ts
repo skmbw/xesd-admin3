@@ -20,22 +20,105 @@ export class QuestionbankEditComponent implements OnInit {
   i: QuestionBank;
   schema: SFSchema = {
     properties: {
-      id: { type: 'string', title: '编号' },
       title: { type: 'string', title: '标题' },
+      type: {
+        type: 'string', title: '题目类型', enum: [
+          {
+            label: '选择题', value: '选择题',
+          },
+          {
+            label: '填空题', value: '填空题',
+          },
+          {
+            label: '解答题', value: '解答题',
+          },
+        ],
+      },
       remark: { type: 'string', title: '题目内容' },
-      type: { type: 'string', title: '题目类型' },
-      gradeId: { type: 'string', title: '年级' },
-      subjectId: { type: 'string', title: '科目' },
+      gradeId: {
+        type: 'string', title: '年级', enum: [
+          {
+            label: '幼儿园', value: '幼儿园',
+          },
+          {
+            label: '一年级', value: '一年级',
+          },
+          {
+            label: '二年级', value: '二年级',
+          },
+          {
+            label: '三年级', value: '三年级',
+          },
+          {
+            label: '四年级', value: '四年级',
+          },
+          {
+            label: '五年级', value: '五年级',
+          },
+          {
+            label: '六年级', value: '六年级',
+          },
+          {
+            label: '七年级', value: '七年级',
+          },
+          {
+            label: '八年级', value: '八年级',
+          },
+          {
+            label: '九年级', value: '九年级',
+          },
+        ],
+      },
+      subjectId: { type: 'string', title: '科目', enum: [
+          {
+            label: '语文', value: '语文',
+          },
+          {
+            label: '数学', value: '数学',
+          },
+          {
+            label: '英语', value: '英语',
+          },
+          {
+            label: '科学', value: '科学',
+          },
+          {
+            label: '物理', value: '物理',
+          },
+          {
+            label: '化学', value: '化学',
+          },
+          {
+            label: '生物', value: '生物',
+          },
+          {
+            label: '历史', value: '历史',
+          },
+          {
+            label: '地理', value: '地理',
+          },
+          {
+            label: '政治', value: '政治',
+          },
+          {
+            label: '美术', value: '美术',
+          },
+          {
+            label: '音乐', value: '音乐',
+          },
+          {
+            label: '体育', value: '体育',
+          },
+        ]
+      },
+      rightAnswer: { type: 'string', title: '答案' },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: ['title', 'type', 'gradeId', 'subjectId'],
   };
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
       grid: { span: 12 },
-    },
-    $id: {
-      widget: 'text'
     },
     $title: {
       widget: 'string',
@@ -53,14 +136,19 @@ export class QuestionbankEditComponent implements OnInit {
     $subjectId: {
       widget: 'select',
     },
+    $rightAnswer: {
+      widget: 'textarea',
+      grid: { span: 24 },
+    },
   };
 
   constructor(
     private route: ActivatedRoute,
     public location: Location,
     private msgSrv: NzMessageService, private modal: NzModalRef,
-    public http: _HttpClient, private questionBankService: QuestionBankService
-  ) {}
+    public http: _HttpClient, private questionBankService: QuestionBankService,
+  ) {
+  }
 
   ngOnInit(): void {
     if (JsUtils.isNotBlank(this.id)) {
@@ -75,7 +163,7 @@ export class QuestionbankEditComponent implements OnInit {
       });
       this.title = '修改题目题目';
     } else {
-      this.i = new QuestionBank()
+      this.i = new QuestionBank();
     }
   }
 
