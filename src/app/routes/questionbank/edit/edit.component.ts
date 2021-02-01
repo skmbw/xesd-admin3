@@ -24,13 +24,13 @@ export class QuestionbankEditComponent implements OnInit {
       type: {
         type: 'string', title: '题目类型', enum: [
           {
-            label: '选择题', value: '选择题',
+            label: '选择题', value: '1',
           },
           {
-            label: '填空题', value: '填空题',
+            label: '填空题', value: '2',
           },
           {
-            label: '解答题', value: '解答题',
+            label: '解答题', value: '3',
           },
         ],
       },

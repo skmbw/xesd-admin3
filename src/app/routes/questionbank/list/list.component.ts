@@ -30,7 +30,7 @@ export class QuestionbankListComponent implements OnInit {
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
     { title: '题目', index: 'title' },
-    { title: '题目类型', index: 'type' },
+    { title: '题目类型', index: 'type', type: 'enum', enum: { 1: '选择题', 2: '填空题', 3: '解答题' }},
     { title: '所属年级', index: 'gradeId' },
     { title: '所属科目', index: 'subjectId' },
     { title: '作者', index: 'author' },
