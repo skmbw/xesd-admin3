@@ -43,6 +43,10 @@ export class CourseSubjectListComponent implements OnInit {
               private courseService: CourseService, private message: NzMessageService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load() {
     const subject = new Subject();
     subject.pageSize = 20;
     this.courseService.querySubjectList(subject).subscribe(result => {
@@ -59,7 +63,7 @@ export class CourseSubjectListComponent implements OnInit {
   add() {
     this.modal
       .createStatic(CourseSubjectAddComponent, { i: { id: 0 } })
-      .subscribe(() => this.st.reload());
+      .subscribe(() => this.load());
   }
 
 }

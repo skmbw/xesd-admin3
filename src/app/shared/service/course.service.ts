@@ -16,7 +16,7 @@ export class CourseService extends CommonService {
   }
 
   list(course: Course): Observable<ArrayBuffer> {
-    return this.postProtobuf('course/list', this.encodeCourse(course));
+    return this.postProtobuf('course/query', this.encodeCourse(course));
   }
 
   addOrUpdate(course: Course): Observable<ArrayBuffer> {
