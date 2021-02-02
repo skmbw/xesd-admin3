@@ -4,8 +4,8 @@ import { Location } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { _HttpClient } from '@delon/theme';
 import { SFSchema, SFUISchema } from '@delon/form';
-import { com, JsUtils } from '@shared';
-import { NzModalRef } from 'ng-zorro-antd';
+import { com, Consts, JsUtils } from '@shared';
+import { NzModalRef, UploadChangeParam } from 'ng-zorro-antd';
 import { QuestionBankService } from '../../../shared/service/question-bank.service';
 import QuestionBank = com.xueershangda.tianxun.classroom.model.QuestionBank;
 import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBankReply;
@@ -111,6 +111,7 @@ export class QuestionbankEditComponent implements OnInit {
           },
         ]
       },
+      questionImages: { type: 'string', title: '图片' },
       rightAnswer: { type: 'string', title: '答案' },
     },
     required: ['title', 'type', 'gradeId', 'subjectId'],
@@ -140,6 +141,41 @@ export class QuestionbankEditComponent implements OnInit {
       widget: 'textarea',
       grid: { span: 24 },
     },
+    $questionImages: {
+      widget: 'upload',
+      action: Consts.URL + 'questionBank/upload',
+      name: 'questionImages',
+      fileType: 'image/png,image/jpeg,image/gif,image/bmp',
+      fileSize: 4096,
+      resReName: 'summary', // 这个字段的值会赋值给coverImage，当保存时用来关联上传的文件和该记录
+      change: (uploadChangeParam: UploadChangeParam) => {
+        if (uploadChangeParam.type === 'success') {
+          const uploadFile = uploadChangeParam.file;
+          const reply = uploadFile.response;
+          if (reply.code !== 1) {
+            // 提示信息
+            this.msgSrv.error(reply.message);
+          } else {
+            const questionBank: QuestionBank = reply.data[0];
+            if (JsUtils.isBlank(this.i.id) || this.i.id === 'null') {
+              this.i.id = questionBank.id;
+            }
+            this.i.images = questionBank.summary;
+          }
+        } else if (uploadChangeParam.type === 'error') {
+
+        } else if (uploadChangeParam.type === 'start') {
+
+        } else if (uploadChangeParam.type === 'progress') {
+
+        }
+      },
+      listType: 'picture',
+      // data: (upload: UploadFile) => {
+      //   const id = JsUtils.isBlank(this.i.id) || this.i.id === 'null' ? '' : this.i.id;
+      //   return { videoType: '1', id };
+      // },
+    }
   };
 
   constructor(

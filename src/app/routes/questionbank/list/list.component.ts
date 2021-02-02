@@ -41,7 +41,7 @@ export class QuestionbankListComponent implements OnInit {
       title: '',
       buttons: [
         // { text: '查看', click: (item: any) => `/form/${item.id}` },
-        // { text: '编辑', type: 'static', component: FormEditComponent, click: 'reload' },
+        // { text: '选项', type: 'static', component: FormEditComponent, click: 'reload' },
       ]
     }
   ];
