@@ -157,10 +157,10 @@ export class QuestionbankEditComponent implements OnInit {
             this.msgSrv.error(reply.message);
           } else {
             const questionBank: QuestionBank = reply.data[0];
-            if (JsUtils.isBlank(this.i.id) || this.i.id === 'null') {
-              this.i.id = questionBank.id;
-            }
-            this.i.images = questionBank.summary;
+            // if (JsUtils.isBlank(this.i.id) || this.i.id === 'null') {
+            //   this.i.id = questionBank.id;
+            // }
+            this.i.images = questionBank.summary; // 只将上传后的图片的路径返回回来即可
           }
         } else if (uploadChangeParam.type === 'error') {
 
