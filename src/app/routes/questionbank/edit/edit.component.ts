@@ -147,7 +147,7 @@ export class QuestionbankEditComponent implements OnInit {
       name: 'questionImages',
       fileType: 'image/png,image/jpeg,image/gif,image/bmp',
       fileSize: 4096,
-      resReName: 'summary', // 这个字段的值会赋值给coverImage，当保存时用来关联上传的文件和该记录
+      resReName: 'summary', // 这个字段是返回{}中的一个字段的名字。也就是Reply中的一个字段名。这里没起作用（因为不存在）。返回整个Reply对象
       change: (uploadChangeParam: UploadChangeParam) => {
         if (uploadChangeParam.type === 'success') {
           const uploadFile = uploadChangeParam.file;
