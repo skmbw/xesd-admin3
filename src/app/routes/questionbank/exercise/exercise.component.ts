@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
+import { QuestionbankCreateExerciseComponent } from '../create-exercise/create-exercise.component';
 
 @Component({
   selector: 'app-questionbank-exercise',
@@ -37,9 +38,9 @@ export class QuestionbankExerciseComponent implements OnInit {
   ngOnInit() { }
 
   add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+    this.modal
+      .createStatic(QuestionbankCreateExerciseComponent, { i: { id: 0 } })
+      .subscribe(() => this.st.reload());
   }
 
 }

@@ -6,6 +6,8 @@ import { QuestionbankViewComponent } from './view/view.component';
 import { QuestionbankListComponent } from './list/list.component';
 import { QuestionbankPaperComponent } from './paper/paper.component';
 import { QuestionbankExerciseComponent } from './exercise/exercise.component';
+import { QuestionbankCreatePaperComponent } from './create-paper/create-paper.component';
+import { QuestionbankCreateExerciseComponent } from './create-exercise/create-exercise.component';
 
 const COMPONENTS = [
   QuestionbankEditComponent,
@@ -13,7 +15,9 @@ const COMPONENTS = [
   QuestionbankListComponent,
   QuestionbankExerciseComponent,
   QuestionbankPaperComponent];
-const COMPONENTS_NOROUNT = [];
+const COMPONENTS_NOROUNT = [
+  QuestionbankCreatePaperComponent,
+  QuestionbankCreateExerciseComponent];
 
 @NgModule({
   imports: [

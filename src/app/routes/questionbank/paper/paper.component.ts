@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
+import { QuestionbankCreatePaperComponent } from '../create-paper/create-paper.component';
+import { PaperService } from '../../../shared/service/paper.service';
 
 @Component({
   selector: 'app-questionbank-paper',
@@ -32,14 +34,15 @@ export class QuestionbankPaperComponent implements OnInit {
     }
   ];
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) { }
+  constructor(private http: _HttpClient, private modal: ModalHelper,
+              private paperService: PaperService) { }
 
   ngOnInit() { }
 
   add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+    this.modal
+      .createStatic(QuestionbankCreatePaperComponent, { i: { id: 0 } })
+      .subscribe(() => this.st.reload());
   }
 
 }
