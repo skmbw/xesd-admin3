@@ -11586,6 +11586,9 @@ export namespace com {
 
                         /** QuestionBank orderBy */
                         orderBy?: (string|null);
+
+                        /** QuestionBank optionsList */
+                        optionsList?: (com.xueershangda.tianxun.classroom.model.IOptions[]|null);
                     }
 
                     /** Represents a QuestionBank. */
@@ -11653,6 +11656,9 @@ export namespace com {
 
                         /** QuestionBank orderBy. */
                         public orderBy: string;
+
+                        /** QuestionBank optionsList. */
+                        public optionsList: com.xueershangda.tianxun.classroom.model.IOptions[];
 
                         /**
                          * Creates a new QuestionBank instance using the specified properties.

@@ -221,7 +221,8 @@ export class QuestionbankEditComponent implements OnInit {
   }
 
   save(value: any) {
-    this.questionBankService.add(value).subscribe(result => {
+    const questionBank = value as QuestionBank;
+    this.questionBankService.add(questionBank).subscribe(result => {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = QuestionBankReply.decode(uint8Array);
       if (reply.code === 1) {

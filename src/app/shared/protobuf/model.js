@@ -33620,6 +33620,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [page] QuestionBank page
                          * @property {number|null} [pageSize] QuestionBank pageSize
                          * @property {string|null} [orderBy] QuestionBank orderBy
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IOptions>|null} [optionsList] QuestionBank optionsList
                          */
 
                         /**
@@ -33631,6 +33632,7 @@ export const com = $root.com = (() => {
                          * @param {com.xueershangda.tianxun.classroom.model.IQuestionBank=} [properties] Properties to set
                          */
                         function QuestionBank(properties) {
+                            this.optionsList = [];
                             if (properties)
                                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
@@ -33790,6 +33792,14 @@ export const com = $root.com = (() => {
                         QuestionBank.prototype.orderBy = "";
 
                         /**
+                         * QuestionBank optionsList.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IOptions>} optionsList
+                         * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
+                         * @instance
+                         */
+                        QuestionBank.prototype.optionsList = $util.emptyArray;
+
+                        /**
                          * Creates a new QuestionBank instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.QuestionBank
@@ -33851,6 +33861,9 @@ export const com = $root.com = (() => {
                                 writer.uint32(/* id 18, wireType 0 =*/144).int32(message.pageSize);
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 writer.uint32(/* id 19, wireType 2 =*/154).string(message.orderBy);
+                            if (message.optionsList != null && message.optionsList.length)
+                                for (let i = 0; i < message.optionsList.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.Options.encode(message.optionsList[i], writer.uint32(/* id 20, wireType 2 =*/162).fork()).ldelim();
                             return writer;
                         };
 
@@ -33941,6 +33954,11 @@ export const com = $root.com = (() => {
                                     break;
                                 case 19:
                                     message.orderBy = reader.string();
+                                    break;
+                                case 20:
+                                    if (!(message.optionsList && message.optionsList.length))
+                                        message.optionsList = [];
+                                    message.optionsList.push($root.com.xueershangda.tianxun.classroom.model.Options.decode(reader, reader.uint32()));
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -34034,6 +34052,15 @@ export const com = $root.com = (() => {
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 if (!$util.isString(message.orderBy))
                                     return "orderBy: string expected";
+                            if (message.optionsList != null && message.hasOwnProperty("optionsList")) {
+                                if (!Array.isArray(message.optionsList))
+                                    return "optionsList: array expected";
+                                for (let i = 0; i < message.optionsList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.Options.verify(message.optionsList[i]);
+                                    if (error)
+                                        return "optionsList." + error;
+                                }
+                            }
                             return null;
                         };
 
@@ -34101,6 +34128,16 @@ export const com = $root.com = (() => {
                                 message.pageSize = object.pageSize | 0;
                             if (object.orderBy != null)
                                 message.orderBy = String(object.orderBy);
+                            if (object.optionsList) {
+                                if (!Array.isArray(object.optionsList))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.QuestionBank.optionsList: array expected");
+                                message.optionsList = [];
+                                for (let i = 0; i < object.optionsList.length; ++i) {
+                                    if (typeof object.optionsList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.QuestionBank.optionsList: object expected");
+                                    message.optionsList[i] = $root.com.xueershangda.tianxun.classroom.model.Options.fromObject(object.optionsList[i]);
+                                }
+                            }
                             return message;
                         };
 
@@ -34117,6 +34154,8 @@ export const com = $root.com = (() => {
                             if (!options)
                                 options = {};
                             let object = {};
+                            if (options.arrays || options.defaults)
+                                object.optionsList = [];
                             if (options.defaults) {
                                 object.id = "";
                                 object.title = "";
@@ -34182,6 +34221,11 @@ export const com = $root.com = (() => {
                                 object.pageSize = message.pageSize;
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 object.orderBy = message.orderBy;
+                            if (message.optionsList && message.optionsList.length) {
+                                object.optionsList = [];
+                                for (let j = 0; j < message.optionsList.length; ++j)
+                                    object.optionsList[j] = $root.com.xueershangda.tianxun.classroom.model.Options.toObject(message.optionsList[j], options);
+                            }
                             return object;
                         };
 
