@@ -4,6 +4,9 @@ import { STColumn, STComponent } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
 import { QuestionbankCreatePaperComponent } from '../create-paper/create-paper.component';
 import { PaperService } from '../../../shared/service/paper.service';
+import { com } from '@shared';
+import Paper = com.xueershangda.tianxun.classroom.model.Paper;
+import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
 
 @Component({
   selector: 'app-questionbank-paper',
@@ -38,6 +41,20 @@ export class QuestionbankPaperComponent implements OnInit {
               private paperService: PaperService) { }
 
   ngOnInit() { }
+
+  load() {
+    const paper = new Paper();
+    paper.pageSize = 20;
+    this.paperService.list(paper).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = PaperReply.decode(uint8Array);
+      if (reply.code === 1) {
+
+      } else {
+
+      }
+    });
+  }
 
   add() {
     this.modal
