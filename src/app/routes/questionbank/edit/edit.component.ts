@@ -23,15 +23,10 @@ export class QuestionbankEditComponent implements OnInit {
       title: { type: 'string', title: '标题' },
       type: {
         type: 'string', title: '题目类型', enum: [
-          {
-            label: '选择题', value: '1',
-          },
-          {
-            label: '填空题', value: '2',
-          },
-          {
-            label: '解答题', value: '3',
-          },
+          { label: '单项选择题', value: '1' },
+          { label: '多项选择题', value: '2' },
+          { label: '填空题', value: '3' },
+          { label: '解答题', value: '4' },
         ],
       },
       remark: { type: 'string', title: '题目内容' },
@@ -69,13 +64,10 @@ export class QuestionbankEditComponent implements OnInit {
           },
         ],
       },
-      subjectId: { type: 'string', title: '科目', enum: [
-          {
-            label: '语文', value: '语文',
-          },
-          {
-            label: '数学', value: '数学',
-          },
+      subjectId: {
+        type: 'string', title: '科目', enum: [
+          { label: '语文', value: '语文' },
+          { label: '数学', value: '数学' },
           {
             label: '英语', value: '英语',
           },
@@ -109,10 +101,15 @@ export class QuestionbankEditComponent implements OnInit {
           {
             label: '体育', value: '体育',
           },
-        ]
+        ],
       },
       questionImages: { type: 'string', title: '图片' },
       rightAnswer: { type: 'string', title: '答案' },
+      options: { type: 'string', title: '选项' },
+      optionsA: { type: 'string', title: 'A' },
+      optionsB: { type: 'string', title: 'B' },
+      optionsC: { type: 'string', title: 'C' },
+      optionsD: { type: 'string', title: 'D' },
     },
     required: ['title', 'type', 'gradeId', 'subjectId'],
   };
@@ -175,7 +172,27 @@ export class QuestionbankEditComponent implements OnInit {
       //   const id = JsUtils.isBlank(this.i.id) || this.i.id === 'null' ? '' : this.i.id;
       //   return { videoType: '1', id };
       // },
-    }
+    },
+    $options: {
+      widget: 'text',
+      grid: { span: 24 },
+    },
+    $optionsA: {
+      widget: 'string',
+      grid: { span: 24 },
+    },
+    $optionsB: {
+      widget: 'string',
+      grid: { span: 24 },
+    },
+    $optionsC: {
+      widget: 'string',
+      grid: { span: 24 },
+    },
+    $optionsD: {
+      widget: 'string',
+      grid: { span: 24 },
+    },
   };
 
   constructor(
