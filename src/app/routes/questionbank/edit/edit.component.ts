@@ -9,6 +9,7 @@ import { NzModalRef, UploadChangeParam } from 'ng-zorro-antd';
 import { QuestionBankService } from '../../../shared/service/question-bank.service';
 import QuestionBank = com.xueershangda.tianxun.classroom.model.QuestionBank;
 import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBankReply;
+import Options = com.xueershangda.tianxun.classroom.model.Options;
 
 @Component({
   selector: 'app-questionbank-edit',
@@ -221,6 +222,26 @@ export class QuestionbankEditComponent implements OnInit {
   }
 
   save(value: any) {
+    // 如果是选择题就处理，这里的UI是固定的，不好更改，自己处理数据吧
+    if (value.type === '1' || value.type === '2') {
+      const oa = value.optionsA;
+      const ob = value.optionsB;
+      const oc = value.optionsC;
+      const od = value.optionsD;
+
+      const optionsA = new Options({name: 'A', content: oa});
+      const optionsB = new Options({name: 'B', content: ob});
+      const optionsC = new Options({name: 'C', content: oc});
+      const optionsD = new Options({name: 'D', content: od});
+      const optionsList: Options[] = [];
+      optionsList[0] = optionsA;
+      optionsList[1] = optionsB;
+      optionsList[2] = optionsC;
+      optionsList[3] = optionsD;
+
+      value.optionsList = optionsList;
+    }
+
     const questionBank = value as QuestionBank;
     this.questionBankService.add(questionBank).subscribe(result => {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
