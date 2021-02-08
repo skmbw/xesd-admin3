@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent } from '@delon/abc/st';
+import { STColumn, STComponent, STData } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
 import { QuestionbankCreatePaperComponent } from '../create-paper/create-paper.component';
 import { PaperService } from '../../../shared/service/paper.service';
 import { com } from '@shared';
+import { NzMessageService } from 'ng-zorro-antd';
 import Paper = com.xueershangda.tianxun.classroom.model.Paper;
 import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
 
@@ -13,7 +14,7 @@ import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
   templateUrl: './paper.component.html',
 })
 export class QuestionbankPaperComponent implements OnInit {
-  url = `/user`;
+  url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
       no: {
@@ -38,9 +39,11 @@ export class QuestionbankPaperComponent implements OnInit {
   ];
 
   constructor(private http: _HttpClient, private modal: ModalHelper,
-              private paperService: PaperService) { }
+              private paperService: PaperService, private message: NzMessageService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.load();
+  }
 
   load() {
     const paper = new Paper();
@@ -49,9 +52,9 @@ export class QuestionbankPaperComponent implements OnInit {
       const uint8Array = new Uint8Array(result, 0, result.byteLength);
       const reply = PaperReply.decode(uint8Array);
       if (reply.code === 1) {
-
+        this.url = reply.data as STData[];
       } else {
-
+        this.message.success(reply.message);
       }
     });
   }
@@ -59,7 +62,7 @@ export class QuestionbankPaperComponent implements OnInit {
   add() {
     this.modal
       .createStatic(QuestionbankCreatePaperComponent, { i: { id: 0 } })
-      .subscribe(() => this.st.reload());
+      .subscribe(() => this.load());
   }
 
 }
