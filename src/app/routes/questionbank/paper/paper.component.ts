@@ -39,7 +39,7 @@ export class QuestionbankPaperComponent implements OnInit {
             this.modal.createStatic(QuestionbankCreatePaperComponent, {i: item}).subscribe(result => this.st.reload())
           }
         },
-        { text: '添加题目',
+        { text: '选择题目',
           click: (item: any) => {
             this.modal.createStatic(QuestionbankAddtopaperComponent, {i: item}).subscribe(result => this.st.reload())
           }

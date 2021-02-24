@@ -12,8 +12,7 @@ import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
   templateUrl: './addtopaper.component.html',
 })
 export class QuestionbankAddtopaperComponent implements OnInit {
-  title = '添加题目';
-  // id = this.route.snapshot.params.id;
+  title = '选择题目';
   i: any;
 
   constructor(

@@ -2,10 +2,17 @@
 <nz-card>
   <nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
   <div sv-container *ngIf="i">
-    <sv label="姓名">{{ i.owner }}</sv>
-    <sv label="会员卡号">32943898021309809423</sv>
-    <sv label="身份证">3321944288191034921</sv>
-    <sv label="联系方式">18112345678</sv>
-    <sv label="联系地址">曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口</sv>
+    <sv label="试卷名">{{ i.name }}</sv>
+    <sv label="说明">{{ i.remark }}</sv>
+    <sv label="年级">{{ i.gradeId }}</sv>
+    <sv label="科目">{{ i.subjectId }}</sv>
   </div>
+</nz-card>
+<nz-card>
+  <nz-card-tab>
+    <nz-tabset nzSize="large">
+      <nz-tab nzTitle="题目列表"></nz-tab>
+      <nz-tab nzTitle="已选择题目"></nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
 </nz-card>
