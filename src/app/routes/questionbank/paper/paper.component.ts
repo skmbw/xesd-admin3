@@ -33,8 +33,12 @@ export class QuestionbankPaperComponent implements OnInit {
     {
       title: '',
       buttons: [
-        // { text: '查看', click: (item: any) => `/form/${item.id}` },
-        // { text: '编辑', type: 'static', component: FormEditComponent, click: 'reload' },
+        { text: '查看', click: (item: any) => `/form/${item.id}` },
+        { text: '编辑',
+          click: (item: any) => {
+            this.modal.createStatic(QuestionbankCreatePaperComponent, {i: item}).subscribe(result => this.st.reload())
+          }
+        },
       ]
     }
   ];
@@ -62,7 +66,7 @@ export class QuestionbankPaperComponent implements OnInit {
 
   add() {
     this.modal
-      .createStatic(QuestionbankCreatePaperComponent, { i: { id: '0' } })
+      .createStatic(QuestionbankCreatePaperComponent, { i: { id: 0 } })
       .subscribe(() => this.load());
   }
 
