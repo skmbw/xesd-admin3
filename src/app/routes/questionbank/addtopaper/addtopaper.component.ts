@@ -77,4 +77,9 @@ export class QuestionbankAddtopaperComponent implements OnInit {
       this.msgSrv.success('试卷id不能为空。');
     }
   }
+
+  // 当有行被选中或取消时，会将改行的信息传递过来
+  change(event: any) {
+    console.log(event);
+  }
 }
