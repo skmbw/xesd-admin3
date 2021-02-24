@@ -17,18 +17,19 @@ export class QuestionbankPaperComponent implements OnInit {
   url: STData[] = [];
   searchSchema: SFSchema = {
     properties: {
-      no: {
+      name: {
         type: 'string',
-        title: '编号'
+        title: '试卷名'
       }
     }
   };
   @ViewChild('st', { static: false }) st: STComponent;
   columns: STColumn[] = [
-    { title: '编号', index: 'no' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '编号', index: 'id' },
+    { title: '试卷名', index: 'name' },
+    { title: '描述', index: 'remark' },
+    { title: '科目', index: 'subjectId' },
+    { title: '年级', index: 'gradeId' },
     {
       title: '',
       buttons: [
@@ -61,7 +62,7 @@ export class QuestionbankPaperComponent implements OnInit {
 
   add() {
     this.modal
-      .createStatic(QuestionbankCreatePaperComponent, { i: { id: 0 } })
+      .createStatic(QuestionbankCreatePaperComponent, { i: { id: '0' } })
       .subscribe(() => this.load());
   }
 
