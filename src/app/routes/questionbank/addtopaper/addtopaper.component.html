@@ -13,7 +13,10 @@
 <nz-card>
   <nz-card-tab>
     <nz-tabset nzSize="large">
-      <nz-tab nzTitle="题目列表"></nz-tab>
+      <nz-tab nzTitle="题目列表">
+        <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+        <st #st [data]="url" [columns]="columns"></st>
+      </nz-tab>
       <nz-tab nzTitle="已选择题目"></nz-tab>
     </nz-tabset>
   </nz-card-tab>
