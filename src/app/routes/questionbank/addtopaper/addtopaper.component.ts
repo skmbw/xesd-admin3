@@ -38,15 +38,7 @@ export class QuestionbankAddtopaperComponent implements OnInit {
     { title: '编号', index: 'id', type: 'checkbox' },
     { title: '题目', index: 'title' },
     { title: '题目类型', index: 'type', type: 'enum', enum: { 1: '选择题', 2: '填空题', 3: '解答题' }},
-    // { title: '所属年级', index: 'gradeId' },
-    // { title: '所属科目', index: 'subjectId' },
-    // { title: '作者', index: 'author' },
-    { title: '更新时间', index: 'updateDate', type: 'date' },
-    {
-      title: '',
-      buttons: [
-      ]
-    }
+    { title: '更新时间', index: 'updateDate', type: 'date' }
   ];
 
   constructor(
@@ -70,6 +62,8 @@ export class QuestionbankAddtopaperComponent implements OnInit {
 
       const questionBank = new QuestionBank();
       questionBank.pageSize = 20;
+      // questionBank.subjectId = this.i.subjectId;
+      // questionBank.gradeId = this.i.gradeId;
       this.questionBankService.list(questionBank).subscribe(result => {
         const uint8Array = new Uint8Array(result, 0, result.byteLength);
         const reply = QuestionBankReply.decode(uint8Array);
