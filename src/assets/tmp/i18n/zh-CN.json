@@ -89,6 +89,7 @@
   "menu.questionbank.list": "题目列表",
   "menu.exercise.list": "练习列表",
   "menu.paper.list": "试卷列表",
+  "menu.paper.addtopaper": "添加题目",
   "menu.paper.management": "试卷管理",
   "app.analysis.test": "工专路 {{no}} 号店",
   "app.analysis.introduce": "指标说明",

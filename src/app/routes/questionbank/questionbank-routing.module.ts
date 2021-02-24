@@ -12,7 +12,10 @@ const routes: Routes = [
   { path: 'view', component: QuestionbankViewComponent },
   { path: 'list', component: QuestionbankListComponent },
   { path: 'exercise', component: QuestionbankExerciseComponent },
-  { path: 'paper', component: QuestionbankPaperComponent }];
+  { path: 'paper', component: QuestionbankPaperComponent },
+  // { path: 'addtopaper', component: QuestionbankAddtopaperComponent },
+  // { path: 'addtopaper/:id', component: QuestionbankAddtopaperComponent }
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

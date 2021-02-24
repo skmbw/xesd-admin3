@@ -6,6 +6,7 @@ import { QuestionbankCreatePaperComponent } from '../create-paper/create-paper.c
 import { PaperService } from '../../../shared/service/paper.service';
 import { com } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd';
+import { QuestionbankAddtopaperComponent } from '../addtopaper/addtopaper.component';
 import Paper = com.xueershangda.tianxun.classroom.model.Paper;
 import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
 
@@ -33,10 +34,14 @@ export class QuestionbankPaperComponent implements OnInit {
     {
       title: '',
       buttons: [
-        { text: '查看', click: (item: any) => `/form/${item.id}` },
         { text: '编辑',
           click: (item: any) => {
             this.modal.createStatic(QuestionbankCreatePaperComponent, {i: item}).subscribe(result => this.st.reload())
+          }
+        },
+        { text: '添加题目',
+          click: (item: any) => {
+            this.modal.createStatic(QuestionbankAddtopaperComponent, {i: item}).subscribe(result => this.st.reload())
           }
         },
       ]
