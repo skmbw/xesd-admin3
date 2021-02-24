@@ -61,3 +61,7 @@ The GPL License
 ### 都配置好了，但是UI渲染错误
 * schema配置的UI数据类型错误，导致UI没有渲染，这种清空，可以看一下浏览器的控制台，查找一下错误。
 * columns 属性中，数据类型是否正确匹配。
+
+### 出现value.trim is not a function
+* 当不存在这个属性时，调用.trim()方法，会出现value.trim is not a function。例如 paper.id.trim()
+* 解决方法，判断这个属性是否存在，if (paper.id && JsUtils.isNotBlank(paper.id))

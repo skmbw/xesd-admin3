@@ -19,7 +19,7 @@ export class PaperService extends CommonService {
   }
 
   add(paper: Paper): Observable<ArrayBuffer> {
-    if (JsUtils.isNotBlank(paper.id)) {
+    if (paper.id && JsUtils.isNotBlank(paper.id)) { // 当不存在paper.id这个属性时，调用.trim()方法，会出现value.trim is not a function
       return this.postProtobuf('paper/update', this.encodePaper(paper));
     } else {
       return this.postProtobuf('paper/doAdd', this.encodePaper(paper));
