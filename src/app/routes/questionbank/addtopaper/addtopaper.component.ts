@@ -19,6 +19,7 @@ import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBank
 export class QuestionbankAddtopaperComponent implements OnInit {
   title = '选择题目';
   i: any;
+  selected: string[] = [];
 
   url: STData[] = [];
   searchSchema: SFSchema = {
@@ -80,13 +81,29 @@ export class QuestionbankAddtopaperComponent implements OnInit {
 
   // 当有行被选中或取消时，会将改行的信息传递过来
   change(event: STChange) {
-    console.log(event);
+    if (event.type === 'loaded') {
+      return;
+    }
+    const checkboxes = event.checkbox;
+    let selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
+    for (const item of checkboxes) {
+      const id = item.id;
+      this.selected.push(id);
+      selectedQuestionBank += ',' + id;
+    }
+    sessionStorage.setItem('$selectedQuestionBank', selectedQuestionBank);
   }
 
   dataProcess(data: STData[]): STData[] {
+    // const that = this; // 拿不到当前this，定义一个变量也不行
     return data.map((i, index) => {
       // i.disabled = index === 0;
-      i.checked = index === 0;
+      // i.checked = index === 0;
+      const selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
+      const selectedArray = selectedQuestionBank.split(',');
+      if (selectedArray.indexOf(i.id)) { // 这个this是当前的dataProcess scope
+        i.checked = true;
+      }
       return i;
     });
   }
