@@ -49,6 +49,7 @@ export class QuestionbankAddtopaperComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    sessionStorage.removeItem('$selectedQuestionBank');
     if (this.i.id && JsUtils.isNotBlank(this.i.id)) {
       this.paperService.get(this.i.id as string).subscribe(result => {
         const uint8Array = new Uint8Array(result, 0, result.byteLength);
@@ -81,30 +82,36 @@ export class QuestionbankAddtopaperComponent implements OnInit {
 
   // 当有行被选中或取消时，会将改行的信息传递过来
   change(event: STChange) {
-    if (event.type === 'loaded') {
-      return;
+    if (event.type === 'checkbox') {
+      const checkboxes = event.checkbox;
+      let selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
+      for (const item of checkboxes) {
+        const id = item.id;
+        this.selected.push(id);
+        selectedQuestionBank += ',' + id;
+      }
+      sessionStorage.setItem('$selectedQuestionBank', selectedQuestionBank);
     }
-    const checkboxes = event.checkbox;
-    let selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
-    for (const item of checkboxes) {
-      const id = item.id;
-      this.selected.push(id);
-      selectedQuestionBank += ',' + id;
-    }
-    sessionStorage.setItem('$selectedQuestionBank', selectedQuestionBank);
   }
 
   dataProcess(data: STData[]): STData[] {
-    // const that = this; // 拿不到当前this，定义一个变量也不行
+    // const that = this; // 拿不到当前this，定义一个变量也不行 // 这个this是当前的dataProcess scope
+    const selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
+    let selectedArray: string[] = [];
+    if (selectedQuestionBank != undefined && selectedQuestionBank.trim() !== '') {
+      selectedArray = selectedQuestionBank.split(',');
+    }
     return data.map((i, index) => {
       // i.disabled = index === 0;
       // i.checked = index === 0;
-      const selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
-      const selectedArray = selectedQuestionBank.split(',');
-      if (selectedArray.indexOf(i.id)) { // 这个this是当前的dataProcess scope
+      if (selectedArray && selectedArray.indexOf(i.id) > -1) {
         i.checked = true;
       }
       return i;
     });
+  }
+
+  save() {
+    sessionStorage.removeItem('$selectedQuestionBank');
   }
 }
