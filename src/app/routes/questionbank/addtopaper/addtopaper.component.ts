@@ -4,7 +4,7 @@ import { _HttpClient } from '@delon/theme';
 import { PaperService } from '../../../shared/service/paper.service';
 import { com, JsUtils } from '@shared';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { STColumn, STComponent, STData } from '@delon/abc/st';
+import { STChange, STColumn, STComponent, STData } from '@delon/abc/st';
 import { SFSchema } from '@delon/form';
 import { QuestionBankService } from '../../../shared/service/question-bank.service';
 import Paper = com.xueershangda.tianxun.classroom.model.Paper;
@@ -79,7 +79,15 @@ export class QuestionbankAddtopaperComponent implements OnInit {
   }
 
   // 当有行被选中或取消时，会将改行的信息传递过来
-  change(event: any) {
+  change(event: STChange) {
     console.log(event);
+  }
+
+  dataProcess(data: STData[]): STData[] {
+    return data.map((i, index) => {
+      // i.disabled = index === 0;
+      i.checked = index === 0;
+      return i;
+    });
   }
 }

@@ -15,7 +15,7 @@
     <nz-tabset nzSize="large">
       <nz-tab nzTitle="题目列表">
         <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
-        <st #st [data]="url" [columns]="columns" (change)="change($event)"></st>
+        <st #st [data]="url" [columns]="columns" [res]="{process: dataProcess}" (change)="change($event)"></st>
       </nz-tab>
       <nz-tab nzTitle="已选择题目"></nz-tab>
     </nz-tabset>
