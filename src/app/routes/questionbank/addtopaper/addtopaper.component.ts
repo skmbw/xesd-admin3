@@ -19,7 +19,6 @@ import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBank
 export class QuestionbankAddtopaperComponent implements OnInit {
   title = '选择题目';
   i: any;
-  selected: string[] = [];
 
   url: STData[] = [];
   searchSchema: SFSchema = {
@@ -71,6 +70,10 @@ export class QuestionbankAddtopaperComponent implements OnInit {
         const reply = QuestionBankReply.decode(uint8Array);
         if (reply.code === 1) {
           this.url = reply.data;
+          // TODO 将试卷中已有的题目添加到sessionStorage中
+          for (const item of this.url) {
+
+          }
         } else {
           this.msgSrv.success(reply.message);
         }
@@ -85,10 +88,18 @@ export class QuestionbankAddtopaperComponent implements OnInit {
     if (event.type === 'checkbox') {
       const checkboxes = event.checkbox;
       let selectedQuestionBank = sessionStorage.getItem('$selectedQuestionBank');
-      for (const item of checkboxes) {
+      if (selectedQuestionBank === null) {
+        selectedQuestionBank = '';
+      }
+      for (const item of checkboxes) { // 每次会迭代所有的
         const id = item.id;
-        this.selected.push(id);
-        selectedQuestionBank += ',' + id;
+        if (selectedQuestionBank === '') {
+          selectedQuestionBank = id;
+        } else {
+          if (selectedQuestionBank.indexOf(id) <= -1) { // id不存在，才增加
+            selectedQuestionBank += ',' + id;
+          }
+        }
       }
       sessionStorage.setItem('$selectedQuestionBank', selectedQuestionBank);
     }
@@ -112,6 +123,21 @@ export class QuestionbankAddtopaperComponent implements OnInit {
   }
 
   save() {
-    sessionStorage.removeItem('$selectedQuestionBank');
+    const questionIds = sessionStorage.getItem('$selectedQuestionBank');
+    if (questionIds === undefined || questionIds.trim() === '') {
+      this.msgSrv.success('请选择题目。');
+      return;
+    }
+    this.i.orderBy = questionIds;
+    this.paperService.addQuestion(this.i).subscribe(result => {
+      const uint8Array = new Uint8Array(result, 0, result.byteLength);
+      const reply = PaperReply.decode(uint8Array);
+      if (reply.code === 1) {
+        this.msgSrv.success('成功添加题目到试卷中。');
+        sessionStorage.removeItem('$selectedQuestionBank');
+      } else {
+        this.msgSrv.success(reply.message);
+      }
+    });
   }
 }

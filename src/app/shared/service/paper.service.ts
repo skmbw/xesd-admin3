@@ -35,4 +35,8 @@ export class PaperService extends CommonService {
     paper.id = id;
     return this.postProtobuf('paper/detail', this.encodePaper(paper));
   }
+
+  addQuestion(paper: Paper): Observable<ArrayBuffer> {
+    return this.postProtobuf('paper/addQuestion', this.encodePaper(paper));
+  }
 }
