@@ -141,4 +141,8 @@ export class QuestionbankAddtopaperComponent implements OnInit {
       }
     });
   }
+
+  close() {
+    this.modal.destroy();
+  }
 }

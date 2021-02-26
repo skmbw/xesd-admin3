@@ -7,6 +7,7 @@ import { PaperService } from '../../../shared/service/paper.service';
 import { com } from '@shared';
 import { NzMessageService } from 'ng-zorro-antd';
 import { QuestionbankAddtopaperComponent } from '../addtopaper/addtopaper.component';
+import { QuestionbankCreateExerciseComponent } from '../create-exercise/create-exercise.component';
 import Paper = com.xueershangda.tianxun.classroom.model.Paper;
 import PaperReply = com.xueershangda.tianxun.classroom.model.PaperReply;
 
@@ -42,6 +43,11 @@ export class QuestionbankPaperComponent implements OnInit {
         { text: '选择题目',
           click: (item: any) => {
             this.modal.createStatic(QuestionbankAddtopaperComponent, {i: item}).subscribe(result => this.st.reload())
+          }
+        },
+        { text: '生成练习',
+          click: (item: any) => {
+            this.modal.createStatic(QuestionbankCreateExerciseComponent, {i: item}).subscribe(result => this.st.reload())
           }
         },
       ]

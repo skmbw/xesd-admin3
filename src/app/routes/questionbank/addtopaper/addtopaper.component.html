@@ -27,6 +27,7 @@
   </nz-card-tab>
 </nz-card>
 <div class="text-center">
-  <button nz-button type="button" nzType="primary" (click)="save()" [nzLoading]="http.loading">保存</button>
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nz-button type="button" nzType="primary" (click)="save()" [nzLoading]="http.loading">添加</button>
 </div>
 

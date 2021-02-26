@@ -11,30 +11,24 @@ import { SFSchema, SFUISchema } from '@delon/form';
 export class QuestionbankCreateExerciseComponent implements OnInit {
   record: any = {};
   i: any;
+  title = '生成练习';
   schema: SFSchema = {
     properties: {
-      no: { type: 'string', title: '编号' },
-      owner: { type: 'string', title: '姓名', maxLength: 15 },
-      callNo: { type: 'number', title: '调用次数' },
-      href: { type: 'string', title: '链接', format: 'uri' },
-      description: { type: 'string', title: '描述', maxLength: 140 },
+      classesId: { type: 'string', title: '选择班级' },
+      owner: { type: 'string', title: '选择学生' },
     },
-    required: ['owner', 'callNo', 'href', 'description'],
+    required: [],
   };
   ui: SFUISchema = {
     '*': {
       spanLabelFixed: 100,
       grid: { span: 12 },
     },
-    $no: {
-      widget: 'text'
+    $classesId: {
+      widget: 'string'
     },
-    $href: {
+    $owner: {
       widget: 'string',
-    },
-    $description: {
-      widget: 'textarea',
-      grid: { span: 24 },
     },
   };
 
