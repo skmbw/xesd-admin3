@@ -17,7 +17,12 @@
         <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
         <st #st [data]="url" [columns]="columns" [res]="{process: dataProcess}" (change)="change($event)"></st>
       </nz-tab>
-      <nz-tab nzTitle="已选择题目"></nz-tab>
+      <nz-tab nzTitle="已选择题目">
+        <div sv-container *ngFor="let qb of questionBankList; let idx = index">
+          <sv label="{{idx + 1}}">{{ qb.title }}</sv>
+          <nz-divider></nz-divider>
+        </div>
+      </nz-tab>
     </nz-tabset>
   </nz-card-tab>
 </nz-card>

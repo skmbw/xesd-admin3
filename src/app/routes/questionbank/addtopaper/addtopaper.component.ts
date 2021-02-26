@@ -19,6 +19,7 @@ import QuestionBankReply = com.xueershangda.tianxun.classroom.model.QuestionBank
 export class QuestionbankAddtopaperComponent implements OnInit {
   title = '选择题目';
   i: any;
+  questionBankList: QuestionBank[] = [];
 
   url: STData[] = [];
   searchSchema: SFSchema = {
@@ -55,6 +56,7 @@ export class QuestionbankAddtopaperComponent implements OnInit {
         const reply = PaperReply.decode(uint8Array);
         if (reply.code === 1) {
           this.i = reply.data[0];
+          this.questionBankList = this.i.questionBankList;
         } else {
           this.i = new Paper();
           this.msgSrv.success(reply.message);
