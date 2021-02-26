@@ -32165,6 +32165,7 @@ export const com = $root.com = (() => {
                          * @property {number|null} [page] Paper page
                          * @property {number|null} [pageSize] Paper pageSize
                          * @property {string|null} [orderBy] Paper orderBy
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IQuestionBank>|null} [questionBankList] Paper questionBankList
                          */
 
                         /**
@@ -32176,6 +32177,7 @@ export const com = $root.com = (() => {
                          * @param {com.xueershangda.tianxun.classroom.model.IPaper=} [properties] Properties to set
                          */
                         function Paper(properties) {
+                            this.questionBankList = [];
                             if (properties)
                                 for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                                     if (properties[keys[i]] != null)
@@ -32327,6 +32329,14 @@ export const com = $root.com = (() => {
                         Paper.prototype.orderBy = "";
 
                         /**
+                         * Paper questionBankList.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IQuestionBank>} questionBankList
+                         * @memberof com.xueershangda.tianxun.classroom.model.Paper
+                         * @instance
+                         */
+                        Paper.prototype.questionBankList = $util.emptyArray;
+
+                        /**
                          * Creates a new Paper instance using the specified properties.
                          * @function create
                          * @memberof com.xueershangda.tianxun.classroom.model.Paper
@@ -32386,6 +32396,9 @@ export const com = $root.com = (() => {
                                 writer.uint32(/* id 17, wireType 0 =*/136).int32(message.pageSize);
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 writer.uint32(/* id 18, wireType 2 =*/146).string(message.orderBy);
+                            if (message.questionBankList != null && message.questionBankList.length)
+                                for (let i = 0; i < message.questionBankList.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.QuestionBank.encode(message.questionBankList[i], writer.uint32(/* id 19, wireType 2 =*/154).fork()).ldelim();
                             return writer;
                         };
 
@@ -32473,6 +32486,11 @@ export const com = $root.com = (() => {
                                     break;
                                 case 18:
                                     message.orderBy = reader.string();
+                                    break;
+                                case 19:
+                                    if (!(message.questionBankList && message.questionBankList.length))
+                                        message.questionBankList = [];
+                                    message.questionBankList.push($root.com.xueershangda.tianxun.classroom.model.QuestionBank.decode(reader, reader.uint32()));
                                     break;
                                 default:
                                     reader.skipType(tag & 7);
@@ -32563,6 +32581,15 @@ export const com = $root.com = (() => {
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 if (!$util.isString(message.orderBy))
                                     return "orderBy: string expected";
+                            if (message.questionBankList != null && message.hasOwnProperty("questionBankList")) {
+                                if (!Array.isArray(message.questionBankList))
+                                    return "questionBankList: array expected";
+                                for (let i = 0; i < message.questionBankList.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.verify(message.questionBankList[i]);
+                                    if (error)
+                                        return "questionBankList." + error;
+                                }
+                            }
                             return null;
                         };
 
@@ -32628,6 +32655,16 @@ export const com = $root.com = (() => {
                                 message.pageSize = object.pageSize | 0;
                             if (object.orderBy != null)
                                 message.orderBy = String(object.orderBy);
+                            if (object.questionBankList) {
+                                if (!Array.isArray(object.questionBankList))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.Paper.questionBankList: array expected");
+                                message.questionBankList = [];
+                                for (let i = 0; i < object.questionBankList.length; ++i) {
+                                    if (typeof object.questionBankList[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.Paper.questionBankList: object expected");
+                                    message.questionBankList[i] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.fromObject(object.questionBankList[i]);
+                                }
+                            }
                             return message;
                         };
 
@@ -32644,6 +32681,8 @@ export const com = $root.com = (() => {
                             if (!options)
                                 options = {};
                             let object = {};
+                            if (options.arrays || options.defaults)
+                                object.questionBankList = [];
                             if (options.defaults) {
                                 object.id = "";
                                 object.name = "";
@@ -32706,6 +32745,11 @@ export const com = $root.com = (() => {
                                 object.pageSize = message.pageSize;
                             if (message.orderBy != null && message.hasOwnProperty("orderBy"))
                                 object.orderBy = message.orderBy;
+                            if (message.questionBankList && message.questionBankList.length) {
+                                object.questionBankList = [];
+                                for (let j = 0; j < message.questionBankList.length; ++j)
+                                    object.questionBankList[j] = $root.com.xueershangda.tianxun.classroom.model.QuestionBank.toObject(message.questionBankList[j], options);
+                            }
                             return object;
                         };
 
@@ -32997,602 +33041,6 @@ export const com = $root.com = (() => {
                         };
 
                         return PaperReply;
-                    })();
-
-                    model.PaperDetail = (function() {
-
-                        /**
-                         * Properties of a PaperDetail.
-                         * @memberof com.xueershangda.tianxun.classroom.model
-                         * @interface IPaperDetail
-                         * @property {string|null} [id] PaperDetail id
-                         * @property {string|null} [paperId] PaperDetail paperId
-                         * @property {string|null} [questionId] PaperDetail questionId
-                         * @property {number|null} [orders] PaperDetail orders
-                         * @property {number|null} [page] PaperDetail page
-                         * @property {number|null} [pageSize] PaperDetail pageSize
-                         * @property {string|null} [orderBy] PaperDetail orderBy
-                         */
-
-                        /**
-                         * Constructs a new PaperDetail.
-                         * @memberof com.xueershangda.tianxun.classroom.model
-                         * @classdesc Represents a PaperDetail.
-                         * @implements IPaperDetail
-                         * @constructor
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
-                         */
-                        function PaperDetail(properties) {
-                            if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * PaperDetail id.
-                         * @member {string} id
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.id = "";
-
-                        /**
-                         * PaperDetail paperId.
-                         * @member {string} paperId
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.paperId = "";
-
-                        /**
-                         * PaperDetail questionId.
-                         * @member {string} questionId
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.questionId = "";
-
-                        /**
-                         * PaperDetail orders.
-                         * @member {number} orders
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.orders = 0;
-
-                        /**
-                         * PaperDetail page.
-                         * @member {number} page
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.page = 0;
-
-                        /**
-                         * PaperDetail pageSize.
-                         * @member {number} pageSize
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.pageSize = 0;
-
-                        /**
-                         * PaperDetail orderBy.
-                         * @member {string} orderBy
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         */
-                        PaperDetail.prototype.orderBy = "";
-
-                        /**
-                         * Creates a new PaperDetail instance using the specified properties.
-                         * @function create
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail instance
-                         */
-                        PaperDetail.create = function create(properties) {
-                            return new PaperDetail(properties);
-                        };
-
-                        /**
-                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
-                         * @function encode
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        PaperDetail.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.id != null && message.hasOwnProperty("id"))
-                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
-                            if (message.paperId != null && message.hasOwnProperty("paperId"))
-                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.paperId);
-                            if (message.questionId != null && message.hasOwnProperty("questionId"))
-                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.questionId);
-                            if (message.orders != null && message.hasOwnProperty("orders"))
-                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.orders);
-                            if (message.page != null && message.hasOwnProperty("page"))
-                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.page);
-                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.pageSize);
-                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.orderBy);
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        PaperDetail.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes a PaperDetail message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        PaperDetail.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
-                            while (reader.pos < end) {
-                                let tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1:
-                                    message.id = reader.string();
-                                    break;
-                                case 2:
-                                    message.paperId = reader.string();
-                                    break;
-                                case 3:
-                                    message.questionId = reader.string();
-                                    break;
-                                case 4:
-                                    message.orders = reader.int32();
-                                    break;
-                                case 5:
-                                    message.page = reader.int32();
-                                    break;
-                                case 6:
-                                    message.pageSize = reader.int32();
-                                    break;
-                                case 7:
-                                    message.orderBy = reader.string();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        PaperDetail.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies a PaperDetail message.
-                         * @function verify
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        PaperDetail.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            if (message.id != null && message.hasOwnProperty("id"))
-                                if (!$util.isString(message.id))
-                                    return "id: string expected";
-                            if (message.paperId != null && message.hasOwnProperty("paperId"))
-                                if (!$util.isString(message.paperId))
-                                    return "paperId: string expected";
-                            if (message.questionId != null && message.hasOwnProperty("questionId"))
-                                if (!$util.isString(message.questionId))
-                                    return "questionId: string expected";
-                            if (message.orders != null && message.hasOwnProperty("orders"))
-                                if (!$util.isInteger(message.orders))
-                                    return "orders: integer expected";
-                            if (message.page != null && message.hasOwnProperty("page"))
-                                if (!$util.isInteger(message.page))
-                                    return "page: integer expected";
-                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                                if (!$util.isInteger(message.pageSize))
-                                    return "pageSize: integer expected";
-                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                                if (!$util.isString(message.orderBy))
-                                    return "orderBy: string expected";
-                            return null;
-                        };
-
-                        /**
-                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
-                         */
-                        PaperDetail.fromObject = function fromObject(object) {
-                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetail)
-                                return object;
-                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
-                            if (object.id != null)
-                                message.id = String(object.id);
-                            if (object.paperId != null)
-                                message.paperId = String(object.paperId);
-                            if (object.questionId != null)
-                                message.questionId = String(object.questionId);
-                            if (object.orders != null)
-                                message.orders = object.orders | 0;
-                            if (object.page != null)
-                                message.page = object.page | 0;
-                            if (object.pageSize != null)
-                                message.pageSize = object.pageSize | 0;
-                            if (object.orderBy != null)
-                                message.orderBy = String(object.orderBy);
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetail} message PaperDetail
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        PaperDetail.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.defaults) {
-                                object.id = "";
-                                object.paperId = "";
-                                object.questionId = "";
-                                object.orders = 0;
-                                object.page = 0;
-                                object.pageSize = 0;
-                                object.orderBy = "";
-                            }
-                            if (message.id != null && message.hasOwnProperty("id"))
-                                object.id = message.id;
-                            if (message.paperId != null && message.hasOwnProperty("paperId"))
-                                object.paperId = message.paperId;
-                            if (message.questionId != null && message.hasOwnProperty("questionId"))
-                                object.questionId = message.questionId;
-                            if (message.orders != null && message.hasOwnProperty("orders"))
-                                object.orders = message.orders;
-                            if (message.page != null && message.hasOwnProperty("page"))
-                                object.page = message.page;
-                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
-                                object.pageSize = message.pageSize;
-                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
-                                object.orderBy = message.orderBy;
-                            return object;
-                        };
-
-                        /**
-                         * Converts this PaperDetail to JSON.
-                         * @function toJSON
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        PaperDetail.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        return PaperDetail;
-                    })();
-
-                    model.PaperDetailReply = (function() {
-
-                        /**
-                         * Properties of a PaperDetailReply.
-                         * @memberof com.xueershangda.tianxun.classroom.model
-                         * @interface IPaperDetailReply
-                         * @property {number|null} [code] PaperDetailReply code
-                         * @property {string|null} [message] PaperDetailReply message
-                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>|null} [data] PaperDetailReply data
-                         * @property {number|null} [total] PaperDetailReply total
-                         */
-
-                        /**
-                         * Constructs a new PaperDetailReply.
-                         * @memberof com.xueershangda.tianxun.classroom.model
-                         * @classdesc Represents a PaperDetailReply.
-                         * @implements IPaperDetailReply
-                         * @constructor
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
-                         */
-                        function PaperDetailReply(properties) {
-                            this.data = [];
-                            if (properties)
-                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                    if (properties[keys[i]] != null)
-                                        this[keys[i]] = properties[keys[i]];
-                        }
-
-                        /**
-                         * PaperDetailReply code.
-                         * @member {number} code
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @instance
-                         */
-                        PaperDetailReply.prototype.code = 0;
-
-                        /**
-                         * PaperDetailReply message.
-                         * @member {string} message
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @instance
-                         */
-                        PaperDetailReply.prototype.message = "";
-
-                        /**
-                         * PaperDetailReply data.
-                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>} data
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @instance
-                         */
-                        PaperDetailReply.prototype.data = $util.emptyArray;
-
-                        /**
-                         * PaperDetailReply total.
-                         * @member {number} total
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @instance
-                         */
-                        PaperDetailReply.prototype.total = 0;
-
-                        /**
-                         * Creates a new PaperDetailReply instance using the specified properties.
-                         * @function create
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply instance
-                         */
-                        PaperDetailReply.create = function create(properties) {
-                            return new PaperDetailReply(properties);
-                        };
-
-                        /**
-                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
-                         * @function encode
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        PaperDetailReply.encode = function encode(message, writer) {
-                            if (!writer)
-                                writer = $Writer.create();
-                            if (message.code != null && message.hasOwnProperty("code"))
-                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
-                            if (message.message != null && message.hasOwnProperty("message"))
-                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
-                            if (message.data != null && message.data.length)
-                                for (let i = 0; i < message.data.length; ++i)
-                                    $root.com.xueershangda.tianxun.classroom.model.PaperDetail.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                            if (message.total != null && message.hasOwnProperty("total"))
-                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
-                            return writer;
-                        };
-
-                        /**
-                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
-                         * @function encodeDelimited
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
-                         * @param {$protobuf.Writer} [writer] Writer to encode to
-                         * @returns {$protobuf.Writer} Writer
-                         */
-                        PaperDetailReply.encodeDelimited = function encodeDelimited(message, writer) {
-                            return this.encode(message, writer).ldelim();
-                        };
-
-                        /**
-                         * Decodes a PaperDetailReply message from the specified reader or buffer.
-                         * @function decode
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @param {number} [length] Message length if known beforehand
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        PaperDetailReply.decode = function decode(reader, length) {
-                            if (!(reader instanceof $Reader))
-                                reader = $Reader.create(reader);
-                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
-                            while (reader.pos < end) {
-                                let tag = reader.uint32();
-                                switch (tag >>> 3) {
-                                case 1:
-                                    message.code = reader.int32();
-                                    break;
-                                case 2:
-                                    message.message = reader.string();
-                                    break;
-                                case 3:
-                                    if (!(message.data && message.data.length))
-                                        message.data = [];
-                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.PaperDetail.decode(reader, reader.uint32()));
-                                    break;
-                                case 4:
-                                    message.total = reader.int32();
-                                    break;
-                                default:
-                                    reader.skipType(tag & 7);
-                                    break;
-                                }
-                            }
-                            return message;
-                        };
-
-                        /**
-                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
-                         * @function decodeDelimited
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        PaperDetailReply.decodeDelimited = function decodeDelimited(reader) {
-                            if (!(reader instanceof $Reader))
-                                reader = new $Reader(reader);
-                            return this.decode(reader, reader.uint32());
-                        };
-
-                        /**
-                         * Verifies a PaperDetailReply message.
-                         * @function verify
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {Object.<string,*>} message Plain object to verify
-                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                         */
-                        PaperDetailReply.verify = function verify(message) {
-                            if (typeof message !== "object" || message === null)
-                                return "object expected";
-                            if (message.code != null && message.hasOwnProperty("code"))
-                                if (!$util.isInteger(message.code))
-                                    return "code: integer expected";
-                            if (message.message != null && message.hasOwnProperty("message"))
-                                if (!$util.isString(message.message))
-                                    return "message: string expected";
-                            if (message.data != null && message.hasOwnProperty("data")) {
-                                if (!Array.isArray(message.data))
-                                    return "data: array expected";
-                                for (let i = 0; i < message.data.length; ++i) {
-                                    let error = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.verify(message.data[i]);
-                                    if (error)
-                                        return "data." + error;
-                                }
-                            }
-                            if (message.total != null && message.hasOwnProperty("total"))
-                                if (!$util.isInteger(message.total))
-                                    return "total: integer expected";
-                            return null;
-                        };
-
-                        /**
-                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
-                         * @function fromObject
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {Object.<string,*>} object Plain object
-                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
-                         */
-                        PaperDetailReply.fromObject = function fromObject(object) {
-                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply)
-                                return object;
-                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
-                            if (object.code != null)
-                                message.code = object.code | 0;
-                            if (object.message != null)
-                                message.message = String(object.message);
-                            if (object.data) {
-                                if (!Array.isArray(object.data))
-                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: array expected");
-                                message.data = [];
-                                for (let i = 0; i < object.data.length; ++i) {
-                                    if (typeof object.data[i] !== "object")
-                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: object expected");
-                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.fromObject(object.data[i]);
-                                }
-                            }
-                            if (object.total != null)
-                                message.total = object.total | 0;
-                            return message;
-                        };
-
-                        /**
-                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
-                         * @function toObject
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @static
-                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetailReply} message PaperDetailReply
-                         * @param {$protobuf.IConversionOptions} [options] Conversion options
-                         * @returns {Object.<string,*>} Plain object
-                         */
-                        PaperDetailReply.toObject = function toObject(message, options) {
-                            if (!options)
-                                options = {};
-                            let object = {};
-                            if (options.arrays || options.defaults)
-                                object.data = [];
-                            if (options.defaults) {
-                                object.code = 0;
-                                object.message = "";
-                                object.total = 0;
-                            }
-                            if (message.code != null && message.hasOwnProperty("code"))
-                                object.code = message.code;
-                            if (message.message != null && message.hasOwnProperty("message"))
-                                object.message = message.message;
-                            if (message.data && message.data.length) {
-                                object.data = [];
-                                for (let j = 0; j < message.data.length; ++j)
-                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.toObject(message.data[j], options);
-                            }
-                            if (message.total != null && message.hasOwnProperty("total"))
-                                object.total = message.total;
-                            return object;
-                        };
-
-                        /**
-                         * Converts this PaperDetailReply to JSON.
-                         * @function toJSON
-                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
-                         * @instance
-                         * @returns {Object.<string,*>} JSON object
-                         */
-                        PaperDetailReply.prototype.toJSON = function toJSON() {
-                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                        };
-
-                        return PaperDetailReply;
                     })();
 
                     model.QuestionBank = (function() {
@@ -34517,6 +33965,602 @@ export const com = $root.com = (() => {
                         };
 
                         return QuestionBankReply;
+                    })();
+
+                    model.PaperDetail = (function() {
+
+                        /**
+                         * Properties of a PaperDetail.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaperDetail
+                         * @property {string|null} [id] PaperDetail id
+                         * @property {string|null} [paperId] PaperDetail paperId
+                         * @property {string|null} [questionId] PaperDetail questionId
+                         * @property {number|null} [orders] PaperDetail orders
+                         * @property {number|null} [page] PaperDetail page
+                         * @property {number|null} [pageSize] PaperDetail pageSize
+                         * @property {string|null} [orderBy] PaperDetail orderBy
+                         */
+
+                        /**
+                         * Constructs a new PaperDetail.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a PaperDetail.
+                         * @implements IPaperDetail
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
+                         */
+                        function PaperDetail(properties) {
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * PaperDetail id.
+                         * @member {string} id
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.id = "";
+
+                        /**
+                         * PaperDetail paperId.
+                         * @member {string} paperId
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.paperId = "";
+
+                        /**
+                         * PaperDetail questionId.
+                         * @member {string} questionId
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.questionId = "";
+
+                        /**
+                         * PaperDetail orders.
+                         * @member {number} orders
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.orders = 0;
+
+                        /**
+                         * PaperDetail page.
+                         * @member {number} page
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.page = 0;
+
+                        /**
+                         * PaperDetail pageSize.
+                         * @member {number} pageSize
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.pageSize = 0;
+
+                        /**
+                         * PaperDetail orderBy.
+                         * @member {string} orderBy
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         */
+                        PaperDetail.prototype.orderBy = "";
+
+                        /**
+                         * Creates a new PaperDetail instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail instance
+                         */
+                        PaperDetail.create = function create(properties) {
+                            return new PaperDetail(properties);
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetail.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                writer.uint32(/* id 1, wireType 2 =*/10).string(message.id);
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.paperId);
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                writer.uint32(/* id 3, wireType 2 =*/26).string(message.questionId);
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.orders);
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                writer.uint32(/* id 5, wireType 0 =*/40).int32(message.page);
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                writer.uint32(/* id 6, wireType 0 =*/48).int32(message.pageSize);
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                writer.uint32(/* id 7, wireType 2 =*/58).string(message.orderBy);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetail} message PaperDetail message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetail.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetail.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.id = reader.string();
+                                    break;
+                                case 2:
+                                    message.paperId = reader.string();
+                                    break;
+                                case 3:
+                                    message.questionId = reader.string();
+                                    break;
+                                case 4:
+                                    message.orders = reader.int32();
+                                    break;
+                                case 5:
+                                    message.page = reader.int32();
+                                    break;
+                                case 6:
+                                    message.pageSize = reader.int32();
+                                    break;
+                                case 7:
+                                    message.orderBy = reader.string();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetail.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a PaperDetail message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        PaperDetail.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                if (!$util.isString(message.id))
+                                    return "id: string expected";
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                if (!$util.isString(message.paperId))
+                                    return "paperId: string expected";
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                if (!$util.isString(message.questionId))
+                                    return "questionId: string expected";
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                if (!$util.isInteger(message.orders))
+                                    return "orders: integer expected";
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                if (!$util.isInteger(message.page))
+                                    return "page: integer expected";
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                if (!$util.isInteger(message.pageSize))
+                                    return "pageSize: integer expected";
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                if (!$util.isString(message.orderBy))
+                                    return "orderBy: string expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetail} PaperDetail
+                         */
+                        PaperDetail.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetail)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetail();
+                            if (object.id != null)
+                                message.id = String(object.id);
+                            if (object.paperId != null)
+                                message.paperId = String(object.paperId);
+                            if (object.questionId != null)
+                                message.questionId = String(object.questionId);
+                            if (object.orders != null)
+                                message.orders = object.orders | 0;
+                            if (object.page != null)
+                                message.page = object.page | 0;
+                            if (object.pageSize != null)
+                                message.pageSize = object.pageSize | 0;
+                            if (object.orderBy != null)
+                                message.orderBy = String(object.orderBy);
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetail} message PaperDetail
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        PaperDetail.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.defaults) {
+                                object.id = "";
+                                object.paperId = "";
+                                object.questionId = "";
+                                object.orders = 0;
+                                object.page = 0;
+                                object.pageSize = 0;
+                                object.orderBy = "";
+                            }
+                            if (message.id != null && message.hasOwnProperty("id"))
+                                object.id = message.id;
+                            if (message.paperId != null && message.hasOwnProperty("paperId"))
+                                object.paperId = message.paperId;
+                            if (message.questionId != null && message.hasOwnProperty("questionId"))
+                                object.questionId = message.questionId;
+                            if (message.orders != null && message.hasOwnProperty("orders"))
+                                object.orders = message.orders;
+                            if (message.page != null && message.hasOwnProperty("page"))
+                                object.page = message.page;
+                            if (message.pageSize != null && message.hasOwnProperty("pageSize"))
+                                object.pageSize = message.pageSize;
+                            if (message.orderBy != null && message.hasOwnProperty("orderBy"))
+                                object.orderBy = message.orderBy;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this PaperDetail to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetail
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        PaperDetail.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return PaperDetail;
+                    })();
+
+                    model.PaperDetailReply = (function() {
+
+                        /**
+                         * Properties of a PaperDetailReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @interface IPaperDetailReply
+                         * @property {number|null} [code] PaperDetailReply code
+                         * @property {string|null} [message] PaperDetailReply message
+                         * @property {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>|null} [data] PaperDetailReply data
+                         * @property {number|null} [total] PaperDetailReply total
+                         */
+
+                        /**
+                         * Constructs a new PaperDetailReply.
+                         * @memberof com.xueershangda.tianxun.classroom.model
+                         * @classdesc Represents a PaperDetailReply.
+                         * @implements IPaperDetailReply
+                         * @constructor
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
+                         */
+                        function PaperDetailReply(properties) {
+                            this.data = [];
+                            if (properties)
+                                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                    if (properties[keys[i]] != null)
+                                        this[keys[i]] = properties[keys[i]];
+                        }
+
+                        /**
+                         * PaperDetailReply code.
+                         * @member {number} code
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.code = 0;
+
+                        /**
+                         * PaperDetailReply message.
+                         * @member {string} message
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.message = "";
+
+                        /**
+                         * PaperDetailReply data.
+                         * @member {Array.<com.xueershangda.tianxun.classroom.model.IPaperDetail>} data
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.data = $util.emptyArray;
+
+                        /**
+                         * PaperDetailReply total.
+                         * @member {number} total
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         */
+                        PaperDetailReply.prototype.total = 0;
+
+                        /**
+                         * Creates a new PaperDetailReply instance using the specified properties.
+                         * @function create
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply=} [properties] Properties to set
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply instance
+                         */
+                        PaperDetailReply.create = function create(properties) {
+                            return new PaperDetailReply(properties);
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @function encode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetailReply.encode = function encode(message, writer) {
+                            if (!writer)
+                                writer = $Writer.create();
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                writer.uint32(/* id 1, wireType 0 =*/8).int32(message.code);
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                writer.uint32(/* id 2, wireType 2 =*/18).string(message.message);
+                            if (message.data != null && message.data.length)
+                                for (let i = 0; i < message.data.length; ++i)
+                                    $root.com.xueershangda.tianxun.classroom.model.PaperDetail.encode(message.data[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                writer.uint32(/* id 4, wireType 0 =*/32).int32(message.total);
+                            return writer;
+                        };
+
+                        /**
+                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @function encodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.IPaperDetailReply} message PaperDetailReply message or plain object to encode
+                         * @param {$protobuf.Writer} [writer] Writer to encode to
+                         * @returns {$protobuf.Writer} Writer
+                         */
+                        PaperDetailReply.encodeDelimited = function encodeDelimited(message, writer) {
+                            return this.encode(message, writer).ldelim();
+                        };
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer.
+                         * @function decode
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @param {number} [length] Message length if known beforehand
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetailReply.decode = function decode(reader, length) {
+                            if (!(reader instanceof $Reader))
+                                reader = $Reader.create(reader);
+                            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
+                            while (reader.pos < end) {
+                                let tag = reader.uint32();
+                                switch (tag >>> 3) {
+                                case 1:
+                                    message.code = reader.int32();
+                                    break;
+                                case 2:
+                                    message.message = reader.string();
+                                    break;
+                                case 3:
+                                    if (!(message.data && message.data.length))
+                                        message.data = [];
+                                    message.data.push($root.com.xueershangda.tianxun.classroom.model.PaperDetail.decode(reader, reader.uint32()));
+                                    break;
+                                case 4:
+                                    message.total = reader.int32();
+                                    break;
+                                default:
+                                    reader.skipType(tag & 7);
+                                    break;
+                                }
+                            }
+                            return message;
+                        };
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
+                         * @function decodeDelimited
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        PaperDetailReply.decodeDelimited = function decodeDelimited(reader) {
+                            if (!(reader instanceof $Reader))
+                                reader = new $Reader(reader);
+                            return this.decode(reader, reader.uint32());
+                        };
+
+                        /**
+                         * Verifies a PaperDetailReply message.
+                         * @function verify
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {Object.<string,*>} message Plain object to verify
+                         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                         */
+                        PaperDetailReply.verify = function verify(message) {
+                            if (typeof message !== "object" || message === null)
+                                return "object expected";
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                if (!$util.isInteger(message.code))
+                                    return "code: integer expected";
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                if (!$util.isString(message.message))
+                                    return "message: string expected";
+                            if (message.data != null && message.hasOwnProperty("data")) {
+                                if (!Array.isArray(message.data))
+                                    return "data: array expected";
+                                for (let i = 0; i < message.data.length; ++i) {
+                                    let error = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.verify(message.data[i]);
+                                    if (error)
+                                        return "data." + error;
+                                }
+                            }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                if (!$util.isInteger(message.total))
+                                    return "total: integer expected";
+                            return null;
+                        };
+
+                        /**
+                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @function fromObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {Object.<string,*>} object Plain object
+                         * @returns {com.xueershangda.tianxun.classroom.model.PaperDetailReply} PaperDetailReply
+                         */
+                        PaperDetailReply.fromObject = function fromObject(object) {
+                            if (object instanceof $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply)
+                                return object;
+                            let message = new $root.com.xueershangda.tianxun.classroom.model.PaperDetailReply();
+                            if (object.code != null)
+                                message.code = object.code | 0;
+                            if (object.message != null)
+                                message.message = String(object.message);
+                            if (object.data) {
+                                if (!Array.isArray(object.data))
+                                    throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: array expected");
+                                message.data = [];
+                                for (let i = 0; i < object.data.length; ++i) {
+                                    if (typeof object.data[i] !== "object")
+                                        throw TypeError(".com.xueershangda.tianxun.classroom.model.PaperDetailReply.data: object expected");
+                                    message.data[i] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.fromObject(object.data[i]);
+                                }
+                            }
+                            if (object.total != null)
+                                message.total = object.total | 0;
+                            return message;
+                        };
+
+                        /**
+                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
+                         * @function toObject
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @static
+                         * @param {com.xueershangda.tianxun.classroom.model.PaperDetailReply} message PaperDetailReply
+                         * @param {$protobuf.IConversionOptions} [options] Conversion options
+                         * @returns {Object.<string,*>} Plain object
+                         */
+                        PaperDetailReply.toObject = function toObject(message, options) {
+                            if (!options)
+                                options = {};
+                            let object = {};
+                            if (options.arrays || options.defaults)
+                                object.data = [];
+                            if (options.defaults) {
+                                object.code = 0;
+                                object.message = "";
+                                object.total = 0;
+                            }
+                            if (message.code != null && message.hasOwnProperty("code"))
+                                object.code = message.code;
+                            if (message.message != null && message.hasOwnProperty("message"))
+                                object.message = message.message;
+                            if (message.data && message.data.length) {
+                                object.data = [];
+                                for (let j = 0; j < message.data.length; ++j)
+                                    object.data[j] = $root.com.xueershangda.tianxun.classroom.model.PaperDetail.toObject(message.data[j], options);
+                            }
+                            if (message.total != null && message.hasOwnProperty("total"))
+                                object.total = message.total;
+                            return object;
+                        };
+
+                        /**
+                         * Converts this PaperDetailReply to JSON.
+                         * @function toJSON
+                         * @memberof com.xueershangda.tianxun.classroom.model.PaperDetailReply
+                         * @instance
+                         * @returns {Object.<string,*>} JSON object
+                         */
+                        PaperDetailReply.prototype.toJSON = function toJSON() {
+                            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                        };
+
+                        return PaperDetailReply;
                     })();
 
                     model.Subject = (function() {

@@ -11049,6 +11049,9 @@ export namespace com {
 
                         /** Paper orderBy */
                         orderBy?: (string|null);
+
+                        /** Paper questionBankList */
+                        questionBankList?: (com.xueershangda.tianxun.classroom.model.IQuestionBank[]|null);
                     }
 
                     /** Represents a Paper. */
@@ -11113,6 +11116,9 @@ export namespace com {
 
                         /** Paper orderBy. */
                         public orderBy: string;
+
+                        /** Paper questionBankList. */
+                        public questionBankList: com.xueershangda.tianxun.classroom.model.IQuestionBank[];
 
                         /**
                          * Creates a new Paper instance using the specified properties.
@@ -11288,240 +11294,6 @@ export namespace com {
 
                         /**
                          * Converts this PaperReply to JSON.
-                         * @returns JSON object
-                         */
-                        public toJSON(): { [k: string]: any };
-                    }
-
-                    /** Properties of a PaperDetail. */
-                    interface IPaperDetail {
-
-                        /** PaperDetail id */
-                        id?: (string|null);
-
-                        /** PaperDetail paperId */
-                        paperId?: (string|null);
-
-                        /** PaperDetail questionId */
-                        questionId?: (string|null);
-
-                        /** PaperDetail orders */
-                        orders?: (number|null);
-
-                        /** PaperDetail page */
-                        page?: (number|null);
-
-                        /** PaperDetail pageSize */
-                        pageSize?: (number|null);
-
-                        /** PaperDetail orderBy */
-                        orderBy?: (string|null);
-                    }
-
-                    /** Represents a PaperDetail. */
-                    class PaperDetail implements IPaperDetail {
-
-                        /**
-                         * Constructs a new PaperDetail.
-                         * @param [properties] Properties to set
-                         */
-                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail);
-
-                        /** PaperDetail id. */
-                        public id: string;
-
-                        /** PaperDetail paperId. */
-                        public paperId: string;
-
-                        /** PaperDetail questionId. */
-                        public questionId: string;
-
-                        /** PaperDetail orders. */
-                        public orders: number;
-
-                        /** PaperDetail page. */
-                        public page: number;
-
-                        /** PaperDetail pageSize. */
-                        public pageSize: number;
-
-                        /** PaperDetail orderBy. */
-                        public orderBy: string;
-
-                        /**
-                         * Creates a new PaperDetail instance using the specified properties.
-                         * @param [properties] Properties to set
-                         * @returns PaperDetail instance
-                         */
-                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail): com.xueershangda.tianxun.classroom.model.PaperDetail;
-
-                        /**
-                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
-                         * @param message PaperDetail message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
-                         * @param message PaperDetail message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Decodes a PaperDetail message from the specified reader or buffer.
-                         * @param reader Reader or buffer to decode from
-                         * @param [length] Message length if known beforehand
-                         * @returns PaperDetail
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetail;
-
-                        /**
-                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
-                         * @param reader Reader or buffer to decode from
-                         * @returns PaperDetail
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetail;
-
-                        /**
-                         * Verifies a PaperDetail message.
-                         * @param message Plain object to verify
-                         * @returns `null` if valid, otherwise the reason why it is not
-                         */
-                        public static verify(message: { [k: string]: any }): (string|null);
-
-                        /**
-                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
-                         * @param object Plain object
-                         * @returns PaperDetail
-                         */
-                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetail;
-
-                        /**
-                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
-                         * @param message PaperDetail
-                         * @param [options] Conversion options
-                         * @returns Plain object
-                         */
-                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetail, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                        /**
-                         * Converts this PaperDetail to JSON.
-                         * @returns JSON object
-                         */
-                        public toJSON(): { [k: string]: any };
-                    }
-
-                    /** Properties of a PaperDetailReply. */
-                    interface IPaperDetailReply {
-
-                        /** PaperDetailReply code */
-                        code?: (number|null);
-
-                        /** PaperDetailReply message */
-                        message?: (string|null);
-
-                        /** PaperDetailReply data */
-                        data?: (com.xueershangda.tianxun.classroom.model.IPaperDetail[]|null);
-
-                        /** PaperDetailReply total */
-                        total?: (number|null);
-                    }
-
-                    /** Represents a PaperDetailReply. */
-                    class PaperDetailReply implements IPaperDetailReply {
-
-                        /**
-                         * Constructs a new PaperDetailReply.
-                         * @param [properties] Properties to set
-                         */
-                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply);
-
-                        /** PaperDetailReply code. */
-                        public code: number;
-
-                        /** PaperDetailReply message. */
-                        public message: string;
-
-                        /** PaperDetailReply data. */
-                        public data: com.xueershangda.tianxun.classroom.model.IPaperDetail[];
-
-                        /** PaperDetailReply total. */
-                        public total: number;
-
-                        /**
-                         * Creates a new PaperDetailReply instance using the specified properties.
-                         * @param [properties] Properties to set
-                         * @returns PaperDetailReply instance
-                         */
-                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
-
-                        /**
-                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
-                         * @param message PaperDetailReply message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
-                         * @param message PaperDetailReply message or plain object to encode
-                         * @param [writer] Writer to encode to
-                         * @returns Writer
-                         */
-                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
-
-                        /**
-                         * Decodes a PaperDetailReply message from the specified reader or buffer.
-                         * @param reader Reader or buffer to decode from
-                         * @param [length] Message length if known beforehand
-                         * @returns PaperDetailReply
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
-
-                        /**
-                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
-                         * @param reader Reader or buffer to decode from
-                         * @returns PaperDetailReply
-                         * @throws {Error} If the payload is not a reader or valid buffer
-                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                         */
-                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
-
-                        /**
-                         * Verifies a PaperDetailReply message.
-                         * @param message Plain object to verify
-                         * @returns `null` if valid, otherwise the reason why it is not
-                         */
-                        public static verify(message: { [k: string]: any }): (string|null);
-
-                        /**
-                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
-                         * @param object Plain object
-                         * @returns PaperDetailReply
-                         */
-                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
-
-                        /**
-                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
-                         * @param message PaperDetailReply
-                         * @param [options] Conversion options
-                         * @returns Plain object
-                         */
-                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetailReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-                        /**
-                         * Converts this PaperDetailReply to JSON.
                          * @returns JSON object
                          */
                         public toJSON(): { [k: string]: any };
@@ -11834,6 +11606,240 @@ export namespace com {
 
                         /**
                          * Converts this QuestionBankReply to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a PaperDetail. */
+                    interface IPaperDetail {
+
+                        /** PaperDetail id */
+                        id?: (string|null);
+
+                        /** PaperDetail paperId */
+                        paperId?: (string|null);
+
+                        /** PaperDetail questionId */
+                        questionId?: (string|null);
+
+                        /** PaperDetail orders */
+                        orders?: (number|null);
+
+                        /** PaperDetail page */
+                        page?: (number|null);
+
+                        /** PaperDetail pageSize */
+                        pageSize?: (number|null);
+
+                        /** PaperDetail orderBy */
+                        orderBy?: (string|null);
+                    }
+
+                    /** Represents a PaperDetail. */
+                    class PaperDetail implements IPaperDetail {
+
+                        /**
+                         * Constructs a new PaperDetail.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail);
+
+                        /** PaperDetail id. */
+                        public id: string;
+
+                        /** PaperDetail paperId. */
+                        public paperId: string;
+
+                        /** PaperDetail questionId. */
+                        public questionId: string;
+
+                        /** PaperDetail orders. */
+                        public orders: number;
+
+                        /** PaperDetail page. */
+                        public page: number;
+
+                        /** PaperDetail pageSize. */
+                        public pageSize: number;
+
+                        /** PaperDetail orderBy. */
+                        public orderBy: string;
+
+                        /**
+                         * Creates a new PaperDetail instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns PaperDetail instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetail): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Encodes the specified PaperDetail message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @param message PaperDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified PaperDetail message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetail.verify|verify} messages.
+                         * @param message PaperDetail message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetail, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Decodes a PaperDetail message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns PaperDetail
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Verifies a PaperDetail message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a PaperDetail message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns PaperDetail
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetail;
+
+                        /**
+                         * Creates a plain object from a PaperDetail message. Also converts values to other types if specified.
+                         * @param message PaperDetail
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetail, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this PaperDetail to JSON.
+                         * @returns JSON object
+                         */
+                        public toJSON(): { [k: string]: any };
+                    }
+
+                    /** Properties of a PaperDetailReply. */
+                    interface IPaperDetailReply {
+
+                        /** PaperDetailReply code */
+                        code?: (number|null);
+
+                        /** PaperDetailReply message */
+                        message?: (string|null);
+
+                        /** PaperDetailReply data */
+                        data?: (com.xueershangda.tianxun.classroom.model.IPaperDetail[]|null);
+
+                        /** PaperDetailReply total */
+                        total?: (number|null);
+                    }
+
+                    /** Represents a PaperDetailReply. */
+                    class PaperDetailReply implements IPaperDetailReply {
+
+                        /**
+                         * Constructs a new PaperDetailReply.
+                         * @param [properties] Properties to set
+                         */
+                        constructor(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply);
+
+                        /** PaperDetailReply code. */
+                        public code: number;
+
+                        /** PaperDetailReply message. */
+                        public message: string;
+
+                        /** PaperDetailReply data. */
+                        public data: com.xueershangda.tianxun.classroom.model.IPaperDetail[];
+
+                        /** PaperDetailReply total. */
+                        public total: number;
+
+                        /**
+                         * Creates a new PaperDetailReply instance using the specified properties.
+                         * @param [properties] Properties to set
+                         * @returns PaperDetailReply instance
+                         */
+                        public static create(properties?: com.xueershangda.tianxun.classroom.model.IPaperDetailReply): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Encodes the specified PaperDetailReply message. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @param message PaperDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encode(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Encodes the specified PaperDetailReply message, length delimited. Does not implicitly {@link com.xueershangda.tianxun.classroom.model.PaperDetailReply.verify|verify} messages.
+                         * @param message PaperDetailReply message or plain object to encode
+                         * @param [writer] Writer to encode to
+                         * @returns Writer
+                         */
+                        public static encodeDelimited(message: com.xueershangda.tianxun.classroom.model.IPaperDetailReply, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer.
+                         * @param reader Reader or buffer to decode from
+                         * @param [length] Message length if known beforehand
+                         * @returns PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Decodes a PaperDetailReply message from the specified reader or buffer, length delimited.
+                         * @param reader Reader or buffer to decode from
+                         * @returns PaperDetailReply
+                         * @throws {Error} If the payload is not a reader or valid buffer
+                         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                         */
+                        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Verifies a PaperDetailReply message.
+                         * @param message Plain object to verify
+                         * @returns `null` if valid, otherwise the reason why it is not
+                         */
+                        public static verify(message: { [k: string]: any }): (string|null);
+
+                        /**
+                         * Creates a PaperDetailReply message from a plain object. Also converts values to their respective internal types.
+                         * @param object Plain object
+                         * @returns PaperDetailReply
+                         */
+                        public static fromObject(object: { [k: string]: any }): com.xueershangda.tianxun.classroom.model.PaperDetailReply;
+
+                        /**
+                         * Creates a plain object from a PaperDetailReply message. Also converts values to other types if specified.
+                         * @param message PaperDetailReply
+                         * @param [options] Conversion options
+                         * @returns Plain object
+                         */
+                        public static toObject(message: com.xueershangda.tianxun.classroom.model.PaperDetailReply, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                        /**
+                         * Converts this PaperDetailReply to JSON.
                          * @returns JSON object
                          */
                         public toJSON(): { [k: string]: any };
