@@ -57,6 +57,9 @@ export class QuestionbankAddtopaperComponent implements OnInit {
         if (reply.code === 1) {
           this.i = reply.data[0];
           this.questionBankList = this.i.questionBankList;
+          for (const qb of this.questionBankList) { // TODO 将已有题目加到session中？
+
+          }
         } else {
           this.i = new Paper();
           this.msgSrv.success(reply.message);
@@ -72,10 +75,6 @@ export class QuestionbankAddtopaperComponent implements OnInit {
         const reply = QuestionBankReply.decode(uint8Array);
         if (reply.code === 1) {
           this.url = reply.data;
-          // TODO 将试卷中已有的题目添加到sessionStorage中
-          for (const item of this.url) {
-
-          }
         } else {
           this.msgSrv.success(reply.message);
         }
